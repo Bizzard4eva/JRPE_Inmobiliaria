@@ -3,6 +3,7 @@
 	<name>JRPE_Inmobiliaria</name>
 	<comment></comment>
 	<projects>
+		<project>mysql-connector-j-8.3.0</project>
 	</projects>
 	<buildSpec>
 		<buildCommand>
