@@ -16,7 +16,7 @@ CREATE TABLE Usuarios (
 );
 -- Un usuario puede identificarse como: 'Administrador' || 'Agente' || 'Cliente'
 
-CREATE TABLE distritos (
+CREATE TABLE Distritos (
     idDistrito INT AUTO_INCREMENT PRIMARY KEY,
     nombreDistrito VARCHAR(100) NOT NULL UNIQUE
 );
@@ -30,6 +30,8 @@ CREATE TABLE Inmuebles (
     direccionInmueble VARCHAR(200) NOT NULL,
     habitacionesInmueble INT NOT NULL,
     banosInmueble INT NOT NULL,
+    areaTotalInmueble DECIMAL(10,2) NOT NULL,
+    areaConstruidaInmueble DECIMAL(10,2) NOT NULL,
     idAgente INT,
     idDistrito INT NOT NULL,
     estadoInmueble ENUM('Disponible', 'Reservada', 'Vendida') DEFAULT 'Disponible',
