@@ -14,7 +14,7 @@ public class MySQLConexion {
 			Class.forName("com.mysql.cj.jdbc.Driver").newInstance();
 			String link = "jdbc:mysql://localhost/dbBienesRaices?useSSL=false&useTimezone=true&serverTimezone=UTC";
 			String user = "root"; // Editable
-			String password = "Sherlock0"; // Editable
+			String password = "1234"; // Editable
 			conexion = DriverManager.getConnection(link, user, password);
 		} catch (ClassNotFoundException e) {
 			System.out.println("Error: Driver no instalado" + e.getMessage());
