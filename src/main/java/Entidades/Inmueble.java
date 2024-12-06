@@ -8,9 +8,7 @@ public class Inmueble {
 	private Usuario usuario;
 	private Distrito distrito;
 	
-	public Inmueble(Integer id, Integer habitaciones, Integer banos, String titulo, String descripcion, String tipo,
-					String direccion, String estado, Double precio, Double areaTotal, Double areaConstruida, Usuario usuario,
-					Distrito distrito) {
+	public Inmueble(Integer id, Integer habitaciones, Integer banos, String titulo, String descripcion, String tipo, String direccion, String estado, Double precio, Double areaTotal, Double areaConstruida, Usuario usuario, Distrito distrito) {
 		this.id = id;
 		this.habitaciones = habitaciones;
 		this.banos = banos;

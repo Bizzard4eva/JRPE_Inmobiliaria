@@ -32,6 +32,7 @@ public class DistritoModel implements DistritoInterface {
 				listDistrito.add(distrito);
 			}
 		} catch (Exception e) {
+			
 			e.printStackTrace();
 		}
 		

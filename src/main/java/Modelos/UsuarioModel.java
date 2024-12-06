@@ -87,7 +87,8 @@ public class UsuarioModel implements UsuarioInterface {
 			statement.setString(2, usuario.getEmail());
 			statement.setString(3, usuario.getPassword());
 			statement.setString(4, usuario.getTelefono());
-			statement.setString(5, usuario.getRol());
+			statement.setString(5, "Cliente"); // La web solo permitira agregar Clientes.
+//			statement.setString(5, usuario.getRol());
 			
 			return statement.executeUpdate() > 0;
 			
