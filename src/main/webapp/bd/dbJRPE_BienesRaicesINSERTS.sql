@@ -39,7 +39,28 @@ VALUES
  199000.00, 'Departamento', 
  'Jiron Soldado Cabada N° 1001, Barranco', 
  2, 2, 104.00, 80.00, 
- 2, 4); -- ID AGENTE, ID DISTRITO
+ 2, 4), -- ID AGENTE, ID DISTRITO
+ 
+  ('Departamento San Isidro', 
+'Precioso departamento con terraza y bella vista al golf - Ultimos disponibles',
+ 200000.00, 'Departamento', 
+ 'Camino real, San Isidro, Lima', 
+ 3, 2, 90.00, 75.00, 
+ 3, 2), -- ID AGENTE, ID DISTRITO
+ 
+   ('Departamento Barranco', 
+'Alquiler o Venta Hermoso Loft en Barranco - Ultimos disponibles',
+ 250000.00, 'Departamento', 
+ 'jr tacna , Barranco, Lima', 
+ 2, 1, 80.00, 100.00, 
+ 3, 4), -- ID AGENTE, ID DISTRITO
+ 
+   ('Casa Monterrico', 
+'Casa muy bien ubicada cerca a avenidas principales - Ultimos disponibles',
+ 300000.00, 'Casa', 
+ 'AV. LA MOLINA 1374, Ampliacion Monterrico Sur, La Molina', 
+ 7, 5, 1000.00, 346.00, 
+ 3, 5); -- ID AGENTE, ID DISTRITO
 
 -- TODO: Debes ingresar 3 Inmuebles con tu codigo de agente -->
 -- Cantidad Dormitorios: | min = 1 | max = 7 |
@@ -64,8 +85,25 @@ VALUES
 (3, 'https://img10.naventcdn.com/avisos/resize/11/01/42/02/65/54/1200x1200/1155909167.jpg'),
 (3, 'https://img10.naventcdn.com/avisos/resize/11/01/42/02/65/54/1200x1200/1155909156.jpg'),
 (3, 'https://img10.naventcdn.com/avisos/resize/11/01/42/02/65/54/1200x1200/1156071497.jpg'),
-(3, 'https://img10.naventcdn.com/avisos/resize/11/01/42/02/65/54/1200x1200/1156071500.jpg');
+(3, 'https://img10.naventcdn.com/avisos/resize/11/01/42/02/65/54/1200x1200/1156071500.jpg'),
 
+(4, 'https://img10.naventcdn.com/avisos/resize/111/01/44/82/20/31/1200x1200/1491306902.jpg'),
+(4, 'https://img10.naventcdn.com/avisos/111/01/44/82/20/31/360x266/1491306905.jpg'),
+(4, 'https://img10.naventcdn.com/avisos/111/01/44/82/20/31/360x266/1491306909.jpg'),
+(4, 'https://img10.naventcdn.com/avisos/111/01/44/82/20/31/360x266/1491306903.jpg'),
+(4, 'https://img10.naventcdn.com/avisos/111/01/44/82/20/31/360x266/1491306894.jpg'),
+
+(5, 'https://img10.naventcdn.com/avisos/resize/111/01/45/15/92/19/1200x1200/1498039891.jpg'),
+(5, 'https://img10.naventcdn.com/avisos/111/01/45/15/92/19/360x266/1498039880.jpg'),
+(5, 'https://img10.naventcdn.com/avisos/111/01/45/15/92/19/360x266/1498039881.jpg'),
+(5, 'https://img10.naventcdn.com/avisos/111/01/45/15/92/19/360x266/1498039883.jpg'),
+(5, 'https://img10.naventcdn.com/avisos/111/01/45/15/92/19/360x266/1498039884.jpg'),
+
+(6, 'https://img10.naventcdn.com/avisos/resize/111/01/43/81/72/66/1200x1200/1468281563.jpg'),
+(6, 'https://img10.naventcdn.com/avisos/111/01/43/81/72/66/360x266/1468281560.jpg'),
+(6, 'https://img10.naventcdn.com/avisos/111/01/43/81/72/66/360x266/1468281548.jpg'),
+(6, 'https://img10.naventcdn.com/avisos/111/01/43/81/72/66/360x266/1470644412.jpg'),
+(6, 'https://img10.naventcdn.com/avisos/111/01/43/81/72/66/360x266/1468281561.jpg');
 
 INSERT INTO Solicitudes (idCliente, idInmueble, mensajeSolicitud)
 VALUES 
