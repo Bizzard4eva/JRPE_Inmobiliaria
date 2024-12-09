@@ -9,7 +9,7 @@ CREATE TABLE Usuarios (
     idUsuario INT AUTO_INCREMENT PRIMARY KEY,
     nombreUsuario VARCHAR(100) NOT NULL,
     emailUsuario VARCHAR(100) UNIQUE NOT NULL,
-    contrasenaUsuario VARCHAR(255) NOT NULL,
+    passwordUsuario VARCHAR(255) NOT NULL,
     rolUsuario ENUM('Administrador', 'Agente', 'Cliente') NOT NULL,
     telefonoUsuario VARCHAR(15),
     fechaCreacionUsuario TIMESTAMP DEFAULT CURRENT_TIMESTAMP

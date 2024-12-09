@@ -1,0 +1,129 @@
+html, body {
+	margin: 0;
+	padding: 0;
+	height: 100%;
+ 	width:100%;
+	overflow-x: hidden;
+	width: 100%;
+}
+
+.navbar {
+	background-color: #1b5161;
+}
+
+.navbar .navbar-brand .logo {
+	height: 50px;
+}
+
+.navbar .navbar-brand .brand-name {
+	color: white;
+	font-weight: bold;
+}
+
+.navbar-nav .nav-link {
+	color: white;
+	font-weight: 500;
+}
+
+.navbar-nav .nav-link:hover {
+	color: grey;
+}
+
+.banner-container {
+	position: relative;
+	background-image: url('../images/banner.png');
+	background-size: cover;
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 100%;
+	height: 70vh;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	color: white;
+}
+
+.banner-content {
+	z-index: 2;
+	text-shadow: 0px 2px 5px rgba(0, 0, 0, 0.7);
+	position: relative;
+	text-align: center;
+}
+
+.filter {
+    background: rgba(0, 0, 0, 0.3); /* Fondo oscuro y transparente */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 15px; /* Agregar un poco de espacio interno */
+    display: flex; /* Usar flexbox para alinear los elementos */
+    justify-content: center; /* Centrar los elementos horizontalmente */
+    align-items: center; /* Alinear los elementos verticalmente */
+    gap: 10px; /* Separar un poco los elementos */
+    height: auto; /* Ajustar la altura según el contenido */
+     width: 100%; /* Ancho reducido al 60% del contenedor padre */
+    height: 60px; /* Altura reducida a 50px */
+    margin-top: 10px; /* Espacio entre el título y el filtro */
+}
+
+.search-filter input, 
+.search-filter select, 
+.search-filter button {
+    padding: 10px;
+    border: none;
+    border-radius: 10px;
+    position: relative;
+    height: 40px; /* Asegurarse de que todos los elementos tengan la misma altura */
+}
+
+.search-filter .btn-search {
+	background-color: #1b5161;
+	color: white;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.search-filter .btn-search:hover {
+	background-color: grey;
+}
+
+.icons {
+	width: 15px;
+	height: 15px;
+}
+
+.containerfooter {
+	background-color: #1b5161;
+	padding: 20px 0;
+	width: 100%;
+}
+
+.logofooter h2 {
+	color: white;
+}
+
+.info {
+	color: white;
+}
+
+.logofooter {
+	height: 70px;
+}
+
+.footer-icon {
+	width: 20px;
+	height: 20px;
+	margin-right: 10px;
+	text-align: center;
+}
+
+.social-link {
+	color: white;
+	text-decoration: none;
+}
+
+.social-link:hover {
+	text-decoration: underline;
+}
+
+.copy {
+	color: white;
+}
