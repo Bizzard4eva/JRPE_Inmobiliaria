@@ -105,54 +105,54 @@
 		  border-radius: 10px; 
 		  border: 2px solid #ffffff;
 	}
+	
+	
+	/* 	Estilos del header */
+	.navbar {
+		background-color: #1b5161;
+	}
+	
+	.navbar .navbar-brand .logo {
+		height: 50px;
+	}
+	
+	.navbar .navbar-brand .brand-name {
+		color: white;
+		font-weight: bold;
+	}
+	
+	.navbar-nav .nav-link {
+		color: white;
+		font-weight: 500;
+	}
+	
+	.navbar-nav .nav-link:hover {
+		color: grey;
+	}
+	
 
 </style>
 <body>
-	<header>
-		<div class="container__menu px-4 py-4 d-flex justify-content-between w-100">
-			<div class="d-flex justify-content-between align-items-center container">
-				<img alt="logo" src="images/logo.svg" width="60" height="60">
-				<ul class="text-light d-flex list-unstyled fw-600 fs-14 mb-0">
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Contacta con tu asesor</a>
-					</li>
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Curso de agente inmobiliario</a>
-					</li>
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Corredores aliados</a>
-					</li>
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Invierte con nosotros</a>
-					</li>
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Grupo MAK</a>
-					</li>				
-				</ul>
-			</div>
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+			<!-- Logo -->
+			<a class="navbar-brand d-flex align-items-center" href="#"> <img
+				src="./images/logo.svg" alt="Logo" class="logo"> <span
+				class="brand-name">JRPE Inmobiliaria</span>
+			</a>
+
+			<!-- Menú de navegación -->
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Nosotros</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Inmuebles</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Contacto</a>
+				</li>
+			</ul>
 		</div>
-		<div class="container_submenu px-4 py-4 w-100">
-			<div class="d-flex justify-content-end container">
-				<ul class="text-light d-flex list-unstyled fw-600 mb-0">
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Inmuebles</a>
-					</li>
-					<li>
-						<a class="text-decoration-none text-white" href="">Servicios</a>
-					<li class="mx-3">
-					<li>
-						<a class="text-decoration-none text-white" href="">Conócenos</a>
-					</li>
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Blog</a>
-					</li>
-					<li class="mx-3">
-						<a class="text-decoration-none text-white" href="">Contacto</a>
-					</li>
-				</ul>
-			</div>
-		</div>
-	</header>
+	</nav>
 	
 	<section class="container my-5">
 	  <div class="row justify-content-center">
@@ -170,7 +170,8 @@
 		      </div>
 		      
 		      <!-- Formulario de inicio de sesión -->
-		      <form action="" id="login-form">
+		      <form action="LoginServlet" id="login-form" method="POST">
+		      		<% String mensaje = (String) request.getAttribute("mensaje"); %>
 			        <div class="mb-3 fw-normal">
 			        	<label class="mb-1" for="txtEmail">Email</label>
 			          	<input type="email" class="form-control h-3rem" placeholder="Email" name="txtEmail" required>
@@ -179,11 +180,16 @@
 			        	<label class="mb-1" for="txtPassword">Contraseña</label>
 			          	<input type="password" class="form-control h-3rem" placeholder="Contraseña"  name="txtPassword" required>
 			        </div>
+			        <% if (mensaje != null) { %>
+					    <div class="alert alert-danger">
+					        <%= mensaje %>
+					    </div>
+					<% } %>
 		        	<button type="submit" class="btn login__button w-100 h-3rem mt-2 fw-normal">Iniciar Sesión</button>
 		      </form>
 		      
 		      <!-- Formulario de registro -->
-		      <form id="register-form" class="d-none mb-2">
+		      <form action="" id="register-form" class="d-none mb-2" method="POST">
 		        <div class="mb-3">
 			    	<label class="mb-1" for="txtName">Nombre</label>
 			        <input type="text" class="form-control h-3rem" placeholder="Nombre" name="txtName" required>

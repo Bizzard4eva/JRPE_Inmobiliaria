@@ -3,6 +3,7 @@ package Modelos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -122,6 +123,38 @@ public class UsuarioModel implements UsuarioInterface {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public Usuario authenticateByEmailAndPassword(String email, String password) {
+		Usuario usuario = null;
+		
+		try
+		(
+			Connection conexion = MySQLConexion.getConexion();
+			PreparedStatement statement = conexion.prepareStatement("SELECT * FROM Usuarios WHERE emailUsuario = ? and passwordUsuario = ?");
+		)
+		{
+			statement.setString(1, email);
+			statement.setString(2, password);
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				usuario = new Usuario(
+						result.getInt("idUsuario"),
+						result.getString("nombreUsuario"),
+						result.getString("emailUsuario"),
+						result.getString("passwordUsuario"),
+						result.getString("rolUsuario"),
+						result.getString("telefonoUsuario"),
+						result.getDate("fechaCreacionUsuario")
+				);	
+			}
+		} catch (SQLException  e) {
+			 System.out.println("Error en la consulta SQL" + e);
+			 throw new RuntimeException("Error al autenticar usuario");
+		}
+		
+		return usuario;
 	}
 
 }

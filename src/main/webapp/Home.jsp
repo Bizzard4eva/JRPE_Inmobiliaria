@@ -1,6 +1,10 @@
+<<<<<<< Updated upstream
 <%@page import="Entidades.Distrito"%>
 <%@page import="Entidades.CardInmueble"%>
 <%@page import="java.util.List"%>
+=======
+<%@page import="Entidades.Usuario"%>
+>>>>>>> Stashed changes
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -17,6 +21,7 @@
 </head>
 <body>
 	<div class="container-fluid m-0 p-0">
+<<<<<<< Updated upstream
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">
 				<!-- Logo -->
@@ -84,6 +89,29 @@
 				</div>
 			</div>
 
+=======
+	<nav class="navbar navbar-expand-lg">
+		<div class="container">
+		<% Usuario usuario = (Usuario) request.getAttribute("usuario"); %>
+			<!-- Logo -->
+			<a class="navbar-brand d-flex align-items-center" href="/"> <img
+				src="./images/logo.svg" alt="Logo" class="logo"> <span
+				class="brand-name">JRPE Inmobiliaria</span>
+			</a>
+			<% if (usuario != null) { %>
+			    <span class="text-white">- <%= usuario.getNombre() %>!</span>
+			<% } %>
+			<!-- Menú de navegación -->
+			<ul class="navbar-nav ms-auto">
+				<li class="nav-item"><a class="nav-link" href="/">Inicio</a></li>
+				<li class="nav-item"><a class="nav-link" href="#">Nosotros</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Inmuebles</a>
+				</li>
+				<li class="nav-item"><a class="nav-link" href="#">Contacto</a>
+				</li>
+			</ul>
+>>>>>>> Stashed changes
 		</div>
 		<!-- Cartas -->
 		<div class="container mt-4">
