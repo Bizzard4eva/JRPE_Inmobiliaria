@@ -71,4 +71,30 @@ CREATE TABLE Ventas (
     FOREIGN KEY (idCliente) REFERENCES usuarios(idUsuario),
     FOREIGN KEY (idAgente) REFERENCES usuarios(idUsuario)
 );
+-- SP 
+
+DELIMITER $$
+CREATE PROCEDURE sp_cardInmueble()
+BEGIN
+    SELECT 
+        I.idInmueble, 
+        IG.rutaImagenInmueble, 
+        I.precioInmueble, 
+        I.direccionInmueble, 
+        I.habitacionesInmueble, 
+        I.banosInmueble, 
+        I.areaTotalInmueble, 
+        I.areaConstruidaInmueble
+    FROM 
+        Inmuebles AS I
+    INNER JOIN 
+        ImagenesInmuebles AS IG
+    ON 
+        I.idInmueble = IG.idInmueble
+    GROUP BY 
+        I.idInmueble
+    HAVING 
+        IG.idImagen = MIN(IG.idImagen);
+END$$
+DELIMITER ;
 

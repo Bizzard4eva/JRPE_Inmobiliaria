@@ -7,8 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="Catalog.jsp" method="post">
-		<button></button>
+	<form action="CardInmuebleServlet" method="post">
+	<input type="hidden" name="type" value="list">
+		<button type="submit">Probar</button>
 	</form>
 </body>
 </html>
