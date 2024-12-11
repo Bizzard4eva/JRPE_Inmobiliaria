@@ -50,40 +50,6 @@ html, body {
 	text-align: center;
 }
 
-.filter {
-    background: rgba(0, 0, 0, 0.3); /* Fondo oscuro y transparente */
-    border-radius: 10px; /* Bordes redondeados */
-    padding: 15px; /* Agregar un poco de espacio interno */
-    display: flex; /* Usar flexbox para alinear los elementos */
-    justify-content: center; /* Centrar los elementos horizontalmente */
-    align-items: center; /* Alinear los elementos verticalmente */
-    gap: 10px; /* Separar un poco los elementos */
-    height: auto; /* Ajustar la altura según el contenido */
-     width: 100%; /* Ancho reducido al 60% del contenedor padre */
-    height: 60px; /* Altura reducida a 50px */
-    margin-top: 10px; /* Espacio entre el título y el filtro */
-}
-
-.search-filter input, 
-.search-filter select, 
-.search-filter button {
-    padding: 10px;
-    border: none;
-    border-radius: 10px;
-    position: relative;
-    height: 40px; /* Asegurarse de que todos los elementos tengan la misma altura */
-}
-
-.search-filter .btn-search {
-	background-color: #1b5161;
-	color: white;
-	font-weight: bold;
-	cursor: pointer;
-}
-
-.search-filter .btn-search:hover {
-	background-color: grey;
-}
 
 .icons {
 	width: 15px;
@@ -127,3 +93,4 @@ html, body {
 .copy {
 	color: white;
 }
+<!---->

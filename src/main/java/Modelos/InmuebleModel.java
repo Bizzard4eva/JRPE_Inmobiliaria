@@ -2,6 +2,7 @@ package Modelos;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +14,6 @@ public class InmuebleModel implements InmuebleInterface {
 
 	@Override
 	public List<Inmueble> listInmueble() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Inmueble> listInmuebleCard() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -47,6 +42,22 @@ public class InmuebleModel implements InmuebleInterface {
 		return false;
 	}
 
+	public List<String> listTipoInmueble() {
+		
+		List<String> tiposInmueble = new ArrayList<>();
+		String sql = "SELECT DISTINCT tipoInmueble FROM Inmuebles";
 
+		try (Connection conexion = MySQLConexion.getConexion();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+			ResultSet rs = statement.executeQuery();) 
+		{
+			while (rs.next()) {
+				tiposInmueble.add(rs.getString("tipoInmueble"));
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 
+		return tiposInmueble;
+	}
 }

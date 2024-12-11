@@ -1,7 +1,7 @@
 package Entidades;
 
 public class Distrito {
-	
+
 	private Integer id;
 	private String nombre;
 	
