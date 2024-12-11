@@ -4,7 +4,7 @@ import java.util.Date;
 
 public class Usuario {
 
-	private  Integer idUsuario;
+	private Integer idUsuario;
 	private String nombre, email, password, rol, telefono;
 	private Date fechaRegistro;
 	

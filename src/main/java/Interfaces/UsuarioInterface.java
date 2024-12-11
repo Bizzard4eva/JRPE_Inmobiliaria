@@ -11,4 +11,5 @@ public interface UsuarioInterface {
 	public Usuario getUsuario(Integer id);
 	public boolean addUsuario(Usuario usuario);
 	public boolean updateUsuario(Usuario usuario);
+	public Usuario authenticateByEmailAndPassword(String email, String password);
 }
