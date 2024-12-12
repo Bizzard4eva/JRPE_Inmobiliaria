@@ -3,6 +3,7 @@ package Modelos;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,11 +17,12 @@ public class DistritoModel implements DistritoInterface {
 	public List<Distrito> listDistrito() {
 		
 		List<Distrito> listDistrito = new ArrayList<Distrito>();
+		String sql = "SELECT * FROM Distritos";
 		
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement("SELECT * FROM Distritos");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		) 
 		{
 			ResultSet result = statement.executeQuery();
@@ -31,9 +33,12 @@ public class DistritoModel implements DistritoInterface {
 						);
 				listDistrito.add(distrito);
 			}
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
 		} catch (Exception e) {
-			
-			e.printStackTrace();
+			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
 		return listDistrito;
@@ -43,11 +48,12 @@ public class DistritoModel implements DistritoInterface {
 	public Distrito getDistrito(Integer id) {
 		
 		Distrito distrito = null;
-		
+		String sql = "SELECT * FROM Distritos WHERE idDistrito = ?";
+				
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement("SELECT * FROM Distritos WHERE idDistrito = ?");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
 			statement.setInt(1, id);
@@ -58,8 +64,12 @@ public class DistritoModel implements DistritoInterface {
 						result.getInt("idDistrito"),
 						result.getString("nombreDistrito"));
 			}
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error inesperado: " + e.getMessage());
 		}
 		
 		return distrito;

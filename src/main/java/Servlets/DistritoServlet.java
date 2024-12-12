@@ -28,10 +28,7 @@ public class DistritoServlet extends HttpServlet {
 	}
 
 	private void getDistrito(HttpServletRequest request, HttpServletResponse response) {
-		// TODO Auto-generated method stub
-		
-		
-		
+		//TODO
 	}
 
 	private void listDistrito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {

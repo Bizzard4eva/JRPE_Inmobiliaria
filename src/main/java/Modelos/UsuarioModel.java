@@ -17,11 +17,12 @@ public class UsuarioModel implements UsuarioInterface {
 	public List<Usuario> listUsuario() {
 		
 		List<Usuario> listUsuario = new ArrayList<Usuario>();
+		String sql = "SELECT * FROM Usuarios";
 		
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement("SELECT * FROM Usuarios");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		) 
 		{
 			ResultSet result = statement.executeQuery();
@@ -47,11 +48,12 @@ public class UsuarioModel implements UsuarioInterface {
 	public Usuario getUsuario(Integer id) {
 		
 		Usuario usuario = null;
+		String sql = "SELECT * FROM Usuarios WHERE idUsuario = ?";
 		
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement("SELECT * FROM Usuarios WHERE idUsuario = ?");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
 			statement.setInt(1, id);
@@ -64,7 +66,8 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getString("passwordUsuario"),
 						result.getString("rolUsuario"),
 						result.getString("telefonoUsuario"),
-						result.getDate("fechaCreacionUsuario"));
+						result.getDate("fechaCreacionUsuario")
+						);
 				
 			}
 		} catch (Exception e) {
@@ -77,11 +80,14 @@ public class UsuarioModel implements UsuarioInterface {
 	@Override
 	public boolean addUsuario(Usuario usuario) {
 		
+		String sql =  "INSERT INTO Usuarios (nombreUsuario, emailUsuario, "
+					+ "passwordUsuario, telefonoUsuario, rolUsuario) "
+					+ "VALUES (?, ?, ?, ?, ?)";
+				
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = 
-			conexion.prepareStatement("INSERT INTO Usuarios (nombreUsuario, emailUsuario, passwordUsuario, telefonoUsuario, rolUsuario, fechaRegistroUsuario) VALUES (?, ?, ?, ?, ?, NOW())");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
 			statement.setString(1, usuario.getNombre());
@@ -89,7 +95,7 @@ public class UsuarioModel implements UsuarioInterface {
 			statement.setString(3, usuario.getPassword());
 			statement.setString(4, usuario.getTelefono());
 			statement.setString(5, "Cliente"); // La web solo permitira agregar Clientes.
-//			statement.setString(5, usuario.getRol());
+		//  statement.setString(5, usuario.getRol());
 			
 			return statement.executeUpdate() > 0;
 			
@@ -103,11 +109,14 @@ public class UsuarioModel implements UsuarioInterface {
 	@Override
 	public boolean updateUsuario(Usuario usuario) {
 		
+		String sql =  "UPDATE Usuarios SET nombreUsuario = ?, "
+					+ "emailUsuario = ?, passwordUsuario = ?, "
+					+ "telefonoUsuario = ? WHERE idUsuario = ?";
+		
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion(); 
-			PreparedStatement statement = 
-			conexion.prepareStatement("UPDATE Usuarios SET nombreUsuario=?,emailUsuario=?,passwordUsuario=?,telefonoUsuario=? WHERE idUsuario=?");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
 			statement.setString(1, usuario.getNombre());
@@ -126,13 +135,16 @@ public class UsuarioModel implements UsuarioInterface {
 	}
 
 	@Override
-	public Usuario authenticateByEmailAndPassword(String email, String password) {
+	public Usuario validateUsuario(String email, String password) {
+		
 		Usuario usuario = null;
+		String sql =  "SELECT * FROM Usuarios WHERE emailUsuario = ? "
+					+ "and passwordUsuario = ?";
 		
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement("SELECT * FROM Usuarios WHERE emailUsuario = ? and passwordUsuario = ?");
+			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
 			statement.setString(1, email);
@@ -156,5 +168,6 @@ public class UsuarioModel implements UsuarioInterface {
 		
 		return usuario;
 	}
+
 
 }

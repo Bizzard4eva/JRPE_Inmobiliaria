@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Entidades.CardInmueble;
 import Entidades.Distrito;
-import Modelos.CardInmuebleModel;
 import Modelos.DistritoModel;
 import Modelos.InmuebleModel;
 
@@ -31,9 +30,7 @@ public class CardInmuebleServlet extends HttpServlet {
 		}
 	}
 
-	private void searchInmueble(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		
+	private void searchInmueble(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
 		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
 		String precioMin = request.getParameter("min");
@@ -48,7 +45,6 @@ public class CardInmuebleServlet extends HttpServlet {
 	}
 
 	private void detalleCard(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
 		 Integer idInmueble = Integer.parseInt(request.getParameter("id"));
 		 
 		 request.setAttribute("idInmueble", idInmueble);
@@ -56,7 +52,7 @@ public class CardInmuebleServlet extends HttpServlet {
 	}
 
 	private void listCardInmueble(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		List<CardInmueble> listCardInmueble = new CardInmuebleModel().listCardInmueble();
+		List<CardInmueble> listCardInmueble = new InmuebleModel().listCardInmueble();
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
 		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
 		

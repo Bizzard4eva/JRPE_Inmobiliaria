@@ -10,22 +10,16 @@ import javax.servlet.http.HttpServletResponse;
 import Entidades.Usuario;
 import Modelos.UsuarioModel;
 
-/**
- * Servlet implementation class LoginServlet
- */
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
-	/**
-	 * @see HttpServlet#service(HttpServletRequest request, HttpServletResponse response)
-	 */
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String email = request.getParameter("txtEmail");
 		String pass = request.getParameter("txtPassword");
 		
 		UsuarioModel usuarioModel = new UsuarioModel();
-		Usuario usuarioAuthenticated = usuarioModel.authenticateByEmailAndPassword(email, pass);
+		Usuario usuarioAuthenticated = usuarioModel.validateUsuario(email, pass);
 		
 		if(usuarioAuthenticated == null) {
 			String mensaje = "Usuario o password incorrecto";

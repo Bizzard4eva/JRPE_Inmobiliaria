@@ -130,8 +130,8 @@
 		color: grey;
 	}
 	
-
 </style>
+
 <body>
 	<nav class="navbar navbar-expand-lg">
 		<div class="container">

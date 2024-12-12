@@ -2,22 +2,18 @@ package Entidades;
 
 public class Distrito {
 
-	private Integer id;
+	private Integer idDistrito;
 	private String nombre;
 	
-	public Distrito(Integer id, String nombre) {
-		this.id = id;
+	public Distrito(Integer idDistrito, String nombre) {
+		this.idDistrito = idDistrito;
 		this.nombre = nombre;
 	}
 	
 	public Distrito() { }
 	
 	
-	public Integer getId() {
-		return id;
-	}
-	public String getNombre() {
-		return nombre;
-	}
+	public Integer getIdDistrito() { return idDistrito; }
+	public String getNombre() { return nombre; }
 	
 }

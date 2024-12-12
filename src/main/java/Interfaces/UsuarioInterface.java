@@ -8,8 +8,8 @@ import Entidades.Usuario;
 public interface UsuarioInterface {
 
 	public List<Usuario> listUsuario();
-	public Usuario getUsuario(Integer id);
+	public Usuario validateUsuario(String email, String password);
 	public boolean addUsuario(Usuario usuario);
+	public Usuario getUsuario(Integer id);
 	public boolean updateUsuario(Usuario usuario);
-	public Usuario authenticateByEmailAndPassword(String email, String password);
 }

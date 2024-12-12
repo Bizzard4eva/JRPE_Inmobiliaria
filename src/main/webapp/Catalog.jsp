@@ -1,7 +1,6 @@
 <%@page import="Entidades.Distrito"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,38 +12,8 @@
 <body>
 <section class="container">
 	<div class="row">
-		<div class="col-md-3">
-			<div class="filters shadow p-3 mb-5 bg-body rounded">
-				
-				
-				<form action="" method="">
-				    <!-- Combo Box para Distritos -->
-				    <div class="mb-3">
-				        <label for="distrito" class="form-label">Distrito</label>
-				        <select name="distrito" id="distrito" class="form-select">
-				            <option value="" selected>Todos</option>
-				            <% 
-				                // Obtenemos la lista de distritos desde el request
-				                List<Distrito> distritos = (List<Distrito>) request.getAttribute("data");
-				                if (distritos != null) {
-				                    for (Distrito distrito : distritos) {
-				            %>
-				            <option value="<%= distrito.getId() %>">
-				                <%= distrito.getNombre() %>
-				            </option>
-				            <%      
-				                    }
-				                }
-				            %>
-				        </select>
-				    </div>
-				</form>
-				
-				
-			</div>
-		</div>
+		<!--TODO-->
 	</div>
 </section>
-
 </body>
 </html>

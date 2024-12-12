@@ -6,9 +6,7 @@ public class CardInmueble {
 	private String rutaImagenInmueble, direccionInmueble;
 	private double precioInmueble, areaTotalInmueble, areaConstruidaInmueble;
 
-	public CardInmueble(Integer idInmueble, String rutaImagenInmueble, double precioInmueble, String direccionInmueble,
-			Integer habitacionesInmueble, Integer banosInmueble, double areaTotalInmueble,
-			double areaConstruidaInmueble) {
+	public CardInmueble(Integer idInmueble, String rutaImagenInmueble, double precioInmueble, String direccionInmueble, Integer habitacionesInmueble, Integer banosInmueble, double areaTotalInmueble, double areaConstruidaInmueble) {
 		this.idInmueble = idInmueble;
 		this.habitacionesInmueble = habitacionesInmueble;
 		this.banosInmueble = banosInmueble;
