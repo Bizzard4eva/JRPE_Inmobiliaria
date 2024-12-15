@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import Entidades.CardInmueble;
+import Entidades.Distrito;
 import Entidades.Inmueble;
 import Modelos.DistritoModel;
 import Modelos.InmuebleModel;
@@ -23,6 +24,10 @@ public class InmuebleServlet extends HttpServlet {
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		switch (request.getParameter("action")) {
+		//ESPECIFICOS
+		case "loadHome": loadHome(request, response); break;
+		case "loadCatalog": loadCatalog(request, response); break;
+		//GENERALES
 		case "list": listInmuebles(request, response); break;
 		case "listCards": listCardsInmuebles(request, response); break;
 		case "listFiltered": listFilteredInmuebles(request, response); break;
@@ -34,7 +39,30 @@ public class InmuebleServlet extends HttpServlet {
 		default: request.getRequestDispatcher("Home.jsp").forward(request, response); //TODO
 		}
 	}
+	//ESPECIFICOS
+	private void loadHome(HttpServletRequest request, HttpServletResponse response) {
+		// Reemplaza --> CardInmuebleServlet.listCardInmueble()
+		List<CardInmueble> listCardInmueble = new InmuebleModel().listCardInmueble();
+		List<Distrito> listDistrito = new DistritoModel().listDistrito();
+		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
+		
+	    request.setAttribute("listDistrito", listDistrito);
+	    request.setAttribute("tipoInmueble", tipoInmueble);
+		request.setAttribute("listCardInmueble", listCardInmueble);
+		Util.RedirectTo(request, response);
+	}
+	private void loadCatalog(HttpServletRequest request, HttpServletResponse response) {
 
+		List<Distrito> listDistrito = new DistritoModel().listDistrito();
+		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
+		
+		request.setAttribute("precioMin", request.getParameter("minPrice"));
+		request.setAttribute("precioMax", request.getParameter("maxPrice"));
+		Util.RedirectTo(request, response, "Catalog");
+	}
+	
+
+	//GENERALES
 	private void listInmuebles(HttpServletRequest request, HttpServletResponse response) {
 		List<Inmueble> inmuebles = new InmuebleModel().listInmueble();
 		

@@ -7,8 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-	<form action="CardInmuebleServlet" method="post">
-	<input type="hidden" name="type" value="list">
+	<form action="InmuebleServlet" method="post">
+	<input type="hidden" name="action" value="loadHome">
 		<button type="submit">Probar</button>
 	</form>
 </body>
