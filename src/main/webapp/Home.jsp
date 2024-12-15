@@ -12,6 +12,10 @@
 <link rel="stylesheet" href="css/Home.css">
 </head>
 <body>
+
+	<% 
+		if(request.getAttribute("listCardInmueble") == null) { response.sendRedirect("InmuebleServlet?action=loadHome"); return; }
+	%>
 	<div class="container-fluid m-0 p-0">
 		<nav class="navbar navbar-expand-lg">
 			<div class="container">

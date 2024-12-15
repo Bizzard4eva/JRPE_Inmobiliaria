@@ -24,29 +24,23 @@ public class InmuebleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-				
+		
 		switch (request.getParameter("action")) {
 		//ESPECIFICOS
 		case "loadHome": loadHome(request, response); break;
 		case "loadCatalog": loadCatalog(request, response); break;
 		case "loadProperty": loadProperty(request, response); break;
+		case "listFiltered": listFilteredInmuebles(request, response); break;
 		//GENERALES
 		case "list": listInmuebles(request, response); break;
 		case "listCards": listCardsInmuebles(request, response); break;
-		case "listFiltered": listFilteredInmuebles(request, response); break;
 		case "get": getInmueble(request, response); break;
 		case "add": addInmueble(request, response); break;
 		case "update": updateInmueble(request, response); break;
 		default: request.getRequestDispatcher("Home.jsp").forward(request, response); //TODO
 		}
 	}
-	private void loadProperty(HttpServletRequest request, HttpServletResponse response) {
-		Inmueble inmueble = new InmuebleModel().getInmueble(
-				Integer.parseInt(request.getParameter("idInmueble")));
-		
-		request.setAttribute("inmuebleDetail", inmueble);
-		Util.RedirectTo(request, response);
-	}
+
 	//ESPECIFICOS
 	private void loadHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<CardInmueble> listCardInmueble = new InmuebleModel().listCardInmueble();
@@ -71,16 +65,18 @@ public class InmuebleServlet extends HttpServlet {
 		request.setAttribute("maxPrice", request.getParameter("maxPrice"));
 		Util.RedirectTo(request, response, "Catalog");
 	}
-	
-
-	//GENERALES
-	private void listInmuebles(HttpServletRequest request, HttpServletResponse response) {
-		List<Inmueble> inmuebles = new InmuebleModel().listInmueble();
+	private void loadProperty(HttpServletRequest request, HttpServletResponse response) {
+		Inmueble inmueble = new InmuebleModel().getInmueble(
+				Integer.parseInt(request.getParameter("idInmueble")));
 		
-		request.setAttribute("inmuebles", inmuebles);
+		request.setAttribute("inmuebleDetail", inmueble);
 		Util.RedirectTo(request, response);
 	}
 	private void listFilteredInmuebles(HttpServletRequest request, HttpServletResponse response) {
+		Double min = Double.parseDouble(request.getParameter("minPrice"));
+		min = (min != null) ? Double.parseDouble(request.getParameter("minPrice")) : 60000;
+		Double max = Double.parseDouble(request.getParameter("maxPrice"));
+		max = (max != null) ? Double.parseDouble(request.getParameter("maxPrice")) : 500000;
 		List<CardInmueble> inmueblesFiltrados = new InmuebleModel().listFilteredInmueble(
 				Double.parseDouble(request.getParameter("minPrice")), 
 				Double.parseDouble(request.getParameter("maxPrice")), 
@@ -89,6 +85,15 @@ public class InmuebleServlet extends HttpServlet {
 				);
 		
 		request.setAttribute("inmueblesFiltrados", inmueblesFiltrados);
+		Util.RedirectTo(request, response);
+	}
+	
+
+	//GENERALES
+	private void listInmuebles(HttpServletRequest request, HttpServletResponse response) {
+		List<Inmueble> inmuebles = new InmuebleModel().listInmueble();
+		
+		request.setAttribute("inmuebles", inmuebles);
 		Util.RedirectTo(request, response);
 	}
 	private void listCardsInmuebles(HttpServletRequest request, HttpServletResponse response) {

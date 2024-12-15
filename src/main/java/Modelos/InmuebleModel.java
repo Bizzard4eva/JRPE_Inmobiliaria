@@ -33,13 +33,13 @@ public class InmuebleModel implements InmuebleInterface {
 						result.getString("tituloInmueble"),
 						result.getString("descripcionInmueble"), 
 						result.getDouble("precioInmueble"), 
-						new TipoInmuebleModel().getTipoInmueble(result.getInt("tipoInmueble")).getTipo(), 
+						new TipoInmuebleModel().getTipoInmueble(result.getInt("idTipoInmueble")).getTipo(), 
 						result.getString("direccionInmueble"), 
 						result.getInt("habitacionesInmueble"), 
 						result.getInt("banosInmueble"), 
 						result.getDouble("areaTotalInmueble"), 
 						result.getDouble("areaConstruidaInmueble"), 
-						new EstadoInmuebleModel().getEstadoInmueble(result.getInt("estadoInmueble")).getEstado(), 
+						new EstadoInmuebleModel().getEstadoInmueble(result.getInt("idEstadoInmueble")).getEstado(), 
 						new UsuarioModel().getUsuario(result.getInt("idAgente")), 
 						new DistritoModel().getDistrito(result.getInt("idDistrito"))
 						);
@@ -165,7 +165,7 @@ public class InmuebleModel implements InmuebleInterface {
 						result.getInt("banosInmueble"), 
 						result.getDouble("areaTotalInmueble"), 
 						result.getDouble("areaConstruidaInmueble"), 
-						new EstadoInmuebleModel().getEstadoInmueble(result.getInt("estadoInmueble")).getEstado(), 
+						new EstadoInmuebleModel().getEstadoInmueble(result.getInt("idEstadoInmueble")).getEstado(), 
 						new UsuarioModel().getUsuario(result.getInt("idAgente")), 
 						new DistritoModel().getDistrito(result.getInt("idDistrito"))
 						);
