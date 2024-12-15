@@ -32,9 +32,9 @@ public class DistritoServlet extends HttpServlet {
 	}
 
 	private void listDistrito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		DistritoModel model = new DistritoModel();
-		List<Distrito> data = model.listDistrito();
-		request.setAttribute("data", data);
+		List<Distrito> distritos = new DistritoModel().listDistrito();
+		
+		request.setAttribute("data", distritos);
 		request.getRequestDispatcher("Catalog.jsp").forward(request, response);
 	}
 

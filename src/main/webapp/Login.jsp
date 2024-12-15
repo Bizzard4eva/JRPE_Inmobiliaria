@@ -206,7 +206,7 @@
 		        	<label class="mb-1" for="txtPassword">Contraseña</label>
 		            <input type="password" class="form-control h-3rem" placeholder="Contraseña" name="txtPassword" required>
 		        </div>
-		        <button type="submit" class="btn login__button w-100 h-3rem fw-normal"">Crear Cuenta</button>
+		        <button type="submit" class="btn login__button w-100 h-3rem fw-normal">Crear Cuenta</button>
 		      </form>
 		    </div>
 		    <!-- Imagen -->

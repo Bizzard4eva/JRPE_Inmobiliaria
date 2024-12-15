@@ -1,1 +1,68 @@
-@charset "ISO-8859-1";
+/* BANNER */
+#banner {
+    background: url('/Catalog/img/catalog_banner.jpg') center/cover no-repeat;
+    height: 360px;
+    color: whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+#banner h1 {
+    background: rgba(0, 0, 0, 0.6);
+    padding: 10px 20px;
+    border-radius: 5px;
+}
+/* FILTROS */
+.filters {
+    background: #f8f9fa;
+    padding: 25px;
+    margin: 10px;
+    border-radius: 5px;
+}
+
+/* Distrito */
+/* Tipo de Inmueble */
+/* Cantidad Dormitorios */
+
+/* Rango de Precios */
+.slider {
+    height: 5px;
+    border-radius: 5px;
+    background: #ddd;
+    position: relative;
+}
+.slider .progress {
+    height: 5px;
+    left: 0%;
+    right: 25%;
+    position: absolute;
+    border-radius: 5px;
+    background: #007bff;
+}
+.range-input  {
+    position: relative;
+}
+.range-input input {
+    position: absolute;
+    top: -5px;
+    height: 5px;
+    width: 100%;
+    background: none;
+    pointer-events: none;
+    appearance: none;
+}
+input[type="range"]::-webkit-slider-thumb {
+    height: 17px;
+    width: 17px;
+    border: none;
+    border-radius: 50%;
+    pointer-events: auto;
+    appearance: none;
+    background: #007bff;
+}
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+    appearance: none;
+}
+
+/* CARTAS DE INMUEBLES */

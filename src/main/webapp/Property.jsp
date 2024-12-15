@@ -566,8 +566,8 @@
             <a href="" class="text-decoration-none">Contáctanos para más información</a>
           </button>
         </div>
-      </section>
-    </article>-->
+      </section>-->
+    </article>
     <!-- Pie de página -->
     <footer class="containerfooter mt-5">
         <div class="row">

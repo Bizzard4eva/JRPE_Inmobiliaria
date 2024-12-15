@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Insert title here</title>
+<title>Home</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="css/Home.css">
 </head>
@@ -37,13 +37,9 @@
 				<p>Encuentra las mejores opciones para tu futuro hogar</p>
 
 				<div class="filter p-4">
-					<form action="CardInmuebleServlet?type=search"
-						class="search-filter d-flex justify-content-center">
-
-						<input type="text" placeholder="Precio Min" class="form-control mx-2"
-							name="min">
-						<input type="text" placeholder="Precio Max" class="form-control mx-2"
-							name="max">
+					<form action="CardInmuebleServlet?type=search" class="search-filter d-flex justify-content-center">
+						<input type="text" name="min" placeholder="Precio Min" class="form-control mx-2">
+						<input type="text" name="max" placeholder="Precio Max" class="form-control mx-2" >
 						<select name="distrito" class="form-select mx-2">
 							<option value="">Distrito</option>
 							<% List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
@@ -85,7 +81,7 @@
 		<div class="container mt-4">
 			<div class="row g-4">
 				<% 
-				List<CardInmueble> listCardInmueble = (List<CardInmueble>) request.getAttribute("listCardInmueble");
+				List<CardInmueble> listCardInmueble = (List<CardInmueble>) request.getAttribute("inmuebleCards");
 				if (listCardInmueble != null) {
 					for (CardInmueble card : listCardInmueble) {
 				%>
@@ -114,8 +110,8 @@
 											<img src="./images/area.png" class="icons" style="color: #333;">
 											<%=card.getAreaConstruidaInmueble()%>
 									</p>
-									<a href="CardInmuebleServlet?type=detail&id=<%=card.getIdInmueble()%>" class="btn"
-									style="background-color: #1b5161; color: white; margin-top: auto;">Detalles</a>
+									<a href="InmuebleServlet?action=get&idInmueble=<%=card.getIdInmueble()%>&redirectTo=Property" 
+									class="btn" style="background-color: #1b5161; color: white; margin-top: auto;">Detalles</a>
 								</div>
 							</div>
 						</div>

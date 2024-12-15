@@ -114,7 +114,7 @@ public class InmuebleModel implements InmuebleInterface {
 		try 
 		(
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareCall("{CALL sp_cardInmueble()}");
+			PreparedStatement statement = conexion.prepareCall(sql);
 		) 
 		{
 			ResultSet result = statement.executeQuery();

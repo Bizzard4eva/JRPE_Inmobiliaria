@@ -1,3 +1,6 @@
+src/main/java/Util/MySQLConexion.java
+.classpath
+
 # Ignorar archivos generados por compilación
 build/
 bin/
@@ -5,6 +8,7 @@ bin/
 # Ignorar archivos del sistema operativo
 .DS_Store
 Thumbs.db
+
 
 # Ignorar carpetas de servidores locales como Tomcat
 apache-tomcat-*/
