@@ -58,21 +58,21 @@ VALUES
  2, 2, 104.00, 80.00, 
  2, 4), -- ID AGENTE, ID DISTRITO
  
-  ('Departamento San Isidro', 
+('Departamento San Isidro', 
 'Precioso departamento con terraza y bella vista al golf - Ultimos disponibles',
  200000.00, 2, 
  'Camino real, San Isidro, Lima', 
  3, 2, 90.00, 75.00, 
  3, 2), -- ID AGENTE, ID DISTRITO
  
-   ('Departamento Barranco', 
+('Departamento Barranco', 
 'Alquiler o Venta Hermoso Loft en Barranco - Ultimos disponibles',
  250000.00, 2, 
  'jr tacna , Barranco, Lima', 
  2, 1, 80.00, 100.00, 
  3, 4), -- ID AGENTE, ID DISTRITO
  
-   ('Casa Monterrico', 
+('Casa Monterrico', 
 'Casa muy bien ubicada cerca a avenidas principales - Ultimos disponibles',
  300000.00, 1, 
  'AV. LA MOLINA 1374, Ampliacion Monterrico Sur, La Molina', 
