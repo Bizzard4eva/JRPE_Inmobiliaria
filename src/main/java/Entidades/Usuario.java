@@ -18,6 +18,14 @@ public class Usuario {
 		this.fechaRegistro = fechaRegistro;
 	}
 	
+	public Usuario(Integer idUsuario, String nombre, String email, String password, String telefono) {
+		this.idUsuario = idUsuario;
+		this.nombre = nombre;
+		this.email = email;
+		this.password = password;
+		this.telefono = telefono;
+	}
+	
 	public Usuario() { }
 
 	

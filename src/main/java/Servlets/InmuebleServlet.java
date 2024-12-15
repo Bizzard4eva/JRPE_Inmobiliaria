@@ -11,7 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import Entidades.CardInmueble;
 import Entidades.Inmueble;
+import Modelos.DistritoModel;
 import Modelos.InmuebleModel;
+import Modelos.UsuarioModel;
+
 
 @WebServlet("/InmuebleServlet")
 public class InmuebleServlet extends HttpServlet {
@@ -23,9 +26,11 @@ public class InmuebleServlet extends HttpServlet {
 		case "list": listInmuebles(request, response); break;
 		case "listCards": listCardsInmuebles(request, response); break;
 		case "listFiltered": listFilteredInmuebles(request, response); break;
+		case "listTipo" : listTiposInmueble(request, response); break;
+		case "listEstado" : listEstadosInmueble(request, response); break;
 		case "get": getInmueble(request, response); break;
-//		case "add": addInmueble(request, response); break;
-//		case "update": updateInmueble(request, response); break;
+		case "add": addInmueble(request, response); break;
+		case "update": updateInmueble(request, response); break;
 		default: request.getRequestDispatcher("Home.jsp").forward(request, response); //TODO
 		}
 	}
@@ -34,7 +39,7 @@ public class InmuebleServlet extends HttpServlet {
 		List<Inmueble> inmuebles = new InmuebleModel().listInmueble();
 		
 		request.setAttribute("inmuebles", inmuebles);
-		RedirectTo(request, response);
+		Util.RedirectTo(request, response);
 	}
 	private void listFilteredInmuebles(HttpServletRequest request, HttpServletResponse response) {
 		List<Inmueble> inmueblesFiltrados = new InmuebleModel().listFilteredInmueble(
@@ -44,41 +49,70 @@ public class InmuebleServlet extends HttpServlet {
 				request.getParameter("tipoInmueble"));
 		
 		request.setAttribute("inmueblesFiltrados", inmueblesFiltrados);
-		RedirectTo(request, response);
+		Util.RedirectTo(request, response);
 	}
 	private void listCardsInmuebles(HttpServletRequest request, HttpServletResponse response) {
 		List<CardInmueble> inmbuebleCards = new InmuebleModel().listCardInmueble();
 		
 		request.setAttribute("inmuebleCards", inmbuebleCards);
-		RedirectTo(request, response);
+		Util.RedirectTo(request, response);
 	}
+	private void listTiposInmueble(HttpServletRequest request, HttpServletResponse response) {
+		List<String> tipos = new InmuebleModel().listTipoInmueble();
+		
+		request.setAttribute("tiposInmueble", tipos);
+		Util.RedirectTo(request, response);
+	}
+	private void listEstadosInmueble(HttpServletRequest request, HttpServletResponse response) {
+		List<String> estados = new InmuebleModel().listEstadoInmueble();
+		
+		request.setAttribute("estadosInmueble", estados);
+		Util.RedirectTo(request, response);
+	}
+
 	private void getInmueble(HttpServletRequest request, HttpServletResponse response) {
 		Inmueble inmueble = new InmuebleModel().getInmueble(
 				Integer.parseInt(request.getParameter("idInmueble")));
 		
 		request.setAttribute("inmuebleDetail", inmueble);
-		RedirectTo(request, response);
+		Util.RedirectTo(request, response);
 	}
-	
-	
-	private String validateRedirectTo(String web) {
-		List<String> paginasValidas = List.of("Home","Login","Catalog","Property"); //TODO
-		if(web != null && paginasValidas.contains(web)) 
-		{
-			return (web + ".jsp");
-		}
-		return "Home.jsp";
+	private void addInmueble(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Inmueble inmueble = new Inmueble( 0, 
+				request.getParameter("titulo"), 
+				request.getParameter("descripcion"), 
+				Double.parseDouble(request.getParameter("precio")), 
+				request.getParameter("tipo"), 
+				request.getParameter("direccion"), 
+				Integer.parseInt(request.getParameter("habitaciones")), 
+				Integer.parseInt(request.getParameter("banos")), 
+				Double.parseDouble(request.getParameter("areaTotal")), 
+				Double.parseDouble(request.getParameter("areaConstruida")), 
+				null,
+				new UsuarioModel().getUsuario(Integer.parseInt(request.getParameter("idUsuario"))), 
+				new DistritoModel().getDistrito(Integer.parseInt(request.getParameter("idDistrito")))
+				);
+
+		if(new InmuebleModel().addInmueble(inmueble)) { Util.RedirectTo(request, response); }
 	}
-	private void RedirectTo(HttpServletRequest request, HttpServletResponse response) {
-		String redirectTo = request.getParameter("redirectTo");
-		String validated = validateRedirectTo(redirectTo);
-		try {
-			request.getRequestDispatcher(validated).forward(request, response);
-		} catch (ServletException e) {
-			System.err.println("Error al intentar redirigir la solicitud: " + e.getMessage());
-		} catch (IOException e) {
-			 System.err.println("Error al intentar despachar el cliente: " + e.getMessage());
-		}
+	private void updateInmueble(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		Inmueble inmueble = new Inmueble(
+				Integer.parseInt(request.getParameter("idInmueble")), 
+				request.getParameter("titulo"), 
+				request.getParameter("descripcion"), 
+				Double.parseDouble(request.getParameter("precio")), 
+				request.getParameter("tipo"), 
+				request.getParameter("direccion"), 
+				Integer.parseInt(request.getParameter("habitaciones")), 
+				Integer.parseInt(request.getParameter("banos")), 
+				Double.parseDouble(request.getParameter("areaTotal")), 
+				Double.parseDouble(request.getParameter("areaConstruida")), 
+				request.getParameter("estado"), 
+				new UsuarioModel().getUsuario(Integer.parseInt(request.getParameter("idUsuario"))), 
+				new DistritoModel().getDistrito(Integer.parseInt(request.getParameter("idDistrito")))
+				);
+		
+		if(new InmuebleModel().updateInmueble(inmueble)) { Util.RedirectTo(request, response); }
 	}
 
 }

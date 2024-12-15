@@ -36,10 +36,13 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getString("telefonoUsuario"),
 						result.getDate("fechaCreacionUsuario"));
 				listUsuario.add(usuario);
-				
 			}
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		return listUsuario;
 	}
@@ -68,10 +71,13 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getString("telefonoUsuario"),
 						result.getDate("fechaCreacionUsuario")
 						);
-				
 			}
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
 		return usuario;
@@ -99,8 +105,12 @@ public class UsuarioModel implements UsuarioInterface {
 			
 			return statement.executeUpdate() > 0;
 			
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
 		return false;
@@ -127,8 +137,12 @@ public class UsuarioModel implements UsuarioInterface {
 			
 			return statement.executeUpdate() > 0;
 			
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
 		} catch (Exception e) {
-			e.printStackTrace();
+			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
 		return false;
@@ -161,11 +175,16 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getDate("fechaCreacionUsuario")
 				);	
 			}
-		} catch (SQLException  e) {
-			 System.out.println("Error en la consulta SQL" + e);
-			 throw new RuntimeException("Error al autenticar usuario");
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
+		} catch (RuntimeException e) {
+			System.err.println("Error de ejecucion: " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Error al autenticar usuario: " + e.getMessage());
+			throw new RuntimeException("Error al autenticar usuario");
 		}
-		
 		return usuario;
 	}
 

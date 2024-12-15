@@ -17,25 +17,25 @@ public class DistritoServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type = request.getParameter("type");
 		
-		switch (type) {
-		case "list": listDistrito(request, response); break;
-		case "info": getDistrito(request, response); break;
-		default:
-			request.getRequestDispatcher("Catalog.jsp").forward(request, response);
+		switch (request.getParameter("action")) {
+		case "list": listDistritos(request, response); break;
+		case "get": getDistrito(request, response); break;
+		default: request.getRequestDispatcher("Home.jsp").forward(request, response); //TODO
 		}
 	}
 
-	private void getDistrito(HttpServletRequest request, HttpServletResponse response) {
-		//TODO
-	}
-
-	private void listDistrito(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	private void listDistritos(HttpServletRequest request, HttpServletResponse response) {
 		List<Distrito> distritos = new DistritoModel().listDistrito();
 		
-		request.setAttribute("data", distritos);
-		request.getRequestDispatcher("Catalog.jsp").forward(request, response);
+		request.setAttribute("distritos", distritos);
+		Util.RedirectTo(request, response);
 	}
-
+	private void getDistrito(HttpServletRequest request, HttpServletResponse response) {
+		Distrito distrito = new DistritoModel().getDistrito(Integer.parseInt(request.getParameter("idDistrito")));
+		
+		request.setAttribute("distrito", distrito);
+		Util.RedirectTo(request, response);
+	}
+	
 }

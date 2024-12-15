@@ -26,7 +26,7 @@ CREATE TABLE Inmuebles (
     tituloInmueble VARCHAR(150) NOT NULL,
     descripcionInmueble TEXT NOT NULL,
     precioInmueble DECIMAL(10,2) NOT NULL,
-    tipoInmueble ENUM('Casa', 'Departamento') NOT NULL,
+    tipoInmueble ENUM('Casa', 'Departamento') DEFAULT 'Casa' NOT NULL,
     direccionInmueble VARCHAR(200) NOT NULL,
     habitacionesInmueble INT NOT NULL,
     banosInmueble INT NOT NULL,
@@ -71,8 +71,8 @@ CREATE TABLE Ventas (
     FOREIGN KEY (idCliente) REFERENCES usuarios(idUsuario),
     FOREIGN KEY (idAgente) REFERENCES usuarios(idUsuario)
 );
--- SP 
 
+-- SP 
 DELIMITER $$
 CREATE PROCEDURE sp_cardInmueble()
 BEGIN

@@ -142,32 +142,6 @@ public class InmuebleModel implements InmuebleInterface {
 		return listInmuebleCard;
 	}
 	
-	public List<String> listTipoInmueble() {
-		
-		List<String> tiposInmueble = new ArrayList<>();
-		String sql = "SELECT DISTINCT tipoInmueble FROM Inmuebles";
-
-		try 
-		(
-			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement(sql);
-		) 
-		{
-			ResultSet result = statement.executeQuery();
-			while (result.next()) {
-				tiposInmueble.add(result.getString("tipoInmueble"));
-			}
-			
-		} catch (SQLException e) {	
-			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
-		} catch (NullPointerException e) {
-			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
-		} catch (Exception e) {
-			System.err.println("Error inesperado: " + e.getMessage());			
-		}
-
-		return tiposInmueble;
-	}
 
 	@Override
 	public Inmueble getInmueble(Integer id) {
@@ -257,7 +231,8 @@ public class InmuebleModel implements InmuebleInterface {
 		String sql =  "UPDATE Inmuebles SET tituloInmueble = ?, descripcionInmueble = ?, "
 					+ "precioInmueble = ?, tipoInmueble = ?, direccionInmueble = ?, "
 					+ "habitacionesInmueble = ?, banosInmueble = ?, areaTotalInmueble = ?, "
-					+ "areaConstruidaInmueble = ?, idAgente = ?, idDistrito = ?";
+					+ "areaConstruidaInmueble = ?, idAgente = ?, idDistrito = ?, "
+					+ "estadoInmueble = ?";
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
@@ -275,6 +250,7 @@ public class InmuebleModel implements InmuebleInterface {
 			statement.setDouble(9, inmueble.getAreaConstruida());
 			statement.setInt(10, inmueble.getUsuario().getIdUsuario());
 			statement.setInt(11, inmueble.getDistrito().getIdDistrito());
+			statement.setString(12, inmueble.getEstado());
 			
 			return statement.executeUpdate() > 0;
 			
@@ -287,6 +263,62 @@ public class InmuebleModel implements InmuebleInterface {
 		}
 		
 		return false;
+	}
+
+	@Override
+	public List<String> listTipoInmueble() {
+		
+		List<String> tiposInmueble = new ArrayList<>();
+		String sql = "SELECT DISTINCT tipoInmueble FROM Inmuebles";
+
+		try 
+		(
+			Connection conexion = MySQLConexion.getConexion();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+		) 
+		{
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				tiposInmueble.add(result.getString("tipoInmueble"));
+			}
+			
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Error inesperado: " + e.getMessage());			
+		}
+
+		return tiposInmueble;
+	}
+
+	@Override
+	public List<String> listEstadoInmueble() {
+		
+		List<String> estadoInmuebles = new ArrayList<String>();
+		String sql = "SELECT DISTINCT estadoInmueble FROM Inmuebles";
+		
+		try 
+		(
+			Connection conexion = MySQLConexion.getConexion();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+		) 
+		{
+			ResultSet result = statement.executeQuery();
+			while (result.next()) {
+				estadoInmuebles.add(result.getString("estadoInmueble"));
+			}
+			
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Error inesperado: " + e.getMessage());			
+		}
+		
+		return estadoInmuebles;
 	}
 	
 }

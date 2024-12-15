@@ -24,6 +24,7 @@ public class Inmueble {
 		this.distrito = distrito;
 	}
 	
+	
 	public Inmueble() { }
 
 	
