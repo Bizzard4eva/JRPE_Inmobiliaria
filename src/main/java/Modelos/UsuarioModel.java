@@ -18,7 +18,7 @@ public class UsuarioModel implements UsuarioInterface {
 		
 		List<Usuario> listUsuario = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM Usuarios";
-		
+	
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
@@ -32,7 +32,7 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getString("nombreUsuario"),
 						result.getString("emailUsuario"),
 						result.getString("passwordUsuario"),
-						result.getString("rolUsuario"),
+						new RolModel().getRol(result.getInt("idRol")).getNombre(),
 						result.getString("telefonoUsuario"),
 						result.getDate("fechaCreacionUsuario"));
 				listUsuario.add(usuario);
@@ -51,7 +51,7 @@ public class UsuarioModel implements UsuarioInterface {
 	public Usuario getUsuario(Integer id) {
 		
 		Usuario usuario = null;
-		String sql = "SELECT * FROM Usuarios WHERE idUsuario = ?";
+		String sql = "SELECT * FROM Usuarios WHERE U.idUsuario = ?";
 		
 		try
 		(
@@ -67,7 +67,7 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getString("nombreUsuario"),
 						result.getString("emailUsuario"),
 						result.getString("passwordUsuario"),
-						result.getString("rolUsuario"),
+						new RolModel().getRol(result.getInt("idRol")).getNombre(),
 						result.getString("telefonoUsuario"),
 						result.getDate("fechaCreacionUsuario")
 						);
@@ -87,7 +87,7 @@ public class UsuarioModel implements UsuarioInterface {
 	public boolean addUsuario(Usuario usuario) {
 		
 		String sql =  "INSERT INTO Usuarios (nombreUsuario, emailUsuario, "
-					+ "passwordUsuario, telefonoUsuario, rolUsuario) "
+					+ "passwordUsuario, telefonoUsuario, idRol) "
 					+ "VALUES (?, ?, ?, ?, ?)";
 				
 		try
@@ -100,8 +100,7 @@ public class UsuarioModel implements UsuarioInterface {
 			statement.setString(2, usuario.getEmail());
 			statement.setString(3, usuario.getPassword());
 			statement.setString(4, usuario.getTelefono());
-			statement.setString(5, "Cliente"); // La web solo permitira agregar Clientes.
-		//  statement.setString(5, usuario.getRol());
+			statement.setInt(5, 3); // La web solo permitira agregar Clientes.
 			
 			return statement.executeUpdate() > 0;
 			
@@ -152,8 +151,8 @@ public class UsuarioModel implements UsuarioInterface {
 	public Usuario validateUsuario(String email, String password) {
 		
 		Usuario usuario = null;
-		String sql =  "SELECT * FROM Usuarios WHERE emailUsuario = ? "
-					+ "and passwordUsuario = ?";
+		String sql = "SELECT * FROM Usuarios "
+				   + "WHERE U.emailUsuario = ? AND U.passwordUsuario = ?";
 		
 		try
 		(
@@ -170,7 +169,7 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getString("nombreUsuario"),
 						result.getString("emailUsuario"),
 						result.getString("passwordUsuario"),
-						result.getString("rolUsuario"),
+						new RolModel().getRol(result.getInt("idRol")).getNombre(),
 						result.getString("telefonoUsuario"),
 						result.getDate("fechaCreacionUsuario")
 				);	

@@ -33,13 +33,13 @@ public class InmuebleModel implements InmuebleInterface {
 						result.getString("tituloInmueble"),
 						result.getString("descripcionInmueble"), 
 						result.getDouble("precioInmueble"), 
-						result.getString("tipoInmueble"), 
+						new TipoInmuebleModel().getTipoInmueble(result.getInt("tipoInmueble")).getTipo(), 
 						result.getString("direccionInmueble"), 
 						result.getInt("habitacionesInmueble"), 
 						result.getInt("banosInmueble"), 
 						result.getDouble("areaTotalInmueble"), 
 						result.getDouble("areaConstruidaInmueble"), 
-						result.getString("estadoInmueble"), 
+						new EstadoInmuebleModel().getEstadoInmueble(result.getInt("estadoInmueble")).getEstado(), 
 						new UsuarioModel().getUsuario(result.getInt("idAgente")), 
 						new DistritoModel().getDistrito(result.getInt("idDistrito"))
 						);
@@ -58,11 +58,12 @@ public class InmuebleModel implements InmuebleInterface {
 	}
 	
 	@Override
-	public List<Inmueble> listFilteredInmueble(Double min, Double max, Integer idDistrito, String tipoInmueble) {
+	public List<CardInmueble> listFilteredInmueble(Double min, Double max, Integer idDistrito, Integer idTipoInmueble) {
 		
-		List<Inmueble> listInmueble = new ArrayList<Inmueble>();
+		List<CardInmueble> listInmueble = new ArrayList<CardInmueble>();
 		String sql =  "SELECT * FROM Inmuebles WHERE (precioInmueble BETWEEN ? AND ?) "
 					+ "AND (idDistrito = ?) AND (tipoInmueble = ?)";
+		sql = "{CALL sp_filteredCardInmueble(?, ?, ?, ?)}";
 		
 		try
 		(	
@@ -73,24 +74,19 @@ public class InmuebleModel implements InmuebleInterface {
 			statement.setDouble(1, min);
 			statement.setDouble(2, max);
 			statement.setInt(3, idDistrito);
-			statement.setString(4, tipoInmueble);
+			statement.setInt(4, idTipoInmueble);
 			
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
-				Inmueble inmueble = new Inmueble(
-						result.getInt("idInmueble"), 
-						result.getString("tituloInmueble"),
-						result.getString("descripcionInmueble"), 
-						result.getDouble("precioInmueble"), 
-						result.getString("tipoInmueble"), 
+				CardInmueble inmueble = new CardInmueble(
+						result.getInt("idInmueble"),
+						result.getString("rutaImagenInmueble"), 
+						result.getDouble("precioInmueble"),
 						result.getString("direccionInmueble"), 
-						result.getInt("habitacionesInmueble"), 
+						result.getInt("habitacionesInmueble"),
 						result.getInt("banosInmueble"), 
-						result.getDouble("areaTotalInmueble"), 
-						result.getDouble("areaConstruida"), 
-						result.getString("areaConstruidaInmueble"), 
-						new UsuarioModel().getUsuario(result.getInt("idAgente")), 
-						new DistritoModel().getDistrito(result.getInt("idDistrito"))
+						result.getDouble("areaTotalInmueble"),
+						result.getDouble("areaConstruidaInmueble")
 						);
 				listInmueble.add(inmueble);
 			}
@@ -127,7 +123,8 @@ public class InmuebleModel implements InmuebleInterface {
 						result.getInt("habitacionesInmueble"),
 						result.getInt("banosInmueble"), 
 						result.getDouble("areaTotalInmueble"),
-						result.getDouble("areaConstruidaInmueble"));
+						result.getDouble("areaConstruidaInmueble")
+						);
 				listInmuebleCard.add(card);
 			}
 
@@ -138,7 +135,7 @@ public class InmuebleModel implements InmuebleInterface {
 		} catch (Exception e) {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
-		System.out.println(listInmuebleCard.toString());
+
 		return listInmuebleCard;
 	}
 	
@@ -164,13 +161,13 @@ public class InmuebleModel implements InmuebleInterface {
 						result.getString("tituloInmueble"),
 						result.getString("descripcionInmueble"), 
 						result.getDouble("precioInmueble"), 
-						result.getString("tipoInmueble"), 
+						new TipoInmuebleModel().getTipoInmueble(result.getInt("idTipoInmueble")).getTipo(), 
 						result.getString("direccionInmueble"), 
 						result.getInt("habitacionesInmueble"), 
 						result.getInt("banosInmueble"), 
 						result.getDouble("areaTotalInmueble"), 
 						result.getDouble("areaConstruidaInmueble"), 
-						result.getString("estadoInmueble"), 
+						new EstadoInmuebleModel().getEstadoInmueble(result.getInt("estadoInmueble")).getEstado(), 
 						new UsuarioModel().getUsuario(result.getInt("idAgente")), 
 						new DistritoModel().getDistrito(result.getInt("idDistrito"))
 						);
@@ -189,11 +186,13 @@ public class InmuebleModel implements InmuebleInterface {
 	@Override
 	public boolean addInmueble(Inmueble inmueble) {
 		
+		Integer idTipoInmueble = getIdTipoInmueble(inmueble.getTipo());
 		String sql =  "INSERT INTO Inmuebles (tituloInmueble, descripcionInmueble, "
-					+ "precioInmueble, tipoInmueble, direccionInmueble, habitacionesInmueble, "
+					+ "precioInmueble, idTipoInmueble, direccionInmueble, habitacionesInmueble, "
 					+ "banosInmueble, areaTotalInmueble, areaConstruidaInmueble, "
 					+ "idAgente, idDistrito) VALUES "
 					+ "(?,?,?,?,?,?,?,?,?,?,?)";
+		
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
@@ -203,7 +202,7 @@ public class InmuebleModel implements InmuebleInterface {
 			statement.setString(1, inmueble.getTitulo());
 			statement.setString(2, inmueble.getDescripcion());
 			statement.setDouble(3, inmueble.getPrecio());
-			statement.setString(4, inmueble.getTipo()); // Casa o Departamento
+			statement.setInt(4, idTipoInmueble); 
 			statement.setString(5, inmueble.getDireccion());
 			statement.setInt(6, inmueble.getHabitaciones());
 			statement.setInt(7, inmueble.getBanos());
@@ -228,11 +227,13 @@ public class InmuebleModel implements InmuebleInterface {
 	@Override
 	public boolean updateInmueble(Inmueble inmueble) {
 		
+		Integer idTipoInmueble = getIdTipoInmueble(inmueble.getTipo());
+		Integer idEstadoInmueble = getIdEstadoInmueble(inmueble.getEstado());
 		String sql =  "UPDATE Inmuebles SET tituloInmueble = ?, descripcionInmueble = ?, "
-					+ "precioInmueble = ?, tipoInmueble = ?, direccionInmueble = ?, "
+					+ "precioInmueble = ?, idTipoInmueble = ?, direccionInmueble = ?, "
 					+ "habitacionesInmueble = ?, banosInmueble = ?, areaTotalInmueble = ?, "
 					+ "areaConstruidaInmueble = ?, idAgente = ?, idDistrito = ?, "
-					+ "estadoInmueble = ?";
+					+ "idEstadoInmueble = ?";
 		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
@@ -242,7 +243,7 @@ public class InmuebleModel implements InmuebleInterface {
 			statement.setString(1, inmueble.getTitulo());
 			statement.setString(2, inmueble.getDescripcion());
 			statement.setDouble(3, inmueble.getPrecio());
-			statement.setString(4, inmueble.getTipo()); // Casa o Departamento
+			statement.setInt(4, idTipoInmueble); // Casa,Departamento
 			statement.setString(5, inmueble.getDireccion());
 			statement.setInt(6, inmueble.getHabitaciones());
 			statement.setInt(7, inmueble.getBanos());
@@ -250,7 +251,7 @@ public class InmuebleModel implements InmuebleInterface {
 			statement.setDouble(9, inmueble.getAreaConstruida());
 			statement.setInt(10, inmueble.getUsuario().getIdUsuario());
 			statement.setInt(11, inmueble.getDistrito().getIdDistrito());
-			statement.setString(12, inmueble.getEstado());
+			statement.setInt(12, idEstadoInmueble); // Disponible,Reservada,Vendida
 			
 			return statement.executeUpdate() > 0;
 			
@@ -265,23 +266,23 @@ public class InmuebleModel implements InmuebleInterface {
 		return false;
 	}
 
-	@Override
-	public List<String> listTipoInmueble() {
+	
+	public Integer getIdTipoInmueble(String tipoInmueble) {
+		Integer id = -1;
+		String sql = "SELECT idTipoInmueble FROM TiposInmueble WHERE nombreTipoInmueble = ?";
 		
-		List<String> tiposInmueble = new ArrayList<>();
-		String sql = "SELECT DISTINCT tipoInmueble FROM Inmuebles";
-
-		try 
+		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
 			PreparedStatement statement = conexion.prepareStatement(sql);
-		) 
+		)
 		{
-			ResultSet result = statement.executeQuery();
-			while (result.next()) {
-				tiposInmueble.add(result.getString("tipoInmueble"));
-			}
+			statement.setString(1, tipoInmueble);
 			
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				id = result.getInt("idTipoInmueble");
+			}
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -289,27 +290,25 @@ public class InmuebleModel implements InmuebleInterface {
 		} catch (Exception e) {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
-
-		return tiposInmueble;
+		
+		return id;
 	}
-
-	@Override
-	public List<String> listEstadoInmueble() {
+	public Integer getIdEstadoInmueble(String estadoInmueble) {
+		Integer id = -1;
+		String sql = "SELECT idEstadoInmueble FROM EstadosInmueble WHERE nombreEstado = ?";
 		
-		List<String> estadoInmuebles = new ArrayList<String>();
-		String sql = "SELECT DISTINCT estadoInmueble FROM Inmuebles";
-		
-		try 
+		try
 		(
 			Connection conexion = MySQLConexion.getConexion();
 			PreparedStatement statement = conexion.prepareStatement(sql);
-		) 
+		)
 		{
-			ResultSet result = statement.executeQuery();
-			while (result.next()) {
-				estadoInmuebles.add(result.getString("estadoInmueble"));
-			}
+			statement.setString(1, estadoInmueble);
 			
+			ResultSet result = statement.executeQuery();
+			if(result.next()) {
+				id = result.getInt("idEstadoInmueble");
+			}
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -318,7 +317,7 @@ public class InmuebleModel implements InmuebleInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return estadoInmuebles;
+		return id;
 	}
 	
 }

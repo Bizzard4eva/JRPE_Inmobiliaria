@@ -39,10 +39,17 @@ VALUES
 
 ('Casa Moderna', 
 'Remodelada hace 12 años',
- 450000.00, 1, 
+ 120000.00, 1, 
  'Calle Gomez Sanchez 100 Urb. LA Aurora, Miraflores', 
  3, 4, 507.00, 472.00, 
  2, 1), -- ID AGENTE, ID DISTRITO
+ 
+ ('Casa Moderna 2', 
+'Remodelada hace 12 años',
+70000.00, 1, 
+ 'Calle Gomez Sanchez 100 Urb. LA Aurora, Miraflores', 
+ 3, 4, 507.00, 472.00, 
+ 2, 1),
  
 ('Casa Familiar', 
 'Venta de hermosa casa Triplex en zona exclusiva de San isidro',

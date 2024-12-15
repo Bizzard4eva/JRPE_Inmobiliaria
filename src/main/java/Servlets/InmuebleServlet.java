@@ -12,8 +12,10 @@ import javax.servlet.http.HttpServletResponse;
 import Entidades.CardInmueble;
 import Entidades.Distrito;
 import Entidades.Inmueble;
+import Entidades.TipoInmueble;
 import Modelos.DistritoModel;
 import Modelos.InmuebleModel;
+import Modelos.TipoInmuebleModel;
 import Modelos.UsuarioModel;
 
 
@@ -27,35 +29,40 @@ public class InmuebleServlet extends HttpServlet {
 		//ESPECIFICOS
 		case "loadHome": loadHome(request, response); break;
 		case "loadCatalog": loadCatalog(request, response); break;
+		case "loadProperty": loadProperty(request, response); break;
 		//GENERALES
 		case "list": listInmuebles(request, response); break;
 		case "listCards": listCardsInmuebles(request, response); break;
 		case "listFiltered": listFilteredInmuebles(request, response); break;
-		case "listTipo" : listTiposInmueble(request, response); break;
-		case "listEstado" : listEstadosInmueble(request, response); break;
 		case "get": getInmueble(request, response); break;
 		case "add": addInmueble(request, response); break;
 		case "update": updateInmueble(request, response); break;
 		default: request.getRequestDispatcher("Home.jsp").forward(request, response); //TODO
 		}
 	}
+	private void loadProperty(HttpServletRequest request, HttpServletResponse response) {
+		// TODO
+		
+	}
 	//ESPECIFICOS
 	private void loadHome(HttpServletRequest request, HttpServletResponse response) {
 		// Reemplaza --> CardInmuebleServlet.listCardInmueble()
 		List<CardInmueble> listCardInmueble = new InmuebleModel().listCardInmueble();
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
-		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
+		List<TipoInmueble> listTipoInmueble = new TipoInmuebleModel().listTiposInmueble();
 		
 	    request.setAttribute("listDistrito", listDistrito);
-	    request.setAttribute("tipoInmueble", tipoInmueble);
+	    request.setAttribute("tipoInmueble", listTipoInmueble);
 		request.setAttribute("listCardInmueble", listCardInmueble);
 		Util.RedirectTo(request, response);
 	}
 	private void loadCatalog(HttpServletRequest request, HttpServletResponse response) {
 
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
-		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
+		List<TipoInmueble> listTipoInmueble = new TipoInmuebleModel().listTiposInmueble();
 		
+		request.setAttribute("listDistrito", listDistrito);
+		request.setAttribute("listTipoInmueble", listTipoInmueble);
 		request.setAttribute("precioMin", request.getParameter("minPrice"));
 		request.setAttribute("precioMax", request.getParameter("maxPrice"));
 		Util.RedirectTo(request, response, "Catalog");
@@ -70,11 +77,12 @@ public class InmuebleServlet extends HttpServlet {
 		Util.RedirectTo(request, response);
 	}
 	private void listFilteredInmuebles(HttpServletRequest request, HttpServletResponse response) {
-		List<Inmueble> inmueblesFiltrados = new InmuebleModel().listFilteredInmueble(
+		List<CardInmueble> inmueblesFiltrados = new InmuebleModel().listFilteredInmueble(
 				Double.parseDouble(request.getParameter("minPrice")), 
 				Double.parseDouble(request.getParameter("maxPrice")), 
 				Integer.parseInt(request.getParameter("idDistrito")), 
-				request.getParameter("tipoInmueble"));
+				Integer.parseInt(request.getParameter("idTipoInmueble"))
+				);
 		
 		request.setAttribute("inmueblesFiltrados", inmueblesFiltrados);
 		Util.RedirectTo(request, response);
@@ -85,19 +93,6 @@ public class InmuebleServlet extends HttpServlet {
 		request.setAttribute("inmuebleCards", inmbuebleCards);
 		Util.RedirectTo(request, response);
 	}
-	private void listTiposInmueble(HttpServletRequest request, HttpServletResponse response) {
-		List<String> tipos = new InmuebleModel().listTipoInmueble();
-		
-		request.setAttribute("tiposInmueble", tipos);
-		Util.RedirectTo(request, response);
-	}
-	private void listEstadosInmueble(HttpServletRequest request, HttpServletResponse response) {
-		List<String> estados = new InmuebleModel().listEstadoInmueble();
-		
-		request.setAttribute("estadosInmueble", estados);
-		Util.RedirectTo(request, response);
-	}
-
 	private void getInmueble(HttpServletRequest request, HttpServletResponse response) {
 		Inmueble inmueble = new InmuebleModel().getInmueble(
 				Integer.parseInt(request.getParameter("idInmueble")));

@@ -63,7 +63,7 @@ CREATE TABLE Inmuebles (
 CREATE TABLE ImagenesInmuebles (
     idImagen INT AUTO_INCREMENT PRIMARY KEY,
     idInmueble INT NOT NULL,
-    esImagenPrincipal TINYINT(1) DEFAULT 0,
+    esImagenPrincipal INT DEFAULT 0,
     rutaImagenInmueble VARCHAR(255) NOT NULL,
     FOREIGN KEY (idInmueble) REFERENCES inmuebles(idInmueble)
 );

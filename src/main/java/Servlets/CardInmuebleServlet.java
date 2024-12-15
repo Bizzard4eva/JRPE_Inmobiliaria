@@ -11,8 +11,10 @@ import javax.servlet.http.HttpServletResponse;
 
 import Entidades.CardInmueble;
 import Entidades.Distrito;
+import Entidades.TipoInmueble;
 import Modelos.DistritoModel;
 import Modelos.InmuebleModel;
+import Modelos.TipoInmuebleModel;
 
 @WebServlet("/CardInmuebleServlet")
 public class CardInmuebleServlet extends HttpServlet {
@@ -32,14 +34,15 @@ public class CardInmuebleServlet extends HttpServlet {
 	
 	private void searchInmueble(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {	
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
-		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
+		List<TipoInmueble> listTipoInmueble = new TipoInmuebleModel().listTiposInmueble();
+		
 		String precioMin = request.getParameter("min");
 		String precioMax = request.getParameter("max");
 		
 		request.setAttribute("precioMin", precioMin);
 		request.setAttribute("precioMax", precioMax);
 	    request.setAttribute("listDistrito", listDistrito);
-	    request.setAttribute("tipoInmueble", tipoInmueble);
+	    request.setAttribute("tipoInmueble", listTipoInmueble);
 	    
 	    request.getRequestDispatcher("Catalog.jsp").forward(request, response);
 	}
@@ -54,10 +57,10 @@ public class CardInmuebleServlet extends HttpServlet {
 	private void listCardInmueble(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<CardInmueble> listCardInmueble = new InmuebleModel().listCardInmueble();
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
-		List<String> tipoInmueble = new InmuebleModel().listTipoInmueble();
+		List<TipoInmueble> listTipoInmueble = new TipoInmuebleModel().listTiposInmueble();
 		
 	    request.setAttribute("listDistrito", listDistrito);
-	    request.setAttribute("tipoInmueble", tipoInmueble);
+	    request.setAttribute("tipoInmueble", listTipoInmueble);
 		request.setAttribute("listCardInmueble", listCardInmueble);
 		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}
