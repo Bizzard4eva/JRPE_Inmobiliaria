@@ -13,8 +13,8 @@ BEGIN
 END$$
 DELIMITER ;
 
-DROP PROCEDURE sp_cardInmueble;
-CALL sp_cardInmueble();
+-- DROP PROCEDURE sp_cardInmueble;
+-- CALL sp_cardInmueble();
 
 -- SP listFilteredCardInmueble
 DELIMITER $$
@@ -38,5 +38,5 @@ BEGIN
 END$$
 DELIMITER ;
 
-DROP PROCEDURE sp_filteredCardInmueble;
-CALL sp_filteredCardInmueble(200000, 400000, 3, 1);
+-- DROP PROCEDURE sp_filteredCardInmueble;
+-- CALL sp_filteredCardInmueble(200000, 400000, 3, 1);

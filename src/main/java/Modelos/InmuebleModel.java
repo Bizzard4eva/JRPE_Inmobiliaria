@@ -61,9 +61,7 @@ public class InmuebleModel implements InmuebleInterface {
 	public List<CardInmueble> listFilteredInmueble(Double min, Double max, Integer idDistrito, Integer idTipoInmueble) {
 		
 		List<CardInmueble> listInmueble = new ArrayList<CardInmueble>();
-		String sql =  "SELECT * FROM Inmuebles WHERE (precioInmueble BETWEEN ? AND ?) "
-					+ "AND (idDistrito = ?) AND (tipoInmueble = ?)";
-		sql = "{CALL sp_filteredCardInmueble(?, ?, ?, ?)}";
+		String sql = "{CALL sp_filteredCardInmueble(?, ?, ?, ?)}";
 		
 		try
 		(	

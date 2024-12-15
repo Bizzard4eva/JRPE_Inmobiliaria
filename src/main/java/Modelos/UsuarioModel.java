@@ -51,7 +51,7 @@ public class UsuarioModel implements UsuarioInterface {
 	public Usuario getUsuario(Integer id) {
 		
 		Usuario usuario = null;
-		String sql = "SELECT * FROM Usuarios WHERE U.idUsuario = ?";
+		String sql = "SELECT * FROM Usuarios WHERE idUsuario = ?";
 		
 		try
 		(
@@ -152,7 +152,7 @@ public class UsuarioModel implements UsuarioInterface {
 		
 		Usuario usuario = null;
 		String sql = "SELECT * FROM Usuarios "
-				   + "WHERE U.emailUsuario = ? AND U.passwordUsuario = ?";
+				   + "WHERE emailUsuario = ? AND passwordUsuario = ?";
 		
 		try
 		(

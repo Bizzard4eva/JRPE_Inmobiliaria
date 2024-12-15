@@ -1,11 +1,12 @@
+<%@page import="Entidades.TipoInmueble"%>
 <%@page import="Entidades.CardInmueble"%>
 <%@page import="Entidades.Distrito"%>
 <%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Home</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="css/Home.css">
@@ -37,9 +38,10 @@
 				<p>Encuentra las mejores opciones para tu futuro hogar</p>
 
 				<div class="filter p-4">
-					<form action="CardInmuebleServlet?type=search" class="search-filter d-flex justify-content-center">
-						<input type="text" name="min" placeholder="Precio Min" class="form-control mx-2">
-						<input type="text" name="max" placeholder="Precio Max" class="form-control mx-2" >
+<!-- 					<form action="CardInmuebleServlet?type=search" class="search-filter d-flex justify-content-center"> -->
+						<form action="InmuebleServlet?action=load&redirectTo=Catalog" class="search-filter d-flex justify-content-center">
+						<input type="text" name="minPrice" placeholder="Precio Min" class="form-control mx-2">
+						<input type="text" name="maxPrice" placeholder="Precio Max" class="form-control mx-2" >
 						<select name="distrito" class="form-select mx-2">
 							<option value="">Distrito</option>
 							<% List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
@@ -58,12 +60,13 @@
 						<select name="tipoInmueble" class="form-select mx-2">
 							<option value="">Tipo</option>
 							<% 
-							List<String> tipoInmueble = (List<String>) request.getAttribute("tipoInmueble");
-							if (tipoInmueble != null) {
-								for (String tipo : tipoInmueble) {
+// 							List<String> tipoInmueble = (List<String>) request.getAttribute("tipoInmueble");
+							List<TipoInmueble> listTipoInmueble = (List<TipoInmueble>) request.getAttribute("tipoInmueble");
+							if (listTipoInmueble != null) {
+								for (TipoInmueble tipo : listTipoInmueble) {
 							%>
-									<option value="<%=tipo%>">
-										<%=tipo%>
+									<option value="<%=tipo.getIdTipoInmueble()%>">
+										<%=tipo.getTipo()%>
 									</option>
 							<% 
 								}
@@ -81,7 +84,7 @@
 		<div class="container mt-4">
 			<div class="row g-4">
 				<% 
-				List<CardInmueble> listCardInmueble = (List<CardInmueble>) request.getAttribute("inmuebleCards");
+				List<CardInmueble> listCardInmueble = (List<CardInmueble>) request.getAttribute("listCardInmueble");
 				if (listCardInmueble != null) {
 					for (CardInmueble card : listCardInmueble) {
 				%>
@@ -110,7 +113,7 @@
 											<img src="./images/area.png" class="icons" style="color: #333;">
 											<%=card.getAreaConstruidaInmueble()%>
 									</p>
-									<a href="InmuebleServlet?action=get&idInmueble=<%=card.getIdInmueble()%>&redirectTo=Property" 
+									<a href="InmuebleServlet?action=loadProperty&idInmueble=<%=card.getIdInmueble()%>&redirectTo=Property" 
 									class="btn" style="background-color: #1b5161; color: white; margin-top: auto;">Detalles</a>
 								</div>
 							</div>

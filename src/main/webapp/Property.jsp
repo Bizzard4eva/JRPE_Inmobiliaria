@@ -1,3 +1,4 @@
+<%@page import="Entidades.Inmueble"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
 <!DOCTYPE html>
@@ -15,6 +16,10 @@
 	crossorigin="anonymous">
 </head>
 <body>
+<%
+		Inmueble inmueble=(Inmueble) request.getAttribute("inmuebleDetail");
+	%>
+
 <nav class="navbar navbar-expand-lg">
 		<div class="container">
 			<!-- Logo -->
@@ -87,11 +92,11 @@
               </div>
             </div>
           </div>
-        </div>
+        </div>f
         <div class="card-body d-flex justify-content-evenly">
           <div class="card-title mb-0 d-flex flex-column">
             <div>
-              <h1 class="mt-5" style="color: #d3d3d3">Departamento - Venta</h1>
+              <h1 class="mt-5" style="color: #d3d3d3"><span><%=inmueble.getTitulo() %></span> - <span>Venta</span></h1>
             </div>
             <div>
               <p class="mk-mod-flex">
@@ -103,7 +108,7 @@
                     href="#map"
                     class="text-decoration-none"
                     title="Ver ubicación"
-                    >Ca. Las Flores 384, San Isidro</a
+                    ><%=inmueble.getDireccion()%></a
                   >
                 </span>
               </p>
@@ -111,11 +116,11 @@
           </div>
           <div class="d-flex justify-content-center flex-column mt-5">
             <h2 class="card-title mb-0 d-flex flex-column align-items-start">
-              $330,000
+             <%=inmueble.getPrecio() %>
             </h2>
             <div>
               <p class="mk-entry-id">
-                <span class="decrip-span">ID:188352</span>
+                <span>ID:</span><span class="decrip-span"><%=inmueble.getIdInmueble() %></span>
               </p>
             </div>
           </div>
@@ -137,8 +142,7 @@
           >
             <p></p>
             <p>
-              ¡Espectacular departamento con vistas al parque y ubicación
-              excepcional!
+              <%=inmueble.getDescripcion() %>
             </p>
             <p>
               Si estás buscando un hogar que combine lujo, comodidad y una
@@ -187,11 +191,15 @@
             <ul class="list-unstyled text-start">
               <li class="d-flex align-items-center ms-5">
                 <img src="./images/business-outline.png" style="width: 18px" />
-                <p><b>Tipo:</b> Departamento</p>
+                <p><b>Tipo:</b><span><%=inmueble.getTipo() %></span></p>
               </li>
+              <!-- <li class="d-flex align-items-center ms-5">
+                <img src="./images/location-outline-4.png" style="width: 18px" />
+                <p><b>Ubicación:</b> <span>San Isidro</span></p>
+              </li> -->
               <li class="d-flex align-items-center ms-5">
                 <img src="./images/location-outline-4.png" style="width: 18px" />
-                <p><b>Ubicación:</b> San Isidro</p>
+                <p><b>Estado:</b> <span><%=inmueble.getEstado() %></span></p>
               </li>
             </ul>
           </div>
@@ -216,7 +224,7 @@
             <div
               class="border-top text-center py-2 fw-semibold fs-6 text-secondary"
             >
-              <span>4</span>
+              <span><%=inmueble.getHabitaciones() %></span>
             </div>
           </div>
           <div
@@ -233,7 +241,7 @@
             <div
               class="border-top text-center py-2 fw-semibold fs-6 text-secondary"
             >
-              <span>2</span>
+              <span><%=inmueble.getBanos() %></span>
             </div>
           </div>
           <div
@@ -334,7 +342,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      188352
+                      <%=inmueble.getIdInmueble() %>
                     </h2>
                   </td>
                 </tr>
@@ -362,7 +370,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      Departamento
+                      <%=inmueble.getTipo() %>
                     </h2>
                   </td>
                 </tr>
@@ -425,7 +433,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      Excelente
+                      <%=inmueble.getEstado() %>
                     </h2>
                   </td>
                 </tr>
@@ -439,7 +447,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      Medianero
+                      <%=inmueble.getDireccion() %>
                     </h2>
                   </td>
                 </tr>
@@ -453,7 +461,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      158.34m<sup>2</sup>
+                      <%=inmueble.getAreaTotal() %><span>m</span><sup>2</sup>
                     </h2>
                   </td>
                 </tr>
@@ -468,7 +476,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      158.34m<sup>2</sup>
+                      <%=inmueble.getAreaConstruida() %><span>m</span><sup>2</sup>
                     </h2>
                   </td>
                 </tr>
@@ -491,83 +499,7 @@
           referrerpolicy="no-referrer-when-downgrade"
         ></iframe>
       </section>
-      <!--  
-      <section class="sec">
-        <h1>Propiedades similares</h1>
-        <div class="img">
-          <img src="./images/casa1.png" alt="img 1" />
-          <div class="icon">
-            <h2 class="price">
-              S/1400.00 <button class="btn">DETALLES</button>
-            </h2>
-            <p><img src="./images/address.png" class="icons" />Magdalena</p>
-            <p>
-              <img src="./images/rooms.png" class="rooms" /> 4 dormitorios
-              <img
-                src="./images/bath.png"
-                class="icons"
-                style="margin-left: 50px"
-              />
-              5 baños
-            </p>
-            <p>
-              <img src="./images/area.png" class="rooms" />Área Construida 525m²
-            </p>
-          </div>
-        </div>
-        <div class="img">
-          <img src="./images/casa2.png" alt="img 1" />
-          <div class="icon">
-            <h2 class="price">
-              S/1400.00 <button class="btn">DETALLES</button>
-            </h2>
-            <p><img src="./images/address.png" class="icons" />Magdalena</p>
-            <p>
-              <img src="./images/rooms.png" class="rooms" /> 4 dormitorios
-              <img
-                src="./images/bath.png"
-                class="icons"
-                style="margin-left: 50px"
-              />
-              5 baños
-            </p>
-            <p>
-              <img src="./images/area.png" class="rooms" />Área Construida 525m²
-            </p>
-          </div>
-        </div>
-        <div class="img">
-          <img src="./images/casa3.png" alt="img 1" />
-          <div class="icon">
-            <h2 class="price">
-              S/1400.00 <button class="btn">DETALLES</button>
-            </h2>
-            <p><img src="./images/address.png" class="icons" />Magdalena</p>
-            <p>
-              <img src="./images/rooms.png" class="rooms" /> 4 dormitorios
-              <img
-                src="./images/bath.png"
-                class="icons"
-                style="margin-left: 50px"
-              />
-              5 baños
-            </p>
-            <p>
-              <img src="./images/area.png" class="rooms" />Área Construida 525m²
-            </p>
-          </div>
-        </div>
-        <div>
-          <br />
-          <button class="btn-c">Conoce más</button>
-          <br />
-          <br />
-          <button class="btn-c">
-            <a href="" class="text-decoration-none">Contáctanos para más información</a>
-          </button>
-        </div>
-      </section>-->
-    </article>
+	</article>
     <!-- Pie de página -->
     <footer class="containerfooter mt-5">
         <div class="row">

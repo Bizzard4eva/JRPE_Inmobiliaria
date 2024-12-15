@@ -24,7 +24,7 @@ public class InmuebleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+				
 		switch (request.getParameter("action")) {
 		//ESPECIFICOS
 		case "loadHome": loadHome(request, response); break;
@@ -41,20 +41,24 @@ public class InmuebleServlet extends HttpServlet {
 		}
 	}
 	private void loadProperty(HttpServletRequest request, HttpServletResponse response) {
-		// TODO
+		Inmueble inmueble = new InmuebleModel().getInmueble(
+				Integer.parseInt(request.getParameter("idInmueble")));
 		
+		request.setAttribute("inmuebleDetail", inmueble);
+		Util.RedirectTo(request, response);
 	}
 	//ESPECIFICOS
-	private void loadHome(HttpServletRequest request, HttpServletResponse response) {
-		// Reemplaza --> CardInmuebleServlet.listCardInmueble()
+	private void loadHome(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		List<CardInmueble> listCardInmueble = new InmuebleModel().listCardInmueble();
+		System.out.println(listCardInmueble.toString());
 		List<Distrito> listDistrito = new DistritoModel().listDistrito();
 		List<TipoInmueble> listTipoInmueble = new TipoInmuebleModel().listTiposInmueble();
 		
 	    request.setAttribute("listDistrito", listDistrito);
 	    request.setAttribute("tipoInmueble", listTipoInmueble);
 		request.setAttribute("listCardInmueble", listCardInmueble);
-		Util.RedirectTo(request, response);
+		
+		request.getRequestDispatcher("Home.jsp").forward(request, response);
 	}
 	private void loadCatalog(HttpServletRequest request, HttpServletResponse response) {
 
@@ -63,8 +67,8 @@ public class InmuebleServlet extends HttpServlet {
 		
 		request.setAttribute("listDistrito", listDistrito);
 		request.setAttribute("listTipoInmueble", listTipoInmueble);
-		request.setAttribute("precioMin", request.getParameter("minPrice"));
-		request.setAttribute("precioMax", request.getParameter("maxPrice"));
+		request.setAttribute("minPrice", request.getParameter("minPrice"));
+		request.setAttribute("maxPrice", request.getParameter("maxPrice"));
 		Util.RedirectTo(request, response, "Catalog");
 	}
 	
