@@ -8,7 +8,7 @@ public class MySQLConexion {
 	
 	private static final String URL = "jdbc:mysql://localhost/dbBienesRaices?useSSL=false&useTimezone=true&serverTimezone=UTC";
 	private static final String USER = "root";
-	private static final String PASSWORD = "password";
+	private static final String PASSWORD = "Sherlock0";
 	
 	public static Connection getConexion() {
 		

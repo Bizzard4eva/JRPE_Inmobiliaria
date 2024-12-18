@@ -3,6 +3,7 @@ package Servlets;
 import java.io.IOException;
 import java.util.List;
 
+import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -77,12 +78,14 @@ public class InmuebleServlet extends HttpServlet {
 		Integer idTipoInmueble = Util.validateParameter(request.getParameter("tipoInmuebleSelected"), Integer.class, 1);
 		Integer areaTotal = Util.validateParameter(request.getParameter("areaTotal"), Integer.class, 600);
 		List<CardInmueble> listCardsFiltered = new InmuebleModel().listFilteredInmueble(minPrice, maxPrice, idDistrito, idTipoInmueble);
+		Integer resultCount = listCardsFiltered.size();
 		System.out.println(listCardsFiltered.toString());
 		request.setAttribute("listDistrito", listDistrito);
 		request.setAttribute("listTipoInmueble", listTipoInmueble);
 		request.setAttribute("distritoSelected", idDistrito);
 		request.setAttribute("tipoInmuebleSelected", idTipoInmueble);
 		request.setAttribute("listCardsFiltered", listCardsFiltered);
+		request.setAttribute("resultCount", resultCount);
 		request.setAttribute("minPrice", minPrice);
 		request.setAttribute("maxPrice", maxPrice);
 		request.setAttribute("areaTotal", areaTotal);

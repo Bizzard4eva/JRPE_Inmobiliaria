@@ -1,3 +1,4 @@
+<%@page import="Entidades.CardInmueble"%>
 <%@page import="Entidades.TipoInmueble"%>
 <%@page import="Entidades.Distrito"%>
 <%@page import="java.util.List"%>
@@ -26,6 +27,8 @@
        	<%
        		List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
        		List<TipoInmueble> listTipoInmueble = (List<TipoInmueble>) request.getAttribute("listTipoInmueble");
+       		List<CardInmueble> listCardsFiltered = (List<CardInmueble>) request.getAttribute("listCardsFiltered");
+       		Integer resultCount = (Integer) request.getAttribute("resultCount");
        		Integer idDistrito = (Integer) request.getAttribute("distritoSelected");
        		Integer idTipoInmueble = (Integer) request.getAttribute("tipoInmuebleSelected");
         	Integer minPrice = (Integer) request.getAttribute("minPrice");
@@ -35,8 +38,8 @@
            <div class="col-12 col-lg-4 col-xxl-3">
                <div class="filters shadow p-3 mb-5 bg-body rounded">
                    <form action="InmuebleServlet" method="post">
-<!-- 		   			   <input type="hidden" name="action" value="loadCatalog"> -->
-<!-- 					   <input type="hidden" name="redirectTo" value="Catalog"> -->
+				      <input type="hidden" name="action" value="loadCatalog">
+					  <input type="hidden" name="redirectTo" value="Catalog">
                        <!-- Combo Box para Distritos -->
                        <div class="mb-3">
                            <label for="distrito" class="form-label">Distrito</label>
@@ -69,7 +72,7 @@
                         		   String nombre = tipo.getTipo();
                            %>
 								   <div class="form-check">
-		                               <input type="radio" class="form-check-input" id="<%= id %>" name="tipoInmueble" value="<%= nombre %>" <%= (id == idTipoInmueble) ? "checked" : "" %>>
+		                               <input type="radio" class="form-check-input" id="" name="tipoInmuebleSelected" value="<%= id %>" <%= (id == idTipoInmueble) ? "checked" : "" %>>
 		                               <label class="form-check-label" for="tipo<%=nombre%>"><%= nombre %></label>
 								   </div>                           			
                            <%
@@ -102,11 +105,11 @@
                            <div class="d-flex justify-content-between mt-2 price-input">
                                <div>
                                    <label for="inputMin" class="form-label">Mínimo:</label>
-                                   <input type="number" id="inputMin" class="form-control" min="60000" max="500000" value="<%= minPrice %>">
+                                   <input type="number" name="minPrice" id="inputMin" class="form-control" min="60000" max="500000" value="<%= minPrice %>">
                                </div>
                                <div>
                                    <label for="inputMax" class="form-label">Máximo:</label>
-                                   <input type="number" id="inputMax" class="form-control" min="60000" max="500000" value="<%= maxPrice %>">
+                                   <input type="number" name="maxPrice" id="inputMax" class="form-control" min="60000" max="500000" value="<%= maxPrice %>">
                                </div>
                            </div>
                        </div>
@@ -116,9 +119,12 @@
                            <label for="areaTotal" class="form-label">Area Total: 
                                <span id="valorAreaTotal">600</span> m²
                            </label>
-                           <input type="range" class="form-range" id="areaTotal" name="cantidadAreaTotal" min="40" max="600" step="20" value="600" oninput="actualizarValorAreaTotal(this.value)">
+                           <input type="range" class="form-range" id="areaTotal" name="areaTotal" min="40" max="600" step="20" value="600" oninput="actualizarValorAreaTotal(this.value)">
                        </div>
-
+                       
+						<button type="submit" class="btn btn-search bg-primary mx-2" style="text-align: center; width: 50%; color:white;">
+							BUSCAR
+						</button>
                    </form>
                </div>
            </div>
@@ -129,7 +135,7 @@
                <!-- HEADER -->
                <div class="row">
                    <div class="col-12"> 
-                       <h2>Resultados (<span id="resultCount">?</span>)</h2>
+                       <h2>Resultados (<span><%= resultCount %></span>)</h2>
                    </div>  
                </div>
                <!-- HEADER -->
@@ -137,35 +143,46 @@
                <div class="row">
                    <div class="container-fluid mt-4">
                        <div class="row g-2">
+                       <%
+                       		if(listCardsFiltered != null) {
+                       			for(CardInmueble card : listCardsFiltered) {
+                       				
+                       %>
                            <div class="col-xxl-4 col-sm-6 mb-5">
                                <div class="card h-100">
-                                   <img src="img/catalog_banner.jpg" class="card-img-top" alt="Card" style="height: 200px;">
+                                   <img src="<%= card.getRutaImagenInmueble() %>" class="card-img-top" alt="Card" style="height: 200px;">
                                    <div class="card-body d-flex flex-column align-items-start">
                                        <h5 class="card-title" style="color: #333;">
-                                           S/PRECIO
+                                           S/<%= card.getPrecioInmueble() %>
                                        </h5>
                                        <p class="card-text" style="color: #333;">
                                            <i class="bi bi-geo-alt-fill text-primary"></i>
-                                           DIRECCION
+                                           <%= card.getDireccionInmueble() %>
                                        </p>
                                        <p class="card-text" style="color: #333;">
                                            <i class="bi bi-hdd-fill text-primary"></i>
-                                           DORMITORIOS
+                                           <%= card.getHabitacionesInmueble() %>
                                            <i class="bi bi-cloud-drizzle-fill text-primary"></i>
-                                           BANOS
+                                           <%= card.getBanosInmueble() %>
                                        </p>
                                        <p class="card-text" style="color: #333;">
                                            <i class="bi bi-aspect-ratio-fill text-primary"></i>
-                                           AREATOTAL
+                                           <%= card.getAreaTotalInmueble() %>
                                            <i class="bi bi-aspect-ratio-fill text-primary"></i>
-                                           AREACONST
+                                           <%= card.getAreaConstruidaInmueble() %>
                                        </p>
-                                       <a href="CardInmuebleServlet?type=detail&id=" class="btn btn-primary" style="color: white; margin-top: auto;">
+                                       <a href="InmuebleServlet?action=loadProperty&idInmueble=<%=card.getIdInmueble()%>&redirectTo=Property"
+                                       class="btn btn-primary" style="color: white; margin-top: auto;">
                                            Detalles
                                        </a>
                                    </div>
                                </div>
                            </div>
+                       <%
+                       			}
+                       		}
+                       %>
+                           
                        </div>
                    </div>
                </div>

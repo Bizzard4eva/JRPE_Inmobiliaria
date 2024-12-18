@@ -1,5 +1,6 @@
 package Modelos;
 
+import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -61,19 +62,19 @@ public class InmuebleModel implements InmuebleInterface {
 	public List<CardInmueble> listFilteredInmueble(Integer min, Integer max, Integer idDistrito, Integer idTipoInmueble) {
 		
 		List<CardInmueble> listInmueble = new ArrayList<CardInmueble>();
-		String sql = "{CALL sp_filteredInmueble(?, ?, ?, ?)}";
+		String sql = "{ CALL sp_filteredInmueble(?, ?, ?, ?) }";
 		
 		try
 		(	
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareCall(sql);
+			CallableStatement statement = conexion.prepareCall(sql);
 		)
 		{
 			statement.setInt(1, min);
 			statement.setInt(2, max);
 			statement.setInt(3, idDistrito);
 			statement.setInt(4, idTipoInmueble);
-			
+
 			ResultSet result = statement.executeQuery();
 			while(result.next()) {
 				CardInmueble inmueble = new CardInmueble(

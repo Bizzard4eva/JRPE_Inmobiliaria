@@ -33,7 +33,7 @@
 				  <th scope="col">Área Construida</th>
 				  <th scope="col">Estado</th>
 				  <th scope="col">Habitaciones</th>
-				  <th scope="col">Empleado</th>
+				  <th scope="col">Agente</th>
 				  <th scope="col">Distrito</th>
 				  <th scope="col" >Acciones</th>
 				</tr>

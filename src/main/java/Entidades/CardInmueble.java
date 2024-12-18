@@ -51,5 +51,19 @@ public class CardInmueble {
 	public double getAreaConstruidaInmueble() {
 		return areaConstruidaInmueble;
 	}
+	
+	@Override
+	public String toString() {
+		return "CardInmueble(" + 
+				"id=" + idInmueble + 
+				"id=" + habitacionesInmueble + 
+				"id=" + banosInmueble + 
+				"id=" + rutaImagenInmueble + 
+				"id=" + direccionInmueble + 
+				"id=" + precioInmueble + 
+				"id=" + areaTotalInmueble + 
+				"id=" + areaConstruidaInmueble + 
+				")";
+	}
 
 }
