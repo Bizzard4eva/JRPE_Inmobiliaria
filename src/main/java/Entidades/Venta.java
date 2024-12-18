@@ -4,26 +4,30 @@ import java.util.Date;
 
 public class Venta {
 
-	private Integer idVenta, idInmueble, idCliente, idAgente;
+	private Integer idVenta;
+	private String inmueble, cliente, agente;
 	private Double precioFinal;
 	private Date fechaVenta;
 	
-	public Venta(Integer idVenta, Integer idInmueble, Integer idCliente, Integer idAgente, Double precioFinal, Date fechaVenta) {
+
+	public Venta(Integer idVenta, String inmueble, String cliente, String agente, Double precioFinal, Date fechaVenta) {
+		super();
 		this.idVenta = idVenta;
-		this.idInmueble = idInmueble;
-		this.idCliente = idCliente;
-		this.idAgente = idAgente;
+		this.inmueble = inmueble;
+		this.cliente = cliente;
+		this.agente = agente;
 		this.precioFinal = precioFinal;
 		this.fechaVenta = fechaVenta;
 	}
-	
+
+
 	public Venta() { }
 
 	
 	public Integer getIdVenta() { return idVenta; }
-	public Integer getIdInmueble() { return idInmueble; }
-	public Integer getIdCliente() { return idCliente; }
-	public Integer getIdAgente() { return idAgente; }
+	public String getInmueble() { return inmueble; }
+	public String getCliente() { return cliente; }
+	public String getAgente() { return agente; }
 	public Double getPrecioFinal() { return precioFinal; }
 	public Date getFechaVenta() { return fechaVenta; }
 	

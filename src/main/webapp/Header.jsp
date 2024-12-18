@@ -6,7 +6,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <title>Header</title>
 <link rel="stylesheet" href="css/Header.css">
 </head>
@@ -28,7 +28,7 @@
 			<div class="d-flex align-items-center">
 				<!-- Menu -->
 				<ul class="menu__header">
-					<% if (rolUsuario == "Administrador" || rolUsuario == "Agente") { %>
+					<% if (rolUsuario != null && (rolUsuario.equals("Administrador") || rolUsuario.equals("Agente"))) { %>
 						<% for (Header item : Constants.ITEMS_HEADER_ADMIN) { %>
 								<li class="nav-item">
 									<a class="nav-link" href="<%= item.getUrl()%>">
