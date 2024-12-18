@@ -1,14 +1,14 @@
 @charset "ISO-8859-1";
 /* BANNER */
-#banner {
-    background: url('../images/Catalog_banner.jpg') center/cover no-repeat;
+.banner {
+    background: url('./../images/Catalog_banner.jpg') center/cover no-repeat;
     height: 360px;
     color: whitesmoke;
     display: flex;
     align-items: center;
     justify-content: center;
 }
-#banner h1 {
+.banner h1 {
     background: rgba(0, 0, 0, 0.6);
     padding: 10px 20px;
     border-radius: 5px;

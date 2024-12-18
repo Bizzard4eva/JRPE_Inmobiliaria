@@ -1,0 +1,65 @@
+/* 	Estilos del header */
+.container__header {
+	display: flex;
+	justify-content: space-between;
+}
+
+.navbar {
+	background-color: #1b5161;
+}
+
+.brand-name {
+	color: white
+}
+
+.menu__header {
+	list-style: none;
+    color: white;
+    display: flex;
+    gap: 1rem;
+    margin: 0 1rem;
+    align-items: center;
+    font-weight: 600;
+}
+
+.menu__header a {
+	padding: 1rem;
+}
+
+.nav-link:hover {
+	color: black;
+}
+
+.button__login {
+    padding: 0.5rem 1rem;
+    background-color: #3f413f;
+    color: white;
+    border-radius: 10px;
+    display: flex;
+	align-items: center;
+    gap: 0.2rem;
+    cursor: pointer;
+}
+
+.button__login a {
+	text-decoration: none;
+	color: white;
+	font-weight: 600;
+}
+
+.icon__login {
+	aspect-ratio: 1;
+	max-width: 20px;
+	max-height: 20px;
+	color: white;
+}
+
+.button__login:hover {
+	background-color: #656765;
+}
+
+.usuario__name {
+	color: white;
+	font-weight: 700;
+	margin: 0 0.5rem;
+}

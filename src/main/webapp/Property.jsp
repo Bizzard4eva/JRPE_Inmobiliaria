@@ -9,38 +9,34 @@
 <title>Propiedades</title>
 <link rel="stylesheet" href="css/Property.css">
 <link rel="stylesheet" href="css/Home.css">
-
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
 	rel="stylesheet"
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
 	crossorigin="anonymous">
 </head>
+<style>
+  .thumbnail {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+
+  .thumbnail:hover {
+    transform: scale(1.1); /* Incrementa el tamaño al hacer hover */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Agrega sombra para un efecto visual atractivo */
+  }
+  
+  .container-thumbnail {
+  	width: 107px;
+  }
+  
+</style>
 <body>
 	<%
 		Inmueble inmueble = (Inmueble) request.getAttribute("inmuebleDetail");
 	%>
 
-<nav class="navbar navbar-expand-lg">
-		<div class="container">
-			<!-- Logo -->
-			<a class="navbar-brand d-flex align-items-center" href="#"> <img
-				src="./images/logo.svg" alt="Logo" class="logo"> <span
-				class="brand-name">JRPE Inmobiliaria</span>
-			</a>
-
-			<!-- Menu de navegacion -->
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Nosotros</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Inmuebles</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Contacto</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
+	<%@ include file="Header.jsp" %>
     <div class="d-flex justify-content-center align-items-center bg-light">
       <section class="w-100 bg-white p-4 rounded shadow">
         <div class="container">
@@ -57,18 +53,18 @@
             </div>
 
             <!-- Imagenes pequeñas alineadas verticalmente -->
-            <div class="col-lg-1 col-md-2 col-sm-12">
-              <div class="d-flex flex-column justify-content-between h-100">
-                <img src="<%=imagenes.get(1)%>" class="img-fluid rounded flex-grow-1 mb-2" alt="Thumbnail 1" 
-                 	 onclick="changeImage(this)"/>
-                <img src="<%=imagenes.get(2)%>" class="img-fluid rounded flex-grow-1 mb-2" alt="Thumbnail 2"
-                 	 onclick="changeImage(this)"/>
-                <img src="<%=imagenes.get(3)%>" class="img-fluid rounded flex-grow-1 mb-2" alt="Thumbnail 3"
-                  	 onclick="changeImage(this)"/>
-                <img src="<%=imagenes.get(4)%>" class="img-fluid rounded flex-grow-1 mb-2" alt="Thumbnail 4"
-                  	 onclick="changeImage(this)"/>
-              </div>
-            </div>
+    	<div class="col-lg-1 col-md-2 col-sm-12">
+		  <div class="d-flex flex-column justify-content-between h-100 container-thumbnail">
+		    <img src="<%=imagenes.get(1)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 1" 
+		         onclick="changeImage(this)"/>
+		    <img src="<%=imagenes.get(2)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 2"
+		         onclick="changeImage(this)"/>
+		    <img src="<%=imagenes.get(3)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 3"
+		         onclick="changeImage(this)"/>
+		    <img src="<%=imagenes.get(4)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 4"
+		         onclick="changeImage(this)"/>
+		  </div>
+		</div>
 		<%
         	}
 		%>	
@@ -164,20 +160,16 @@
             <p></p>
           </div>
         </div>
-        <div class="mk-mod-flex mk-mod-size mk-top-descip">
+        <div class="container p-4">
           <div class="mk-block">
             <ul class="list-unstyled text-start">
-              <li class="d-flex align-items-center ms-5">
+              <li class="d-flex align-items-center gap-2">
                 <img src="./images/business-outline.png" style="width: 18px" />
-                <p><b>Tipo:</b><span><%=inmueble.getTipo() %></span></p>
+                <span><strong>Tipo: </strong> <%=inmueble.getTipo() %></span>
               </li>
-              <!-- <li class="d-flex align-items-center ms-5">
+              <li class="d-flex align-items-center gap-2">
                 <img src="./images/location-outline-4.png" style="width: 18px" />
-                <p><b>Ubicacion:</b> <span>San Isidro</span></p>
-              </li> -->
-              <li class="d-flex align-items-center ms-5">
-                <img src="./images/location-outline-4.png" style="width: 18px" />
-                <p><b>Estado:</b> <span><%=inmueble.getEstado() %></span></p>
+                <span><strong>Estado: </strong><%=inmueble.getEstado() %></span>
               </li>
             </ul>
           </div>
@@ -299,13 +291,13 @@
 
         <!--SECCION RESUMEN-->
         <div
-          class="bg-primary text-white rounded-2 d-grid justify-content-center align-content-between p-4"
+          class="bg-primary text-white rounded-2 d-grid justify-content-center align-content-between p-4 container mb-5"
           style="width: 204px; height: 67px"
         >
           <span>Resumen</span>
         </div>
         <div
-          class="container-fluid max-w-100 mx-auto shadow-sm rounded-3 mt-n1 bg-white d-flex"
+          class="container-fluid max-w-100 mx-auto shadow-sm rounded-3 mt-n1 bg-white d-flex justify-content-center"
         >
           <div class="w-100 py-2 px-3">
             <table>

@@ -21,7 +21,7 @@ public class CardInmuebleServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		String type = request.getParameter("type");
+		String type = request.getParameter("action");
 		
 		switch(type) {
 		case "list": listCardInmueble(request, response); break;

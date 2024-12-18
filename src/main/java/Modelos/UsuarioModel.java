@@ -152,7 +152,7 @@ public class UsuarioModel implements UsuarioInterface {
 		
 		Usuario usuario = null;
 		String sql = "SELECT * FROM Usuarios "
-				   + "WHERE emailUsuario = ? AND passwordUsuario = ?";
+				   + "WHERE emailUsuario=? AND passwordUsuario=?";
 		
 		try
 		(
@@ -184,6 +184,8 @@ public class UsuarioModel implements UsuarioInterface {
 			System.err.println("Error al autenticar usuario: " + e.getMessage());
 			throw new RuntimeException("Error al autenticar usuario");
 		}
+		
+		System.out.println("usuario "+usuario);
 		return usuario;
 	}
 

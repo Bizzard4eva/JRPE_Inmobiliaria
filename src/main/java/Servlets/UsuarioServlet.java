@@ -52,10 +52,10 @@ public class UsuarioServlet extends HttpServlet {
 	}
 	private void addUsuario(HttpServletRequest request, HttpServletResponse response) {
 		Usuario usuario = new Usuario(0,
-				request.getParameter("nombre"), 
-				request.getParameter("email"), 
-				request.getParameter("password"), 
-				request.getParameter("telefono"));
+				request.getParameter("txtName"), 
+				request.getParameter("txtEmail"), 
+				request.getParameter("txtPassword"), 
+				request.getParameter("txtTel"));
 		
 		if(new UsuarioModel().addUsuario(usuario)) { Util.RedirectTo(request, response); }
 	}

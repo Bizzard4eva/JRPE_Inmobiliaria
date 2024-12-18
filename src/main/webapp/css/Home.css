@@ -7,28 +7,6 @@ html, body {
 	width: 100%;
 }
 
-.navbar {
-	background-color: #1b5161;
-}
-
-.navbar .navbar-brand .logo {
-	height: 50px;
-}
-
-.navbar .navbar-brand .brand-name {
-	color: white;
-	font-weight: bold;
-}
-
-.navbar-nav .nav-link {
-	color: white;
-	font-weight: 500;
-}
-
-.navbar-nav .nav-link:hover {
-	color: grey;
-}
-
 .banner-container {
 	position: relative;
 	background-image: url('../images/banner.png');

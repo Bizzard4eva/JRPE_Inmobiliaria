@@ -17,22 +17,7 @@
 		 if(request.getAttribute("listCardInmueble") == null) { response.sendRedirect("InmuebleServlet?action=loadHome"); return; }
 	%>
 	<div class="container-fluid m-0 p-0">
-		<nav class="navbar navbar-expand-lg">
-			<div class="container">
-				<!-- Logo -->
-				<a class="navbar-brand d-flex align-items-center" href="#"> <img
-						src="./images/logo.svg" alt="Logo" class="logo"> <span
-						class="brand-name">JRPE Inmobiliaria</span>
-				</a>
-
-				<ul class="navbar-nav ms-auto">
-					<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Nosotros</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Inmuebles</a></li>
-					<li class="nav-item"><a class="nav-link" href="#">Contacto</a></li>
-				</ul>
-			</div>
-		</nav>
+		<%@ include file="Header.jsp" %>
 		<!-- Banner -->
 		<div class="banner-container position-relative">
 

@@ -113,10 +113,12 @@ public class InmuebleServlet extends HttpServlet {
 
 	// GENERALES
 	private void listInmuebles(HttpServletRequest request, HttpServletResponse response) {
+		System.out.println("Ingreso a la lista inmuebles");
 		List<Inmueble> inmuebles = new InmuebleModel().listInmueble();
-
+		System.out.println(inmuebles);
 		request.setAttribute("inmuebles", inmuebles);
-		Util.RedirectTo(request, response);
+//		Util.RedirectTo(request, response);
+		Util.RedirectTo(request, response, "Admin.jsp");
 	}
 
 	private void getInmueble(HttpServletRequest request, HttpServletResponse response) {

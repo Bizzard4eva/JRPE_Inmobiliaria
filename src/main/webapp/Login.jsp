@@ -1,9 +1,9 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
+<% request.setAttribute("hideLoginButton", true); %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
-<link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://bootstrap.com">
 <title>Login</title>
  <link 
@@ -14,182 +14,49 @@
 	rel="stylesheet" 
 	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
 	crossorigin="anonymous">
+<link rel="stylesheet" href="css/Header.css">
+<link rel="stylesheet" href="css/Login.css">
 </head>
-<style>
-	*{
-		margin: 0;
-		padding: o;
-		box-sizing: border-box;
-	}
-	body {
-		font-family: 'Roboto', sans-serif;
-		line-height: 1.6;
-	}
-	.container__menu {
-		background: #182F59;
-	}
-	.container_submenu {
-		background: #818a91;
-	}
-	.fs-14 {
-		font-size: 14px;
-	}
-	.fw-600 {
-	  	font-weight: 600;
-	}
-	.h-3rem {
-		height: 3rem
-	}
-	.text-gray-200 {
-		color: #667085;
-	}
-	.container_form {
-		min-height: 609px;
-		max-height: 609px;
-		height: 100%;
-		overflow-y: auto; 
-	}
-	.login__button {
-		background-color: #1b5161;
-		color: #fff;
-	}
-	
-	.login__button:hover {
-		background-color: #1b5161;
-		color: #fff;
-		cursor: pointer;
-	}
-	
-	.register__button {
-		border: 1px solid #1b5161;
-		color: #1b5161;
-	}
-	
-	.register__button:hover {
-		background-color: #83b3c1;
-		color: #fff;
-	}
-	
-	@media (max-width: 1400px) {
-		.container_form {
-			min-height: 540px;
-			max-height: 540px;
-		}
-	}
-	
-	@media (max-width: 1200px) {
-		.container_form {
-			min-height: 451px;
-			max-height: 451px;
-		}
-	}
-	
-	@media (max-width: 991px) {
-		.container_form {
-			width: 100%;
-			height: auto;
-			max-height: 700px;
-		}
-	  	.login__image {
-	   	 	display: none;
-	  	}
-	}
-	
-	/* Estilos para el scrollbar en Webkit */
-	::-webkit-scrollbar {
-	  	width: 8px;
-	}
-	
-	::-webkit-scrollbar-thumb {
-		  background-color: #1b5161; /* Color scrollbar en Webkit */
-		  border-radius: 10px; 
-		  border: 2px solid #ffffff;
-	}
-	
-	
-	/* 	Estilos del header */
-	.navbar {
-		background-color: #1b5161;
-	}
-	
-	.navbar .navbar-brand .logo {
-		height: 50px;
-	}
-	
-	.navbar .navbar-brand .brand-name {
-		color: white;
-		font-weight: bold;
-	}
-	
-	.navbar-nav .nav-link {
-		color: white;
-		font-weight: 500;
-	}
-	
-	.navbar-nav .nav-link:hover {
-		color: grey;
-	}
-	
-</style>
-
 <body>
-	<nav class="navbar navbar-expand-lg">
-		<div class="container">
-			<!-- Logo -->
-			<a class="navbar-brand d-flex align-items-center" href="#"> <img
-				src="./images/logo.svg" alt="Logo" class="logo"> <span
-				class="brand-name">JRPE Inmobiliaria</span>
-			</a>
-
-			<!-- Men� de navegaci�n -->
-			<ul class="navbar-nav ms-auto">
-				<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
-				<li class="nav-item"><a class="nav-link" href="#">Nosotros</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Inmuebles</a>
-				</li>
-				<li class="nav-item"><a class="nav-link" href="#">Contacto</a>
-				</li>
-			</ul>
-		</div>
-	</nav>
-	
+	<%@ include file="Header.jsp" %>
 	<section class="container my-5">
 	  <div class="row justify-content-center">
 	    <div class="col-md-6 px-5 py-3 bg-light rounded container_form">
 	    	<div class="my-4">
 	    		<h3 class="fw-bold">BIENVENIDO</h3>
-	    		<span class="fs-14 text-gray-200">Inicia sesi�n o reg�strate para ingresar a grandes beneficios y descuentos.</span>
+	    		<span class="fs-14 text-gray-200">Inicia sesión o regístrate para ingresar a grandes beneficios y descuentos.</span>
 	    	</div>
 		      <div class="text-center mb-4">
 		      	<!-- Botones de cambio -->
 			    <div class="col-12 text-center mb-4 w-100 d-flex">
-			      <button id="login-button" class="btn me-2 w-100">Iniciar Sesi�n</button>
+			      <button id="login-button" class="btn me-2 w-100">Iniciar Sesión</button>
 			      <button id="register-button" class="btn w-100">Crear Cuenta</button>
 			    </div>
 		      </div>
 		      
-		      <!-- Formulario de inicio de sesi�n -->
-		      <form action="LoginServlet" id="login-form" method="POST">
+		      <!-- Formulario de inicio de sesión -->
+		      <form action="LoginServlet" id="login-form" method="post">
 		      		<% String mensaje = (String) request.getAttribute("mensaje"); %>
+		      		<input type="hidden" name="action" value="login">
 			        <div class="mb-3 fw-normal">
 			        	<label class="mb-1" for="txtEmail">Email</label>
 			          	<input type="email" class="form-control h-3rem" placeholder="Email" name="txtEmail" required>
 			        </div>
 			        <div class="mb-3 fw-normal">
-			        	<label class="mb-1" for="txtPassword">Contrase�a</label>
-			          	<input type="password" class="form-control h-3rem" placeholder="Contrase�a"  name="txtPassword" required>
+			        	<label class="mb-1" for="txtPassword">Contraseña</label>
+			          	<input type="password" class="form-control h-3rem" placeholder="Contraseña"  name="txtPassword" required>
 			        </div>
 			        <% if (mensaje != null) { %>
 					    <div class="alert alert-danger">
 					        <%= mensaje %>
 					    </div>
 					<% } %>
-		        	<button type="submit" class="btn login__button w-100 h-3rem mt-2 fw-normal">Iniciar Sesi�n</button>
+		        	<button type="submit" class="btn login__button w-100 h-3rem mt-2 fw-normal">Iniciar Sesión</button>
 		      </form>
 		      
 		      <!-- Formulario de registro -->
-		      <form action="" id="register-form" class="d-none mb-2" method="POST">
+		      <form action="UsuarioServlet" id="register-form" class="d-none mb-2" method="post">
+		      	<input type="hidden" name="action" value="add">
 		        <div class="mb-3">
 			    	<label class="mb-1" for="txtName">Nombre</label>
 			        <input type="text" class="form-control h-3rem" placeholder="Nombre" name="txtName" required>
@@ -199,12 +66,12 @@
 		          	<input type="email" class="form-control h-3rem" placeholder="Email" name="txtEmail" required>
 		        </div>
 		        <div class="mb-3">
-		        	<label class="mb-1" for="txtTel">Tel�fono</label>
-		          	<input type="tel" class="form-control h-3rem" placeholder="Tel�fono" name="txtTel" required>
+		        	<label class="mb-1" for="txtTel">Teléfono</label>
+		          	<input type="tel" class="form-control h-3rem" placeholder="Teléfono" name="txtTel" required>
 		        </div>
 		        <div class="mb-3">
-		        	<label class="mb-1" for="txtPassword">Contrase�a</label>
-		            <input type="password" class="form-control h-3rem" placeholder="Contrase�a" name="txtPassword" required>
+		        	<label class="mb-1" for="txtPassword">Contraseña</label>
+		            <input type="password" class="form-control h-3rem" placeholder="Contraseña" name="txtPassword" required>
 		        </div>
 		        <button type="submit" class="btn login__button w-100 h-3rem fw-normal">Crear Cuenta</button>
 		      </form>
@@ -230,7 +97,7 @@
 	  const $loginButton = $('#login-button')
 	  const $registerButton = $('#register-button')
 
-	  // Funci�n para mostrar el formulario de inicio de sesi�n
+	  // Función para mostrar el formulario de inicio de sesión
 	  const showLoginForm = () => {
 	    $loginForm.removeClass('d-none')
 	    $registerForm.addClass('d-none')
@@ -239,7 +106,7 @@
 	    $registerButton.addClass('register__button').removeClass('login__button')
 	  };
 
-	  // Funci�n para mostrar el formulario de registro
+	  // Función para mostrar el formulario de registro
 	  const showRegisterForm = () => {
 	    $loginForm.addClass('d-none')
 	    $registerForm.removeClass('d-none')
