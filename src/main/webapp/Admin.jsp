@@ -9,11 +9,9 @@
 <title>Administrador</title>
 <link rel="stylesheet" href="css/Admin.css">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 <link rel="stylesheet" href="css/Header.css">
 </head>
 <body>
-
 	<%@ include file="Header.jsp" %>
 	<div class="container mt-5">
 		<div class="d-flex justify-content-between mb-2">
@@ -56,8 +54,8 @@
 				            <td><%= inmueble.getUsuario() != null ? inmueble.getUsuario().getNombre() : "Sin usuario" %></td>
 				            <td><%= inmueble.getDistrito() != null ? inmueble.getDistrito().getNombre() : "Sin distrito" %></td>
 				        	<td class="d-flex gap-2">
-				        		<button type="button" class="btn btn-warning">Editar</button>
-				        		<button type="button" class="btn btn-danger">Eliminar</button>
+				        		<button type="button" class="btn btn-warning" id="buttonEdit">Editar</button>
+				        		<button type="button" class="btn btn-danger" id="buttonDelete">Eliminar</button>
 				        	</td>
 				        </tr>
 				    <% } %>
@@ -65,6 +63,5 @@
 			  </tbody>
 		</table>
 	</div>
-
 </body>
 </html>

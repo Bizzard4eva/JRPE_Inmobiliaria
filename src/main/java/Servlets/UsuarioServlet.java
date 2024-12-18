@@ -17,7 +17,7 @@ public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
+		System.out.println(request.getParameter("action"));
 		switch (request.getParameter("action")) {
 		case "list": listUsuarios(request, response); break;
 		case "validate": loginUsuario(request, response); break;
@@ -30,9 +30,10 @@ public class UsuarioServlet extends HttpServlet {
 
 	private void listUsuarios(HttpServletRequest request, HttpServletResponse response) {
 		List<Usuario> usuarios = new UsuarioModel().listUsuario();
-		
+
 		request.setAttribute("usuarios", usuarios);
 		Util.RedirectTo(request, response);
+		Util.RedirectTo(request, response, "AdminUsuarios");
 	}
 	private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuarioLogeado = new UsuarioModel().validateUsuario(
