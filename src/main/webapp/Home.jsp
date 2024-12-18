@@ -14,7 +14,7 @@
 <body>
 
 	<% 
-		if(request.getAttribute("listCardInmueble") == null) { response.sendRedirect("InmuebleServlet?action=loadHome"); return; }
+		 if(request.getAttribute("listCardInmueble") == null) { response.sendRedirect("InmuebleServlet?action=loadHome"); return; }
 	%>
 	<div class="container-fluid m-0 p-0">
 		<nav class="navbar navbar-expand-lg">
@@ -41,44 +41,47 @@
 				<h2>Bienvenidos a JRPE Inmobiliaria</h2>
 				<p>Encuentra las mejores opciones para tu futuro hogar</p>
 
-				<div class="filter p-4">
-<!-- 					<form action="CardInmuebleServlet?type=search" class="search-filter d-flex justify-content-center"> -->
-						<form action="InmuebleServlet?action=load&redirectTo=Catalog" class="search-filter d-flex justify-content-center">
-						<input type="text" name="minPrice" placeholder="Precio Min" class="form-control mx-2">
-						<input type="text" name="maxPrice" placeholder="Precio Max" class="form-control mx-2" >
-						<select name="distrito" class="form-select mx-2">
-							<option value="">Distrito</option>
-							<% List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
-									if (listDistrito != null) {
-									for (Distrito distrito : listDistrito) {
-							%>
-							<option value="<%=distrito.getIdDistrito()%>">
-								<%=distrito.getNombre()%>
-							</option>
-							<% 
-									} 
-							} 
-							%>
-						</select>
+				<div class="filter p-4" style="background-color: rgba(0, 0, 0, 0.5); border-radius: 30px;">
+						<form action="InmuebleServlet" class="search-filter d-flex justify-content-center">
+							<input type="hidden" name="action" value="loadCatalog">
+							<input type="hidden" name="redirectTo" value="Catalog">
+							
+							<input type="text" name="minPrice" placeholder="Precio Min" class="form-control mx-2">
+							<input type="text" name="maxPrice" placeholder="Precio Max" class="form-control mx-2">
+							<select name="distritoSelected" class="form-select mx-2">
+								<option value="1">Distrito</option>
+								<% 
+										List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
+										if (listDistrito != null) {
+										for (Distrito distrito : listDistrito) {
+								%>
+								<option value="<%=distrito.getIdDistrito()%>">
+									<%=distrito.getNombre()%>
+								</option>
+								<% 
+										} 
+								} 
+								%>
+							</select>
 
-						<select name="tipoInmueble" class="form-select mx-2">
-							<option value="">Tipo</option>
-							<% 
-// 							List<String> tipoInmueble = (List<String>) request.getAttribute("tipoInmueble");
-							List<TipoInmueble> listTipoInmueble = (List<TipoInmueble>) request.getAttribute("tipoInmueble");
-							if (listTipoInmueble != null) {
-								for (TipoInmueble tipo : listTipoInmueble) {
-							%>
-									<option value="<%=tipo.getIdTipoInmueble()%>">
-										<%=tipo.getTipo()%>
-									</option>
-							<% 
+							<select name="tipoInmuebleSelected" class="form-select mx-2">
+								<option value="1">Tipo</option>
+								<% 
+								List<TipoInmueble> listTipoInmueble = (List<TipoInmueble>) request.getAttribute("tipoInmueble");
+								if (listTipoInmueble != null) {
+									for (TipoInmueble tipo : listTipoInmueble) {
+								%>
+										<option value="<%=tipo.getIdTipoInmueble()%>">
+											<%=tipo.getTipo()%>
+										</option>
+								<% 
+									}
 								}
-							}
-							%>
-						</select>
-						<button type="submit" class="btn btn-search mx-2"
-							style="text-align: center; width: 50%;">BUSCAR</button>
+								%>
+							</select>
+							<button type="submit" class="btn btn-search mx-2" style="background-color: #1b5161; text-align: center; width: 50%; color:white;">
+								BUSCAR
+							</button>
 					</form>
 				</div>
 			</div>
@@ -133,8 +136,8 @@
 			<div class="row">
 				<div class="col-md-4 text-center">
 					<img class="logofooter mb-3" src="images/logo.svg" alt="logo">
-					<h2>JRPE Inmobiliaria</h2>
-					<p>Somos una empresa dedicada a ofrecer las mejores propiedades
+					<h2 style="color: white;">JRPE Inmobiliaria</h2>
+					<p style="color: white;">Somos una empresa dedicada a ofrecer las mejores propiedades
 						y departamentos, brindando confianza, calidad y atencion
 						personalizada.</p>
 				</div>

@@ -58,19 +58,19 @@ public class InmuebleModel implements InmuebleInterface {
 	}
 	
 	@Override
-	public List<CardInmueble> listFilteredInmueble(Double min, Double max, Integer idDistrito, Integer idTipoInmueble) {
+	public List<CardInmueble> listFilteredInmueble(Integer min, Integer max, Integer idDistrito, Integer idTipoInmueble) {
 		
 		List<CardInmueble> listInmueble = new ArrayList<CardInmueble>();
-		String sql = "{CALL sp_filteredCardInmueble(?, ?, ?, ?)}";
+		String sql = "{CALL sp_filteredInmueble(?, ?, ?, ?)}";
 		
 		try
 		(	
 			Connection conexion = MySQLConexion.getConexion();
-			PreparedStatement statement = conexion.prepareStatement(sql);
+			PreparedStatement statement = conexion.prepareCall(sql);
 		)
 		{
-			statement.setDouble(1, min);
-			statement.setDouble(2, max);
+			statement.setInt(1, min);
+			statement.setInt(2, max);
 			statement.setInt(3, idDistrito);
 			statement.setInt(4, idTipoInmueble);
 			
@@ -135,6 +135,35 @@ public class InmuebleModel implements InmuebleInterface {
 		}
 
 		return listInmuebleCard;
+	}
+	
+	@Override
+	public List<String> listImagenesInmueble(Integer id) {
+		
+		List<String> listImagenes = new ArrayList<String>();
+		String sql = "SELECT rutaImagenInmueble FROM ImagenesInmuebles WHERE idInmueble = ?";
+		
+		try
+		(
+			Connection conexion = MySQLConexion.getConexion();
+			PreparedStatement statement = conexion.prepareStatement(sql);
+		)
+		{
+			statement.setInt(1, id);
+			
+			ResultSet result = statement.executeQuery();
+			while(result.next()) {
+				listImagenes.add(result.getString("rutaImagenInmueble"));
+			}
+		} catch (SQLException e) {	
+			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
+		} catch (NullPointerException e) {
+			System.err.println("Referencia a un objeto nulo: " + e.getMessage());
+		} catch (Exception e) {
+			System.err.println("Error inesperado: " + e.getMessage());			
+		}
+		
+		return listImagenes;
 	}
 	
 
@@ -317,5 +346,6 @@ public class InmuebleModel implements InmuebleInterface {
 		
 		return id;
 	}
+
 	
 }

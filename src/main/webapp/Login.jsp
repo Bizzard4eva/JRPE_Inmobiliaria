@@ -1,8 +1,8 @@
-<!-- <%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%> -->
+<!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="ISO-8859-1">
+<meta charset="UTF-8">
 <link rel="stylesheet" href="css/style.css">
 <link rel="stylesheet" href="https://bootstrap.com">
 <title>Login</title>
@@ -141,7 +141,7 @@
 				class="brand-name">JRPE Inmobiliaria</span>
 			</a>
 
-			<!-- Menú de navegación -->
+			<!-- Menï¿½ de navegaciï¿½n -->
 			<ul class="navbar-nav ms-auto">
 				<li class="nav-item"><a class="nav-link" href="#">Inicio</a></li>
 				<li class="nav-item"><a class="nav-link" href="#">Nosotros</a>
@@ -159,17 +159,17 @@
 	    <div class="col-md-6 px-5 py-3 bg-light rounded container_form">
 	    	<div class="my-4">
 	    		<h3 class="fw-bold">BIENVENIDO</h3>
-	    		<span class="fs-14 text-gray-200">Inicia sesión o regístrate para ingresar a grandes beneficios y descuentos.</span>
+	    		<span class="fs-14 text-gray-200">Inicia sesiï¿½n o regï¿½strate para ingresar a grandes beneficios y descuentos.</span>
 	    	</div>
 		      <div class="text-center mb-4">
 		      	<!-- Botones de cambio -->
 			    <div class="col-12 text-center mb-4 w-100 d-flex">
-			      <button id="login-button" class="btn me-2 w-100">Iniciar Sesión</button>
+			      <button id="login-button" class="btn me-2 w-100">Iniciar Sesiï¿½n</button>
 			      <button id="register-button" class="btn w-100">Crear Cuenta</button>
 			    </div>
 		      </div>
 		      
-		      <!-- Formulario de inicio de sesión -->
+		      <!-- Formulario de inicio de sesiï¿½n -->
 		      <form action="LoginServlet" id="login-form" method="POST">
 		      		<% String mensaje = (String) request.getAttribute("mensaje"); %>
 			        <div class="mb-3 fw-normal">
@@ -177,15 +177,15 @@
 			          	<input type="email" class="form-control h-3rem" placeholder="Email" name="txtEmail" required>
 			        </div>
 			        <div class="mb-3 fw-normal">
-			        	<label class="mb-1" for="txtPassword">Contraseña</label>
-			          	<input type="password" class="form-control h-3rem" placeholder="Contraseña"  name="txtPassword" required>
+			        	<label class="mb-1" for="txtPassword">Contraseï¿½a</label>
+			          	<input type="password" class="form-control h-3rem" placeholder="Contraseï¿½a"  name="txtPassword" required>
 			        </div>
 			        <% if (mensaje != null) { %>
 					    <div class="alert alert-danger">
 					        <%= mensaje %>
 					    </div>
 					<% } %>
-		        	<button type="submit" class="btn login__button w-100 h-3rem mt-2 fw-normal">Iniciar Sesión</button>
+		        	<button type="submit" class="btn login__button w-100 h-3rem mt-2 fw-normal">Iniciar Sesiï¿½n</button>
 		      </form>
 		      
 		      <!-- Formulario de registro -->
@@ -199,12 +199,12 @@
 		          	<input type="email" class="form-control h-3rem" placeholder="Email" name="txtEmail" required>
 		        </div>
 		        <div class="mb-3">
-		        	<label class="mb-1" for="txtTel">Teléfono</label>
-		          	<input type="tel" class="form-control h-3rem" placeholder="Teléfono" name="txtTel" required>
+		        	<label class="mb-1" for="txtTel">Telï¿½fono</label>
+		          	<input type="tel" class="form-control h-3rem" placeholder="Telï¿½fono" name="txtTel" required>
 		        </div>
 		        <div class="mb-3">
-		        	<label class="mb-1" for="txtPassword">Contraseña</label>
-		            <input type="password" class="form-control h-3rem" placeholder="Contraseña" name="txtPassword" required>
+		        	<label class="mb-1" for="txtPassword">Contraseï¿½a</label>
+		            <input type="password" class="form-control h-3rem" placeholder="Contraseï¿½a" name="txtPassword" required>
 		        </div>
 		        <button type="submit" class="btn login__button w-100 h-3rem fw-normal">Crear Cuenta</button>
 		      </form>
@@ -230,7 +230,7 @@
 	  const $loginButton = $('#login-button')
 	  const $registerButton = $('#register-button')
 
-	  // Función para mostrar el formulario de inicio de sesión
+	  // Funciï¿½n para mostrar el formulario de inicio de sesiï¿½n
 	  const showLoginForm = () => {
 	    $loginForm.removeClass('d-none')
 	    $registerForm.addClass('d-none')
@@ -239,7 +239,7 @@
 	    $registerButton.addClass('register__button').removeClass('login__button')
 	  };
 
-	  // Función para mostrar el formulario de registro
+	  // Funciï¿½n para mostrar el formulario de registro
 	  const showRegisterForm = () => {
 	    $loginForm.addClass('d-none')
 	    $registerForm.removeClass('d-none')

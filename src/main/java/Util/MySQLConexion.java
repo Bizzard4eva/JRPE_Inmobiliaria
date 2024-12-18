@@ -10,8 +10,8 @@ public class MySQLConexion {
 	private static final String USER = "root";
 	private static final String PASSWORD = "Sherlock0";
 	
-	public static Connection getConexion() 
-	{
+	public static Connection getConexion() {
+		
 		Connection conexion = null;
 		
 		try

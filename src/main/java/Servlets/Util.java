@@ -9,6 +9,27 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Util {
 	
+	public static <T> T validateParameter(String parameter, Class<T> type, T defaultValue) {
+		try
+		{
+			if(parameter == null || parameter.trim().isEmpty()) {
+				return defaultValue;
+			}
+			if(type == Integer.class) {
+				return type.cast(Integer.parseInt(parameter));
+			}
+			if(type == Double.class) {
+				return type.cast(Double.parseDouble(parameter));
+			}
+			if(type == String.class) {
+				return type.cast(parameter);
+			}
+		} catch (NumberFormatException e) {
+			return defaultValue;
+		}
+		return defaultValue;
+	}
+	
 	public static void RedirectTo(HttpServletRequest request, HttpServletResponse response, String web) {
 		String redirectTo = request.getParameter("redirectTo");
 		if(redirectTo == null || redirectTo.isEmpty()) redirectTo = web;

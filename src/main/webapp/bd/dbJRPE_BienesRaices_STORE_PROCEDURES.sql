@@ -39,4 +39,4 @@ END$$
 DELIMITER ;
 
 -- DROP PROCEDURE sp_filteredCardInmueble;
--- CALL sp_filteredCardInmueble(200000, 400000, 3, 1);
+CALL sp_filteredInmueble(65000, 450000, 2, 1);
