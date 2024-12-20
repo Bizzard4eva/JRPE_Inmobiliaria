@@ -1,8 +1,9 @@
-<%@page import="Entidades.TipoInmueble"%>
-<%@page import="Entidades.CardInmueble"%>
-<%@page import="Entidades.Distrito"%>
-<%@page import="java.util.List"%>
+<%@ page import="Entidades.TipoInmueble"%>
+<%@ page import="Entidades.CardInmueble"%>
+<%@ page import="Entidades.Distrito"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -13,9 +14,6 @@
 </head>
 <body>
 
-	<% 
-		 if(request.getAttribute("listCardInmueble") == null) { response.sendRedirect("InmuebleServlet?action=loadHome"); return; }
-	%>
 	<div class="container-fluid m-0 p-0">
 		<%@ include file="Header.jsp" %>
 		<!-- Banner -->
@@ -35,34 +33,24 @@
 							<input type="text" name="maxPrice" placeholder="Precio Max" class="form-control mx-2">
 							<select name="distritoSelected" class="form-select mx-2">
 								<option value="1">Distrito</option>
-								<% 
-										List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
-										if (listDistrito != null) {
-										for (Distrito distrito : listDistrito) {
-								%>
-								<option value="<%=distrito.getIdDistrito()%>">
-									<%=distrito.getNombre()%>
-								</option>
-								<% 
-										} 
-								} 
-								%>
+								
+								<x:if test="${ not empty listDistrito }">
+									<x:forEach var="distrito" items="${ listDistrito }">
+										<option value="${ distrito.idDistrito }">${ distrito.nombre }</option>
+									</x:forEach>
+								</x:if>
+								
 							</select>
 
 							<select name="tipoInmuebleSelected" class="form-select mx-2">
 								<option value="1">Tipo</option>
-								<% 
-								List<TipoInmueble> listTipoInmueble = (List<TipoInmueble>) request.getAttribute("tipoInmueble");
-								if (listTipoInmueble != null) {
-									for (TipoInmueble tipo : listTipoInmueble) {
-								%>
-										<option value="<%=tipo.getIdTipoInmueble()%>">
-											<%=tipo.getTipo()%>
-										</option>
-								<% 
-									}
-								}
-								%>
+								
+								<x:if test="${ not empty listTipoInmueble }">
+									<x:forEach var="tipo" items="${ listTipoInmueble }">
+										<option value="${ tipo.idTipoInmueble }">${ tipo.tipo }</option>
+									</x:forEach>
+								</x:if>
+								
 							</select>
 							<button type="submit" class="btn btn-search mx-2" style="background-color: #1b5161; text-align: center; width: 50%; color:white;">
 								BUSCAR
@@ -75,45 +63,39 @@
 		<!-- Cartas -->
 		<div class="container mt-4">
 			<div class="row g-4">
-				<% 
-				List<CardInmueble> listCardInmueble = (List<CardInmueble>) request.getAttribute("listCardInmueble");
-				if (listCardInmueble != null) {
-					for (CardInmueble card : listCardInmueble) {
-				%>
+			
+				<x:if test="${ not empty listCardInmueble }">
+					<x:forEach var="card" items="${ listCardInmueble }">
 						<div class="col-md-4">
 							<div class="card h-100">
-								<img src="<%=card.getRutaImagenInmueble()%>" class="card-img-top" alt="" style="height: 220px;">
+								<img src="${ card.rutaImagenInmueble }" class="card-img-top" style="height: 220px;">
 								<div class="card-body d-flex flex-column align-items-start">
-									<h5 class="card-title" style="color: #333;">
-										S/<%=card.getPrecioInmueble()%>
-									</h5>
+									<h5 class="card-title" style="color: #333;">S/${ card.precioInmueble }</h5>
 									<p class="card-text" style="color: #333;">
-										<img src="./images/address.png" class="icons">
-										<%=card.getDireccionInmueble()%>
+										<img src="./images/address.png" class="icons">${ card.direccionInmueble }
 									</p>
 									<p class="card-text" style="color: #333;">
 										<img src="./images/rooms.png" class="icons">
-										<%=card.getHabitacionesInmueble()%>
-										dormitorios 
+										${ card.habitacionesInmueble } dormitorios
+									</p>
+									<p class="card-text" style="color: #333;">
 										<img src="./images/bath.png" class="icons">
-										<%=card.getBanosInmueble()%>
-										banos
+										${ card.banosInmueble } baños
 									</p>
 									<p class="card-text" style="color: #333;">
 										<img src="./images/area.png" class="icons" style="color: #333;">
-										<%=card.getAreaTotalInmueble()%>
-											<img src="./images/area.png" class="icons" style="color: #333;">
-											<%=card.getAreaConstruidaInmueble()%>
+										${ card.areaTotalInmueble }
+										<img src="./images/area.png" class="icons" style="color: #333;">
+										${ card.areaConstruidaInmueble }
 									</p>
-									<a href="InmuebleServlet?action=loadProperty&idInmueble=<%=card.getIdInmueble()%>&redirectTo=Property" 
-									class="btn" style="background-color: #1b5161; color: white; margin-top: auto;">Detalles</a>
+									<a href="InmuebleServlet?action=loadProperty&idInmueble=${ card.idInmueble }&redirectTo=Property" 
+									class="btn" style="background-color: #1b5161; color: white; margin-top: auto;">Detalles</a>																	
 								</div>
 							</div>
 						</div>
-				<% 
-					} 
-				} 
-				%>
+					</x:forEach>
+				</x:if>
+				
 			</div>
 		</div>
 		<!-- Pie de pagina -->

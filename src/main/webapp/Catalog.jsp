@@ -1,8 +1,9 @@
-<%@page import="Entidades.CardInmueble"%>
-<%@page import="Entidades.TipoInmueble"%>
-<%@page import="Entidades.Distrito"%>
-<%@page import="java.util.List"%>
+<%@ page import="Entidades.CardInmueble"%>
+<%@ page import="Entidades.TipoInmueble"%>
+<%@ page import="Entidades.Distrito"%>
+<%@ page import="java.util.List"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,7 +15,19 @@
     <link rel="stylesheet" href="css/Catalog.css">
 </head>
 <body>
+
 	<%@ include file="Header.jsp" %>
+	
+	<x:if test="${ 
+	not empty listTipoInmueble and
+	not empty listDistrito and
+	not empty tipoInmuebleSelected and
+	not empty distritoSelected and 
+	not empty resultCount and 
+	not empty minPrice and 
+	not empty maxPrice and
+	not empty areaTotal}">
+	
     <!--* BANNER -->
     <section class="container-fluid banner">
         <div class="row text-center" >
@@ -24,16 +37,6 @@
     <!--* CATALOGO -->
     <section class="container mt-5">
        <div class="row">
-       	<%
-       		List<Distrito> listDistrito = (List<Distrito>) request.getAttribute("listDistrito");
-       		List<TipoInmueble> listTipoInmueble = (List<TipoInmueble>) request.getAttribute("listTipoInmueble");
-       		List<CardInmueble> listCardsFiltered = (List<CardInmueble>) request.getAttribute("listCardsFiltered");
-       		Integer resultCount = (Integer) request.getAttribute("resultCount");
-       		Integer idDistrito = (Integer) request.getAttribute("distritoSelected");
-       		Integer idTipoInmueble = (Integer) request.getAttribute("tipoInmuebleSelected");
-        	Integer minPrice = (Integer) request.getAttribute("minPrice");
-        	Integer maxPrice = (Integer) request.getAttribute("maxPrice");
-       	%>
            <!-- FILTROS -->
            <div class="col-12 col-lg-4 col-xxl-3">
                <div class="filters shadow p-3 mb-5 bg-body rounded">
@@ -45,40 +48,29 @@
                            <label for="distrito" class="form-label">Distrito</label>
 							<select id="distrito" name="distritoSelected" class="form-select">
 							    <option value="">Todos</option>
-							    <%
-							    if (listDistrito != null) {
-							        for (Distrito distrito : listDistrito) {
-							            int id = distrito.getIdDistrito();
-							            String nombre = distrito.getNombre();
-							    %>
-							            <option value="<%= id %>" 
-							                <%= (id == idDistrito) ? "selected" : "" %>>
-							                <%= nombre %>
-							            </option>
-							    <%
-							        }
-							    }
-							    %>
+							    
+							    <x:forEach var="distrito" items="${ listDistrito }">
+							    	<option value="${ distrito.idDistrito }" ${ distrito.idDistrito == distritoSelected ? 'selected' : '' }>
+							    		${ distrito.nombre }
+							    	</option>
+							    </x:forEach>
+							    
 							</select>
                        </div>
 
                        <!-- RadioButtons para Tipo de Inmueble -->
                        <div class="mb-3">
                            <label for="form-label">Tipo de Inmueble</label>
-                           <%
-                           if(listTipoInmueble != null) {
-                        	   for(TipoInmueble tipo : listTipoInmueble) {
-                        		   int id = tipo.getIdTipoInmueble();
-                        		   String nombre = tipo.getTipo();
-                           %>
-								   <div class="form-check">
-		                               <input type="radio" class="form-check-input" id="" name="tipoInmuebleSelected" value="<%= id %>" <%= (id == idTipoInmueble) ? "checked" : "" %>>
-		                               <label class="form-check-label" for="tipo<%=nombre%>"><%= nombre %></label>
-								   </div>                           			
-                           <%
-                        	   }
-                           }
-                           %>
+                           
+                           <x:forEach var="tipo" items="${ listTipoInmueble }">
+                           	<div class="form-check">
+                           		<input type="radio" class="form-check-input" id="" name="tipoInmuebleSelected" 
+                           		value="${ tipo.idTipoInmueble }" 
+                           		${ tipo.idTipoInmueble == tipoInmuebleSelected ? 'checked' : '' }>
+                           		<label  class="form-check-label" for="tipo${ tipo.tipo }">${ tipo.tipo }</label>
+                           	</div>
+                           </x:forEach>
+                           
                        </div>
 
                        <!-- Range para la barra de Dormitorios 1-7 -->
@@ -98,18 +90,18 @@
                            </div>
 
                            <div class="range-input">
-                               <input type="range" class="range-min" min="60000" max="500000" value="<%= minPrice %>" step="10000">
-                               <input type="range" class="range-max" min="60000" max="500000" value="<%= maxPrice %>" step="10000">
+                               <input type="range" class="range-min" min="60000" max="500000" value="${ minPrice }" step="10000">
+                               <input type="range" class="range-max" min="60000" max="500000" value="${ maxPrice }" step="10000">
                            </div>
 
                            <div class="d-flex justify-content-between mt-2 price-input">
                                <div>
                                    <label for="inputMin" class="form-label">Mínimo:</label>
-                                   <input type="number" name="minPrice" id="inputMin" class="form-control" min="60000" max="500000" value="<%= minPrice %>">
+                                   <input type="number" name="minPrice" id="inputMin" class="form-control" min="60000" max="500000" value="${ minPrice }">
                                </div>
                                <div>
                                    <label for="inputMax" class="form-label">Máximo:</label>
-                                   <input type="number" name="maxPrice" id="inputMax" class="form-control" min="60000" max="500000" value="<%= maxPrice %>">
+                                   <input type="number" name="maxPrice" id="inputMax" class="form-control" min="60000" max="500000" value="${ maxPrice }">
                                </div>
                            </div>
                        </div>
@@ -117,9 +109,9 @@
                        <!-- Range para Area del terrono 40m2 - 600m2 -->
                        <div class="mb-3">
                            <label for="areaTotal" class="form-label">Area Total: 
-                               <span id="valorAreaTotal">600</span> m²
+                               <span id="valorAreaTotal">${ areaTotal }</span> m²
                            </label>
-                           <input type="range" class="form-range" id="areaTotal" name="areaTotal" min="40" max="600" step="20" value="600" oninput="actualizarValorAreaTotal(this.value)">
+                           <input type="range" class="form-range" id="areaTotal" name="areaTotal" min="40" max="600" step="20" value="${ areaTotal }" oninput="actualizarValorAreaTotal(this.value)">
                        </div>
                        
 						<button type="submit" class="btn btn-search bg-primary mx-2" style="text-align: center; width: 50%; color:white;">
@@ -135,7 +127,7 @@
                <!-- HEADER -->
                <div class="row">
                    <div class="col-12"> 
-                       <h2>Resultados (<span><%= resultCount %></span>)</h2>
+                       <h2>Resultados (<span>${ resultCount }</span>)</h2>
                    </div>  
                </div>
                <!-- HEADER -->
@@ -143,45 +135,32 @@
                <div class="row">
                    <div class="container-fluid mt-4">
                        <div class="row g-2">
-                       <%
-                       		if(listCardsFiltered != null) {
-                       			for(CardInmueble card : listCardsFiltered) {
-                       				
-                       %>
-                           <div class="col-xxl-4 col-sm-6 mb-5">
-                               <div class="card h-100">
-                                   <img src="<%= card.getRutaImagenInmueble() %>" class="card-img-top" alt="Card" style="height: 200px;">
-                                   <div class="card-body d-flex flex-column align-items-start">
-                                       <h5 class="card-title" style="color: #333;">
-                                           S/<%= card.getPrecioInmueble() %>
-                                       </h5>
-                                       <p class="card-text" style="color: #333;">
-                                           <i class="bi bi-geo-alt-fill text-primary"></i>
-                                           <%= card.getDireccionInmueble() %>
-                                       </p>
-                                       <p class="card-text" style="color: #333;">
-                                           <i class="bi bi-hdd-fill text-primary"></i>
-                                           <%= card.getHabitacionesInmueble() %>
-                                           <i class="bi bi-cloud-drizzle-fill text-primary"></i>
-                                           <%= card.getBanosInmueble() %>
-                                       </p>
-                                       <p class="card-text" style="color: #333;">
-                                           <i class="bi bi-aspect-ratio-fill text-primary"></i>
-                                           <%= card.getAreaTotalInmueble() %>
-                                           <i class="bi bi-aspect-ratio-fill text-primary"></i>
-                                           <%= card.getAreaConstruidaInmueble() %>
-                                       </p>
-                                       <a href="InmuebleServlet?action=loadProperty&idInmueble=<%=card.getIdInmueble()%>&redirectTo=Property"
-                                       class="btn btn-primary" style="color: white; margin-top: auto;">
-                                           Detalles
-                                       </a>
-                                   </div>
-                               </div>
-                           </div>
-                       <%
-                       			}
-                       		}
-                       %>
+                       
+                       <x:forEach var="card" items="${ listCardsFiltered }">
+                       	<div class="col-xxl-4 col-sm-6 mb-5">
+                       		<div class="card h-100">
+	                       		<img src="${ card.rutaImagenInmueble }" class="card-img-top" alt="Card" style="height: 200px;">
+	                       		<div class="card-body d-flex flex-column align-items-start">
+	                       			<h5 class="card-title" style="color: #333;">S/${ card.precioInmueble }</h5>
+	                       			<p class="card-text" style="color: #333;">
+	                       				<i class="bi bi-geo-alt-fill text-primary"></i>${ card.direccionInmueble }                       		
+	                       			</p>
+	                       			<p class="card-text" style="color: #333;">
+	                       				<i class="bi bi-hdd-fill text-primary"></i> ${ card.habitacionesInmueble }
+	                       				<i class="bi bi-cloud-drizzle-fill text-primary"></i> ${ card.banosInmueble }    			
+	                       			</p>
+	                       			<p class="card-text" style="color: #333;">
+	                       				<i class="bi bi-aspect-ratio-fill text-primary"></i> ${ card.areaTotalInmueble }
+	                       				<i class="bi bi-aspect-ratio-fill text-primary"></i> ${ card.areaConstruidaInmueble }
+	                       			</p>
+									<a href="InmuebleServlet?action=loadProperty&idInmueble=${ card.idInmueble }&redirectTo=Property"
+									class="btn btn-primary" style="color: white; margin-top: auto;">
+									Detalles
+									</a>
+	                       		</div>                     		
+                       		</div>
+                       	</div>
+                       </x:forEach>                                        
                            
                        </div>
                    </div>
@@ -189,14 +168,16 @@
                <!-- BOTON CARGAR MAS -->
                <div class="row">
                    <div class="col-12 text-center">
-                       <button id="cargarMas" class="btn btn-primary">Cargar Mas</button>
+                       <button id="cargarMas" class="btn btn-primary">Cargar Más</button>
                    </div>
                </div>
 
            </div>
        </div>
-   </section>
+   	</section>
 
+	</x:if>
+	
    <script src="js/Catalog.js"></script>
    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>

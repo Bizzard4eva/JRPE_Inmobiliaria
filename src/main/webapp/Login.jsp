@@ -1,19 +1,14 @@
 <!-- <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> -->
 <% request.setAttribute("hideLoginButton", true); %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <link rel="stylesheet" href="https://bootstrap.com">
 <title>Login</title>
- <link 
- 	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" 
- 	rel="stylesheet">
-<link 
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" 
-	rel="stylesheet" 
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" 
-	crossorigin="anonymous">
+ <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 <link rel="stylesheet" href="css/Header.css">
 <link rel="stylesheet" href="css/Login.css">
 </head>
@@ -36,7 +31,6 @@
 		      
 		      <!-- Formulario de inicio de sesión -->
 		      <form action="LoginServlet" id="login-form" method="post">
-		      		<% String mensaje = (String) request.getAttribute("mensaje"); %>
 		      		<input type="hidden" name="action" value="login">
 			        <div class="mb-3 fw-normal">
 			        	<label class="mb-1" for="txtEmail">Email</label>
@@ -46,11 +40,13 @@
 			        	<label class="mb-1" for="txtPassword">Contraseña</label>
 			          	<input type="password" class="form-control h-3rem" placeholder="Contraseña"  name="txtPassword" required>
 			        </div>
-			        <% if (mensaje != null) { %>
-					    <div class="alert alert-danger">
-					        <%= mensaje %>
-					    </div>
-					<% } %>
+			        
+			        <x:if test="${ not empty mensaje }">
+			        	<div class="alert alert-danger">
+			        		${ mensaje }
+			        	</div>
+			        </x:if>
+
 		        	<button type="submit" class="btn login__button w-100 h-3rem mt-2 fw-normal">Iniciar Sesión</button>
 		      </form>
 		      

@@ -44,7 +44,7 @@ public class InmuebleServlet extends HttpServlet {
 		List<TipoInmueble> listTipoInmueble = dao.getTipoInmueble().listTiposInmueble();
 
 		request.setAttribute("listDistrito", listDistrito);
-		request.setAttribute("tipoInmueble", listTipoInmueble);
+		request.setAttribute("listTipoInmueble", listTipoInmueble);
 		request.setAttribute("listCardInmueble", listCardInmueble);
 		Util.RedirectTo(request, response);
 	}
@@ -55,18 +55,18 @@ public class InmuebleServlet extends HttpServlet {
 		
 		Integer minPrice = Util.validateParameter(request.getParameter("minPrice"), Integer.class, 60000);
 		Integer maxPrice = Util.validateParameter(request.getParameter("maxPrice"), Integer.class, 500000);
-		Integer idDistrito = Util.validateParameter(request.getParameter("distritoSelected"), Integer.class, 1);
-		Integer idTipoInmueble = Util.validateParameter(request.getParameter("tipoInmuebleSelected"), Integer.class, 1);
+		Integer distritoSelected = Util.validateParameter(request.getParameter("distritoSelected"), Integer.class, 1);
+		Integer tipoInmuebleSelected = Util.validateParameter(request.getParameter("tipoInmuebleSelected"), Integer.class, 1);
 		Integer areaTotal = Util.validateParameter(request.getParameter("areaTotal"), Integer.class, 600);
 		
-		List<CardInmueble> listCardsFiltered = dao.getInmueble().listFilteredInmueble(minPrice, maxPrice, idDistrito, idTipoInmueble);
+		List<CardInmueble> listCardsFiltered = dao.getInmueble().listFilteredInmueble(minPrice, maxPrice, distritoSelected, tipoInmuebleSelected);
 		Integer resultCount = listCardsFiltered.size();
-
+		
+		request.setAttribute("listCardsFiltered", listCardsFiltered);
 		request.setAttribute("listDistrito", listDistrito);
 		request.setAttribute("listTipoInmueble", listTipoInmueble);
-		request.setAttribute("distritoSelected", idDistrito);
-		request.setAttribute("tipoInmuebleSelected", idTipoInmueble);
-		request.setAttribute("listCardsFiltered", listCardsFiltered);
+		request.setAttribute("distritoSelected", distritoSelected);
+		request.setAttribute("tipoInmuebleSelected", tipoInmuebleSelected);
 		request.setAttribute("resultCount", resultCount);
 		request.setAttribute("minPrice", minPrice);
 		request.setAttribute("maxPrice", maxPrice);
@@ -99,10 +99,10 @@ public class InmuebleServlet extends HttpServlet {
 
 	// GENERALES
 	private void listInmuebles(HttpServletRequest request, HttpServletResponse response) {
-		List<Inmueble> inmuebles = dao.getInmueble().listInmueble();
+		List<Inmueble> listInmueble = dao.getInmueble().listInmueble();
 
-		request.setAttribute("inmuebles", inmuebles);
-		Util.RedirectTo(request, response);
+		request.setAttribute("listInmueble", listInmueble);
+//		Util.RedirectTo(request, response);
 		Util.RedirectTo(request, response, "Admin.jsp");
 	}
 

@@ -4,14 +4,15 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>Init</title>
+<script>
+	window.onload = function() { document.getElementById("autoSubmitForm").submit(); }
+</script>
 </head>
 <body>
-	<form action="InmuebleServlet" method="post">
+	<form action="InmuebleServlet" method="post" id="autoSubmitForm">
 		<input type="hidden" name="action" value="loadHome">
 		<input type="hidden" name="redirectTo" value="Home">	
-		<button type="submit" class="btn btn-primary btn-block mb-4">Go Home</button>
 	</form>
-
 </body>
 </html>

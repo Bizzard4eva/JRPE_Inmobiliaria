@@ -1,7 +1,7 @@
-<%@page import="java.util.List"%>
-<%@page import="Entidades.Inmueble"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="Entidades.Inmueble"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -37,29 +37,30 @@
 				</tr>
 			  </thead>
 			  <tbody>
-				<% List<Inmueble> listInmueble = (List<Inmueble>) request.getAttribute("inmuebles"); %>
-				<% if (listInmueble != null) { %>
-				    <% for (Inmueble inmueble : listInmueble) { %>
-				        <tr>
-				            <th scope="row"><%= inmueble.getIdInmueble() %></th>
-				            <td><%= inmueble.getTitulo() %></td>
-				            <td><%= inmueble.getPrecio() %></td>
-				            <td><%= inmueble.getTipo() %></td>
-				            <td><%= inmueble.getDireccion() %></td>
-				            <td><%= inmueble.getBanos() %></td>
-				            <td><%= inmueble.getAreaTotal() %></td>
-				            <td><%= inmueble.getAreaConstruida() %></td>
-				            <td><%= inmueble.getEstado() %></td>				           
-				            <td><%= inmueble.getHabitaciones() %></td>      
-				            <td><%= inmueble.getUsuario() != null ? inmueble.getUsuario().getNombre() : "Sin usuario" %></td>
-				            <td><%= inmueble.getDistrito() != null ? inmueble.getDistrito().getNombre() : "Sin distrito" %></td>
-				        	<td class="d-flex gap-2">
-				        		<button type="button" class="btn btn-warning" id="buttonEdit">Editar</button>
-				        		<button type="button" class="btn btn-danger" id="buttonDelete">Eliminar</button>
-				        	</td>
-				        </tr>
-				    <% } %>
-				<% } %>
+			  
+			  <x:if test="${ not empty listInmueble }">
+			  	<x:forEach var="inmueble" items="${ listInmueble }">
+			  		<tr>
+			  			<th scope="row">${ inmueble.idInmueble }</th>
+			  			<td>${ inmueble.titulo }</td>
+			  			<td>${ inmueble.precio }</td>
+			  			<td>${ inmueble.tipo }</td>
+			  			<td>${ inmueble.direccion }</td>
+			  			<td>${ inmueble.banos }</td>
+			  			<td>${ inmueble.areaTotal }</td>
+			  			<td>${ inmueble.areaConstruida }</td>
+			  			<td>${ inmueble.estado }</td>
+			  			<td>${ inmueble.habitaciones }</td>
+			  			<td>${ inmueble.usuario.nombre }</td>
+			  			<td>${ inmueble.distrito.nombre }</td>
+			  			<td class="d-flex gap-2">
+		  					<button type="button" class="btn btn-warning" id="buttonEdit">Editar</button>
+		        			<button type="button" class="btn btn-danger" id="buttonDelete">Eliminar</button>
+			  			</td>	  		
+			  		</tr>
+			  	</x:forEach>
+			  </x:if>
+
 			  </tbody>
 		</table>
 	</div>

@@ -1,7 +1,7 @@
-<%@page import="java.util.List"%>
-<%@page import="Entidades.Inmueble"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="java.util.List"%>
+<%@ page import="Entidades.Inmueble"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -9,11 +9,7 @@
 <title>Propiedades</title>
 <link rel="stylesheet" href="css/Property.css">
 <link rel="stylesheet" href="css/Home.css">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 </head>
 <style>
   .thumbnail {
@@ -32,48 +28,39 @@
   
 </style>
 <body>
-	<%
-		Inmueble inmueble = (Inmueble) request.getAttribute("inmuebleDetail");
-	%>
+<x:if test="${ not empty inmuebleDetail }">
 
 	<%@ include file="Header.jsp" %>
     <div class="d-flex justify-content-center align-items-center bg-light">
       <section class="w-100 bg-white p-4 rounded shadow">
         <div class="container">
-        <%
-        	List<String> imagenes = (List<String>) request.getAttribute("imagenesInmueble");
-        	if(imagenes != null)   {
-        %>
-          <div class="row d-flex justify-content-center">
-            <!-- Imagen grande -->
-            <div class="col-lg-8 col-md-7 col-sm-12">
-              <div class="ratio ratio-16x9">
-                <img id="mainImage" src="<%=imagenes.get(0)%>" class="img-fluid rounded" alt="Imagen grande"/>
-              </div>
-            </div>
-
-            <!-- Imagenes pequeñas alineadas verticalmente -->
-    	<div class="col-lg-1 col-md-2 col-sm-12">
-		  <div class="d-flex flex-column justify-content-between h-100 container-thumbnail">
-		    <img src="<%=imagenes.get(1)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 1" 
-		         onclick="changeImage(this)"/>
-		    <img src="<%=imagenes.get(2)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 2"
-		         onclick="changeImage(this)"/>
-		    <img src="<%=imagenes.get(3)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 3"
-		         onclick="changeImage(this)"/>
-		    <img src="<%=imagenes.get(4)%>" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 4"
-		         onclick="changeImage(this)"/>
-		  </div>
-		</div>
-		<%
-        	}
-		%>	
-          </div>
+        
+        <x:if test="${ not empty imagenesInmueble }">
+        	<div class="row d-flex justify-content-center">
+        		<!-- Imagen grande -->
+        		<div class="col-lg-8 col-md-7 col-sm-12">
+        			<div class="ratio ratio-16x9">
+        				<img id="mainImage" src="${ imagenesInmueble[0] }" class="img-fluid rounded">
+        			</div>
+        		</div>
+        		<!-- Imagenes pequeñas alineadas verticalmente -->
+        		<div class="col-lg-1 col-md-2 col-sm-12">
+        			<div class="d-flex flex-column justify-content-between h-100 container-thumbnail">
+        				<img src="${ imagenesInmueble[1] }" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 1" onclick="changeImage(this)" />
+        				<img src="${ imagenesInmueble[2] }" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 2" onclick="changeImage(this)" />
+        				<img src="${ imagenesInmueble[3] }" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 3" onclick="changeImage(this)" />
+        				<img src="${ imagenesInmueble[4] }" class="img-fluid rounded flex-grow-1 mb-2 thumbnail" alt="Thumbnail 4" onclick="changeImage(this)" />
+        			</div>
+        		</div>
+        	</div>
+        </x:if>
+          
         </div>
+        
         <div class="card-body d-flex justify-content-evenly">
           <div class="card-title mb-0 d-flex flex-column">
             <div>
-              <h1 class="mt-5" style="color: #d3d3d3"><span><%=inmueble.getTitulo() %></span> - <span>Venta</span></h1>
+              <h1 class="mt-5" style="color: #d3d3d3"><span>${ inmuebleDetail.titulo }</span> - <span>Venta</span></h1>
             </div>
             <div>
               <p class="mk-mod-flex">
@@ -82,7 +69,7 @@
                 <span style="color: #0b0b0b">
                   Direccion:
                   <a href="#map" class="text-decoration-none" title="Ver ubicacion">
-                  	<%=inmueble.getDireccion()%>
+                  	${ inmuebleDetail.direccion }
                   </a>
                 </span>
               </p>
@@ -90,11 +77,11 @@
           </div>
           <div class="d-flex justify-content-center flex-column mt-5">
             <h2 class="card-title mb-0 d-flex flex-column align-items-start">
-             S/<%=inmueble.getPrecio()%>
+             S/${ inmuebleDetail.precio }
             </h2>
             <div>
               <p class="mk-entry-id">
-                <span>ID:</span><span class="decrip-span"><%=inmueble.getIdInmueble() %></span>
+                <span>ID:</span><span class="decrip-span">${ inmuebleDetail.idInmueble }</span>
               </p>
             </div>
           </div>
@@ -116,7 +103,7 @@
           >
             <p></p>
             <p>
-              <%=inmueble.getDescripcion() %>
+              ${ inmuebleDetail.descripcion }
             </p>
             <p>
               Si estas buscando un hogar que combine lujo, comodidad y una
@@ -165,11 +152,11 @@
             <ul class="list-unstyled text-start">
               <li class="d-flex align-items-center gap-2">
                 <img src="./images/business-outline.png" style="width: 18px" />
-                <span><strong>Tipo: </strong> <%=inmueble.getTipo() %></span>
+                <span><strong>Tipo: </strong>${ inmuebleDetail.tipo }</span>
               </li>
               <li class="d-flex align-items-center gap-2">
                 <img src="./images/location-outline-4.png" style="width: 18px" />
-                <span><strong>Estado: </strong><%=inmueble.getEstado() %></span>
+                <span><strong>Estado: </strong>${ inmuebleDetail.estado }</span>
               </li>
             </ul>
           </div>
@@ -194,7 +181,7 @@
             <div
               class="border-top text-center py-2 fw-semibold fs-6 text-secondary"
             >
-              <span><%=inmueble.getHabitaciones()%></span>
+              <span>${ inmuebleDetail.habitaciones }</span>
             </div>
           </div>
           <div
@@ -211,7 +198,7 @@
             <div
               class="border-top text-center py-2 fw-semibold fs-6 text-secondary"
             >
-              <span><%=inmueble.getBanos() %></span>
+              <span>${ inmuebleDetail.banos }</span>
             </div>
           </div>
           <div
@@ -312,7 +299,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getIdInmueble() %>
+                      ${ inmuebleDetail.idInmueble }
                     </h2>
                   </td>
                 </tr>
@@ -326,7 +313,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getPrecio()%>
+                      ${ inmuebleDetail.precio }
                     </h2>
                   </td>
                 </tr>
@@ -340,7 +327,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getTipo() %>
+                      ${ inmuebleDetail.tipo }
                     </h2>
                   </td>
                 </tr>
@@ -374,7 +361,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getPrecio()%>
+                      ${ inmuebleDetail.precio }
                     </h2>
                   </td>
                 </tr>
@@ -403,7 +390,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getEstado() %>
+                      ${ inmuebleDetail.estado }
                     </h2>
                   </td>
                 </tr>
@@ -417,7 +404,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getDireccion() %>
+                      ${ inmuebleDetail.direccion }
                     </h2>
                   </td>
                 </tr>
@@ -431,7 +418,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getAreaTotal() %><span>m</span><sup>2</sup>
+                      ${ inmuebleDetail.areaTotal }<span>m</span><sup>2</sup>
                     </h2>
                   </td>
                 </tr>
@@ -446,7 +433,7 @@
                   </td>
                   <td id="space-td-mobile">
                     <h2 class="fw-semibold fs-6 lh-1.5 text-end text-muted m-0">
-                      <%=inmueble.getAreaConstruida() %><span>m</span><sup>2</sup>
+                      ${ inmuebleDetail.areaConstruida }<span>m</span><sup>2</sup>
                     </h2>
                   </td>
                 </tr>
@@ -497,6 +484,9 @@
             </div>
         </div>
     </footer>
+    
+</x:if>
+
 </body>
 <script>
     // Cambiar la imagen grande al hacer clic en una miniatura

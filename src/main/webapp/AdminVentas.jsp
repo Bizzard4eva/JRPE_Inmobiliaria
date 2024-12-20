@@ -1,7 +1,7 @@
-<%@page import="Entidades.Venta"%>
-<%@page import="java.util.List"%>
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page import="Entidades.Venta"%>
+<%@ page import="java.util.List"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -32,23 +32,24 @@
 				</tr>
 			  </thead>
 			  <tbody>
-				<% List<Venta> listVenta = (List<Venta>) request.getAttribute("ventas"); %>
-				<% if (listVenta != null) { %>
-				    <% for (Venta venta : listVenta) { %>
-				        <tr>
-				            <th scope="row"><%= venta.getIdVenta() %></th>
-				            <td><%= venta.getInmueble() %></td>
-				            <td><%= venta.getCliente() %></td>
-				            <td><%= venta.getAgente() %></td>
-				            <td><%= venta.getPrecioFinal() %></td>
-				            <td><%= venta.getFechaVenta() %></td>
-				        	<td class="d-flex gap-2">
-				        		<button type="button" class="btn btn-warning" >Editar</button>
-				        		<button type="button" class="btn btn-danger" >Eliminar</button>
-				        	</td>
-				        </tr>
-				    <% } %>
-				<% } %>
+			  
+			  <x:if test="${ not empty ventas }">
+			  	<x:forEach var="venta" items="${ ventas }">
+			  		<tr>
+			  			<th scope="row">${ venta.idVenta }</th>
+			  			<td>${ venta.inmueble }</td>
+			  			<td>${ venta.cliente }</td>
+			  			<td>${ venta.agente }</td>
+			  			<td>${ venta.precioFinal }</td>
+			  			<td>${ venta.fechaVenta }</td>
+			  			<td class="d-flex gap-2">
+			        		<button type="button" class="btn btn-warning" >Editar</button>
+			        		<button type="button" class="btn btn-danger" >Eliminar</button>			  				
+			  			</td>
+			  		</tr>
+			  	</x:forEach>			  
+			  </x:if>
+			  
 			  </tbody>
 		</table>
 	</div>
