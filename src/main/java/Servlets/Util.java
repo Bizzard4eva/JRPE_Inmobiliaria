@@ -48,7 +48,7 @@ public class Util {
 	}
 	
 	private static String validateRedirectTo(String web) {
-		List<String> paginasValidas = List.of("Home","Login","Catalog","Property", "Admin", "AdminUsuarios", "AdminVentas", "NotFound"); //TODO
+		List<String> paginasValidas = List.of("Home","Login","Catalog","Property", "Admin", "AdminUsuarios", "AdminVentas", "NotFound");
 		if(paginasValidas.contains(web)) 
 		{
 			return (web + ".jsp");

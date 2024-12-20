@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Dao.DAOFactory;
 import Entidades.Usuario;
-import Modelos.UsuarioModel;
 
 @WebServlet("/UsuarioServlet")
 public class UsuarioServlet extends HttpServlet {

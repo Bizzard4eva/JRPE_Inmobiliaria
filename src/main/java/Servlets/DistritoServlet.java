@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import Dao.DAOFactory;
 import Entidades.Distrito;
-import Modelos.DistritoModel;
 
 @WebServlet("/DistritoServlet")
 public class DistritoServlet extends HttpServlet {

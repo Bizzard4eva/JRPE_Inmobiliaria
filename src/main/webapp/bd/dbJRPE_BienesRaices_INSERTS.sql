@@ -6,7 +6,7 @@ VALUES
 
 INSERT INTO TiposInmueble (nombreTipo) 
 VALUES 
-('Casa'), ('Departamento');
+('Casa'), ('Departamento'), ('Terreno'), ('Local');
 
 INSERT INTO EstadosInmueble (nombreEstado) 
 VALUES 
@@ -37,20 +37,18 @@ INSERT INTO Inmuebles (tituloInmueble, descripcionInmueble, precioInmueble, idTi
 habitacionesInmueble, banosInmueble, areaTotalInmueble, areaConstruidaInmueble, idAgente, idDistrito)
 VALUES 
 
-('Casa Moderna', 
-'Remodelada hace 12 años',
- 120000.00, 1, 
- 'Calle Gomez Sanchez 100 Urb. LA Aurora, Miraflores', 
- 3, 4, 507.00, 472.00, 
- 2, 1), -- ID AGENTE, ID DISTRITO
- 
- ('Casa Moderna 2', 
-'Remodelada hace 12 años',
-70000.00, 1, 
- 'Calle Gomez Sanchez 100 Urb. LA Aurora, Miraflores', 
- 3, 4, 507.00, 472.00, 
- 2, 1),
- 
+('Casa Moderna', -- Titulo
+'Remodelada hace 12 años', -- Descripcion
+ 120000.00, -- Precio Minimo = 60000; Maximo = 500000
+ 1, -- IdTipoInmueble 1 = Casa; 2 = Departamento
+ 'Calle Gomez Sanchez 100 Urb. LA Aurora, Miraflores', -- Direccion
+ 3, -- habitaciones Minimo = 2; Maximo = 7
+ 4, -- banos Minimo = 2 Maximo 4
+ 507.00, -- area total: min = 40 m² | max = 600 m² |
+ 472.00, -- area construida; area construida < area total
+ 2, -- idAgentes: 2, 3, 4, 5
+ 1), -- idDistritos: 1,2,3,4,5
+
 ('Casa Familiar', 
 'Venta de hermosa casa Triplex en zona exclusiva de San isidro',
  312000.00, 1, 
