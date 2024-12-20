@@ -321,6 +321,7 @@ public class InmuebleModel implements InmuebleInterface {
 		
 		return id;
 	}
+	
 	public Integer getIdEstadoInmueble(String estadoInmueble) {
 		Integer id = -1;
 		String sql = "SELECT idEstadoInmueble FROM EstadosInmueble WHERE nombreEstado = ?";
@@ -347,6 +348,5 @@ public class InmuebleModel implements InmuebleInterface {
 		
 		return id;
 	}
-
 	
 }

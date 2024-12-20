@@ -9,34 +9,37 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import Dao.DAOFactory;
 import Entidades.Usuario;
 import Modelos.UsuarioModel;
 
 @WebServlet("/UsuarioServlet")
 public class UsuarioServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private static DAOFactory dao = DAOFactory.getDaoFactory(DAOFactory.MYSQL);
 
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println(request.getParameter("action"));
-		switch (request.getParameter("action")) {
+		
+		switch (Util.validateParameter(request.getParameter("action"), String.class, "NotFound")) {
 		case "list": listUsuarios(request, response); break;
 		case "validate": loginUsuario(request, response); break;
 		case "get": getUsuario(request, response); break;
 		case "add": addUsuario(request, response); break;
 		case "update": updateUsuario(request, response); break;
-		default: request.getRequestDispatcher("Home.jsp").forward(request, response); //TODO
+		case "NotFound": Util.RedirectTo(request, response, "NotFound"); break;
+		default: Util.RedirectTo(request, response, "NotFound"); break;
 		}
 	}
 
 	private void listUsuarios(HttpServletRequest request, HttpServletResponse response) {
-		List<Usuario> usuarios = new UsuarioModel().listUsuario();
+		List<Usuario> usuarios = dao.getUsuario().listUsuario();
 
 		request.setAttribute("usuarios", usuarios);
 		Util.RedirectTo(request, response);
 		Util.RedirectTo(request, response, "AdminUsuarios");
 	}
 	private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		Usuario usuarioLogeado = new UsuarioModel().validateUsuario(
+		Usuario usuarioLogeado = dao.getUsuario().validateUsuario(
 				request.getParameter("email"), 
 				request.getParameter("password"));
 		if(usuarioLogeado == null) {
@@ -46,7 +49,7 @@ public class UsuarioServlet extends HttpServlet {
 				
 	}
 	private void getUsuario(HttpServletRequest request, HttpServletResponse response) {
-		Usuario usuario = new UsuarioModel().getUsuario(Integer.parseInt(request.getParameter("idUsuario")));
+		Usuario usuario = dao.getUsuario().getUsuario(Integer.parseInt(request.getParameter("idUsuario")));
 		
 		request.setAttribute("usuario", usuario);
 		Util.RedirectTo(request, response);
@@ -58,7 +61,7 @@ public class UsuarioServlet extends HttpServlet {
 				request.getParameter("txtPassword"), 
 				request.getParameter("txtTel"));
 		
-		if(new UsuarioModel().addUsuario(usuario)) { Util.RedirectTo(request, response); }
+		if(dao.getUsuario().addUsuario(usuario)) { Util.RedirectTo(request, response); }
 	}
 	private void updateUsuario(HttpServletRequest request, HttpServletResponse response) {
 		Usuario usuario = new Usuario(
@@ -68,7 +71,7 @@ public class UsuarioServlet extends HttpServlet {
 				request.getParameter("password"), 
 				request.getParameter("telefono"));
 		
-		if(new UsuarioModel().updateUsuario(usuario)) { Util.RedirectTo(request, response); }
+		if(dao.getUsuario().updateUsuario(usuario)) { Util.RedirectTo(request, response); }
 	}
 
 }

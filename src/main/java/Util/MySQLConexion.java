@@ -24,7 +24,6 @@ public class MySQLConexion {
 			System.err.println("Error: No se pudo conectar con la base de datos |" + e.getMessage());
 		} catch (Exception e) {
 			System.err.println("Error desconocido: " + e.getMessage());
-//			e.printStackTrace();
 		}
 		return conexion;
 	}

@@ -6,7 +6,9 @@ SELECT * from Usuarios;
 SELECT * FROM TiposInmueble;
 SELECT * FROM EstadosInmueble;
 
-SELECT DISTINCT tipoInmueble FROM Inmuebles
+SELECT DISTINCT tipoInmueble FROM Inmuebles;
+
+SELECT rutaImagenInmueble FROM ImagenesInmuebles WHERE idInmueble = 2;
 
 -- -- -- DistritoModel
 
@@ -46,6 +48,7 @@ nombreUsuario = ?, emailUsuario = ?,
 passwordUsuario = ?, telefonoUsuario = ? 
 WHERE idUsuario = ?;
 SELECT * FROM Inmuebles WHERE idInmueble = 2;
+SELECT * FROM Inmuebles;
 -- validateUsuario()
 SELECT U.idUsuario,U.nombreUsuario,U.emailUsuario,R.nombreRol,
 U.telefonoUsuario,U.fechaCreacionUsuario 
