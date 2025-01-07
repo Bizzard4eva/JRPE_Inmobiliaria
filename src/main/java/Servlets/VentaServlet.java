@@ -27,9 +27,13 @@ public class VentaServlet extends HttpServlet {
 	}
 	
 	private void listCardInmueble(HttpServletRequest request, HttpServletResponse response) {
-		List<Venta> ventas = dao.getVenta().listVentas();
-		
-		request.setAttribute("ventas", ventas);
-		Util.RedirectTo(request, response, "AdminVentas");
+		try {
+			List<Venta> ventas = dao.getVenta().listVentas();
+			
+			request.setAttribute("ventas", ventas);
+			Util.RedirectTo(request, response, "AdminVentas");
+		} catch (Exception e) {
+			Util.RedirectTo(request, response, "NotFound");
+		}
 	}
 }

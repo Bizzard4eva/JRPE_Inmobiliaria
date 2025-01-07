@@ -16,7 +16,7 @@ import Util.MySQLConexion;
 public class InmuebleModel implements InmuebleInterface {
 
 	@Override
-	public List<Inmueble> listInmueble() {
+	public List<Inmueble> listInmueble() throws NullPointerException {
 		
 		List<Inmueble> listInmueble = new ArrayList<Inmueble>();
 		String sql = "SELECT * FROM Inmuebles";
@@ -45,8 +45,9 @@ public class InmuebleModel implements InmuebleInterface {
 						new DistritoModel().getDistrito(result.getInt("idDistrito"))
 						);
 				listInmueble.add(inmueble);
-				
 			}
+			return listInmueble;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -55,11 +56,11 @@ public class InmuebleModel implements InmuebleInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return listInmueble;
+		throw new NullPointerException("- No se pudo listar los Inmuebles -");
 	}
 	
 	@Override
-	public List<CardInmueble> listFilteredInmueble(Integer min, Integer max, Integer idDistrito, Integer idTipoInmueble) {
+	public List<CardInmueble> listFilteredInmueble(Integer min, Integer max, Integer idDistrito, Integer idTipoInmueble) throws NullPointerException {
 		
 		List<CardInmueble> listInmueble = new ArrayList<CardInmueble>();
 		String sql = "{ CALL sp_filteredInmueble(?, ?, ?, ?) }";
@@ -89,6 +90,8 @@ public class InmuebleModel implements InmuebleInterface {
 						);
 				listInmueble.add(inmueble);
 			}
+			return listInmueble;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -97,11 +100,11 @@ public class InmuebleModel implements InmuebleInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return listInmueble;
+		throw new NullPointerException("- No se pudo listar los Inmuebles Filtrados -");
 	}
 	
 	@Override
-	public List<CardInmueble> listCardInmueble() {
+	public List<CardInmueble> listCardInmueble() throws NullPointerException {
 		
 		List<CardInmueble> listInmuebleCard = new ArrayList<CardInmueble>();
 		String sql = "{CALL sp_cardInmueble()}";
@@ -126,7 +129,8 @@ public class InmuebleModel implements InmuebleInterface {
 						);
 				listInmuebleCard.add(card);
 			}
-
+			return listInmuebleCard;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -134,12 +138,12 @@ public class InmuebleModel implements InmuebleInterface {
 		} catch (Exception e) {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
-
-		return listInmuebleCard;
+		
+		throw new NullPointerException("- No se pudo listar las Cartas de Inmuebles -");
 	}
 	
 	@Override
-	public List<String> listImagenesInmueble(Integer id) {
+	public List<String> listImagenesInmueble(Integer id) throws NullPointerException {
 		
 		List<String> listImagenes = new ArrayList<String>();
 		String sql = "SELECT rutaImagenInmueble FROM ImagenesInmuebles WHERE idInmueble = ?";
@@ -156,6 +160,8 @@ public class InmuebleModel implements InmuebleInterface {
 			while(result.next()) {
 				listImagenes.add(result.getString("rutaImagenInmueble"));
 			}
+			return listImagenes;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -164,12 +170,11 @@ public class InmuebleModel implements InmuebleInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return listImagenes;
+		throw new NullPointerException("- No se pudo listar los link/imagenes -");
 	}
 	
-
 	@Override
-	public Inmueble getInmueble(Integer id) {
+	public Inmueble getInmueble(Integer id) throws NullPointerException {
 		
 		Inmueble inmueble = null;
 		String sql = "SELECT * FROM Inmuebles WHERE idInmueble = ?";
@@ -181,7 +186,6 @@ public class InmuebleModel implements InmuebleInterface {
 		)
 		{
 			statement.setInt(1, id);
-			
 			ResultSet result = statement.executeQuery();
 			if(result.next()) {
 				 inmueble = new Inmueble(
@@ -200,6 +204,8 @@ public class InmuebleModel implements InmuebleInterface {
 						new DistritoModel().getDistrito(result.getInt("idDistrito"))
 						);
 			}
+			return inmueble;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -208,13 +214,13 @@ public class InmuebleModel implements InmuebleInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return inmueble;
+		throw new NullPointerException("- No se pudo retornar el Inmueble -");
 	}
 
 	@Override
 	public boolean addInmueble(Inmueble inmueble) {
 		
-		Integer idTipoInmueble = getIdTipoInmueble(inmueble.getTipo());
+		
 		String sql =  "INSERT INTO Inmuebles (tituloInmueble, descripcionInmueble, "
 					+ "precioInmueble, idTipoInmueble, direccionInmueble, habitacionesInmueble, "
 					+ "banosInmueble, areaTotalInmueble, areaConstruidaInmueble, "
@@ -227,6 +233,8 @@ public class InmuebleModel implements InmuebleInterface {
 			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
+			Integer idTipoInmueble = getIdTipoInmueble(inmueble.getTipo()); 
+			
 			statement.setString(1, inmueble.getTitulo());
 			statement.setString(2, inmueble.getDescripcion());
 			statement.setDouble(3, inmueble.getPrecio());
@@ -255,8 +263,6 @@ public class InmuebleModel implements InmuebleInterface {
 	@Override
 	public boolean updateInmueble(Inmueble inmueble) {
 		
-		Integer idTipoInmueble = getIdTipoInmueble(inmueble.getTipo());
-		Integer idEstadoInmueble = getIdEstadoInmueble(inmueble.getEstado());
 		String sql =  "UPDATE Inmuebles SET tituloInmueble = ?, descripcionInmueble = ?, "
 					+ "precioInmueble = ?, idTipoInmueble = ?, direccionInmueble = ?, "
 					+ "habitacionesInmueble = ?, banosInmueble = ?, areaTotalInmueble = ?, "
@@ -268,10 +274,13 @@ public class InmuebleModel implements InmuebleInterface {
 			PreparedStatement statement = conexion.prepareStatement(sql);
 		)
 		{
+			Integer idTipoInmueble = getIdTipoInmueble(inmueble.getTipo());
+			Integer idEstadoInmueble = getIdEstadoInmueble(inmueble.getEstado());
+			
 			statement.setString(1, inmueble.getTitulo());
 			statement.setString(2, inmueble.getDescripcion());
 			statement.setDouble(3, inmueble.getPrecio());
-			statement.setInt(4, idTipoInmueble); // Casa,Departamento
+			statement.setInt(4, idTipoInmueble);
 			statement.setString(5, inmueble.getDireccion());
 			statement.setInt(6, inmueble.getHabitaciones());
 			statement.setInt(7, inmueble.getBanos());
@@ -279,7 +288,7 @@ public class InmuebleModel implements InmuebleInterface {
 			statement.setDouble(9, inmueble.getAreaConstruida());
 			statement.setInt(10, inmueble.getUsuario().getIdUsuario());
 			statement.setInt(11, inmueble.getDistrito().getIdDistrito());
-			statement.setInt(12, idEstadoInmueble); // Disponible,Reservada,Vendida
+			statement.setInt(12, idEstadoInmueble);
 			
 			return statement.executeUpdate() > 0;
 			
@@ -295,7 +304,7 @@ public class InmuebleModel implements InmuebleInterface {
 	}
 
 	
-	public Integer getIdTipoInmueble(String tipoInmueble) {
+	public Integer getIdTipoInmueble(String tipoInmueble) throws NullPointerException {
 		Integer id = -1;
 		String sql = "SELECT idTipoInmueble FROM TiposInmueble WHERE nombreTipoInmueble = ?";
 		
@@ -311,6 +320,8 @@ public class InmuebleModel implements InmuebleInterface {
 			if(result.next()) {
 				id = result.getInt("idTipoInmueble");
 			}
+			return id;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -319,10 +330,10 @@ public class InmuebleModel implements InmuebleInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return id;
+		throw new NullPointerException("- No se pudo conseguir el IdTipoInmueble -");
 	}
 	
-	public Integer getIdEstadoInmueble(String estadoInmueble) {
+	public Integer getIdEstadoInmueble(String estadoInmueble) throws NullPointerException {
 		Integer id = -1;
 		String sql = "SELECT idEstadoInmueble FROM EstadosInmueble WHERE nombreEstado = ?";
 		
@@ -338,6 +349,8 @@ public class InmuebleModel implements InmuebleInterface {
 			if(result.next()) {
 				id = result.getInt("idEstadoInmueble");
 			}
+			return id;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -345,8 +358,8 @@ public class InmuebleModel implements InmuebleInterface {
 		} catch (Exception e) {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
-		
-		return id;
+	
+		throw new NullPointerException("- No se pudo conseguir el IdEstadoInmueble -");
 	}
 	
 }

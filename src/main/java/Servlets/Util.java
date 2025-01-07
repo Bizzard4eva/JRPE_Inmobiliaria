@@ -30,10 +30,13 @@ public class Util {
 		return defaultValue;
 	}
 	
-	public static void RedirectTo(HttpServletRequest request, HttpServletResponse response, String web) {
+	public static void RedirectTo(HttpServletRequest request, HttpServletResponse response) {
 		String redirectTo = request.getParameter("redirectTo");
-		if(redirectTo == null || redirectTo.isEmpty()) redirectTo = web;
-		String validated = validateRedirectTo(redirectTo);
+		RedirectTo(request, response, redirectTo);
+	}
+	
+	public static void RedirectTo(HttpServletRequest request, HttpServletResponse response, String web) {
+		String validated = validateRedirectTo(web);
 		try {
 			request.getRequestDispatcher(validated).forward(request, response);
 		} catch (ServletException e) {
@@ -43,17 +46,13 @@ public class Util {
 		}
 	}
 	
-	public static void RedirectTo(HttpServletRequest request, HttpServletResponse response) {
-		RedirectTo(request, response, "Home");
-	}
-	
 	private static String validateRedirectTo(String web) {
 		List<String> paginasValidas = List.of("Home","Login","Catalog","Property", "Admin", "AdminUsuarios", "AdminVentas", "NotFound");
 		if(paginasValidas.contains(web)) 
 		{
 			return (web + ".jsp");
 		}
-		return "Home.jsp";
+		return "NotFound.jsp";
 	}
 	
 }

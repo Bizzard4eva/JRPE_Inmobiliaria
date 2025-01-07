@@ -7,16 +7,16 @@ import Entidades.Header;
 
 public class Constants {
   public static final List<Header> ITEMS_HEADER_ADMIN = Arrays.asList(        
-		  	new Header("Inicio", "Home.jsp"),
-		  	new Header("Inmuebles", "InmuebleServlet?action=loadCatalog&redirectTo=Catalog"),
-	        new Header("Lista Inmuebles", "InmuebleServlet?action=list&redirectTo=Admin"),
-	        new Header("Lista Usuarios", "UsuarioServlet?action=list&redirectTo=AdminUsuarios"),
-	        new Header("Lista Ventas", "VentaServlet?action=list&redirectTo=AdminVentas")     
+		  	new Header("Inicio", "InmuebleServlet?action=loadHome"),
+		  	new Header("Inmuebles", "InmuebleServlet?action=loadCatalog"),
+	        new Header("Lista Inmuebles", "InmuebleServlet?action=list"),
+	        new Header("Lista Usuarios", "UsuarioServlet?action=list"),
+	        new Header("Lista Ventas", "VentaServlet?action=list")     
  );
   
   public static final List<Header> ITEMS_HEADER = Arrays.asList(        
-		  	new Header("Inicio", "Home.jsp"),
-	        new Header("Inmuebles", "InmuebleServlet?action=loadCatalog&redirectTo=Catalog")
+		  	new Header("Inicio", "InmuebleServlet?action=loadHome"),
+	        new Header("Inmuebles", "InmuebleServlet?action=loadCatalog")
  );
   
   public static final String NAME = "nombre";

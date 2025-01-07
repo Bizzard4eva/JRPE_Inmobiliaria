@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
+<x:url value="InmuebleServlet" var="HomePage"/> 
+<x:url value="loadHome" var="load"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,9 +12,8 @@
 </script>
 </head>
 <body>
-	<form action="InmuebleServlet" method="post" id="autoSubmitForm">
-		<input type="hidden" name="action" value="loadHome">
-		<input type="hidden" name="redirectTo" value="Home">	
+	<form action="${ HomePage }" method="get" id="autoSubmitForm">
+		<input type="hidden" name="action" value="${ load }">	
 	</form>
 </body>
 </html>

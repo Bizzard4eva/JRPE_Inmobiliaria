@@ -14,7 +14,7 @@ import Util.MySQLConexion;
 public class VentaModel implements VentaInterface {
 
 	@Override
-	public List<Venta> listVentas() {
+	public List<Venta> listVentas() throws NullPointerException {
 		List<Venta> listVenta = new ArrayList<Venta>();
 		String sql = "SELECT * FROM ventas";
 		
@@ -36,6 +36,8 @@ public class VentaModel implements VentaInterface {
 						);
 				listVenta.add(venta);
 			}
+			return listVenta;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -44,7 +46,7 @@ public class VentaModel implements VentaInterface {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
 		
-		return listVenta;
+		throw new NullPointerException("- No se pudo listar las Ventas -");
 	}
 
 }

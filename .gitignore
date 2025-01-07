@@ -12,3 +12,4 @@ Thumbs.db
 
 # Ignorar carpetas de servidores locales como Tomcat
 apache-tomcat-*/
+/target/

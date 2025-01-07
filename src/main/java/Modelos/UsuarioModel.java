@@ -14,7 +14,7 @@ import Util.MySQLConexion;
 public class UsuarioModel implements UsuarioInterface {
 
 	@Override
-	public List<Usuario> listUsuario() {
+	public List<Usuario> listUsuario() throws NullPointerException {
 		
 		List<Usuario> listUsuario = new ArrayList<Usuario>();
 		String sql = "SELECT * FROM Usuarios";
@@ -37,6 +37,8 @@ public class UsuarioModel implements UsuarioInterface {
 						result.getDate("fechaCreacionUsuario"));
 				listUsuario.add(usuario);
 			}
+			return listUsuario;
+			
 		} catch (SQLException e) {	
 			System.err.println("Error SQL: " + e.getMessage() + " - Código de error: " + e.getErrorCode());
 		} catch (NullPointerException e) {
@@ -44,7 +46,8 @@ public class UsuarioModel implements UsuarioInterface {
 		} catch (Exception e) {
 			System.err.println("Error inesperado: " + e.getMessage());			
 		}
-		return listUsuario;
+		
+		throw new NullPointerException("- No se pudo listar los Usuarios -");
 	}
 
 	@Override

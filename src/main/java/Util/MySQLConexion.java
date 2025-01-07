@@ -10,14 +10,14 @@ public class MySQLConexion {
 	private static final String USER = "root";
 	private static final String PASSWORD = "Sherlock0";
 	
-	public static Connection getConexion() {
-		
-		Connection conexion = null;
+	public static Connection getConexion() throws SQLException {
 		
 		try
 		{
 			Class.forName("com.mysql.cj.jdbc.Driver");
-			conexion = DriverManager.getConnection(URL,USER,PASSWORD);
+			Connection conexion = DriverManager.getConnection(URL,USER,PASSWORD);
+			return conexion;
+			
 		} catch (ClassNotFoundException e) {
 			System.err.println("Error: Driver de MySQL no econtrado |" + e.getMessage());
 		} catch (SQLException e) {
@@ -25,7 +25,8 @@ public class MySQLConexion {
 		} catch (Exception e) {
 			System.err.println("Error desconocido: " + e.getMessage());
 		}
-		return conexion;
+		
+		throw new SQLException("- Sin conexion con MySQL -");
 	}
 	
 }

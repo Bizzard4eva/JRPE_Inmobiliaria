@@ -1,5 +1,7 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="x"%>
+<x:url value="InmuebleServlet" var="HomePage"/>
+<x:url value="loadHome" var="load"/> 
 <!DOCTYPE html>
 <html>
 <head>
@@ -14,9 +16,9 @@
                 <h1 class="display-1 fw-bold text-danger">Page Not Found[404]</h1>
                 <p class="lead text-secondary">Lo sentimos, no pudimos encontrar la página que buscabas.</p>
                 <p class="text-secondary">Es posible que la URL sea incorrecta o que la página haya sido eliminada.</p>
-                <form action="Home.jsp" method="get">
-	                <input type="hidden" name="action" value="loadHome">
-					<input type="hidden" name="redirectTo" value="Home">	
+                
+                <form action="${ HomePage }" method="get">
+	                <input type="hidden" name="action" value="${ load }">
                     <button type="submit" class="btn btn-primary btn-lg">
                         <i class="bi bi-house-fill"></i> Volver al Home
                     </button>

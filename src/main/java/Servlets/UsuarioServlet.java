@@ -31,11 +31,15 @@ public class UsuarioServlet extends HttpServlet {
 	}
 
 	private void listUsuarios(HttpServletRequest request, HttpServletResponse response) {
-		List<Usuario> usuarios = dao.getUsuario().listUsuario();
+		try
+		{
+			List<Usuario> usuarios = dao.getUsuario().listUsuario();
 
-		request.setAttribute("usuarios", usuarios);
-		Util.RedirectTo(request, response);
-		Util.RedirectTo(request, response, "AdminUsuarios");
+			request.setAttribute("usuarios", usuarios);
+			Util.RedirectTo(request, response, "AdminUsuarios");
+		} catch (Exception e) {
+			Util.RedirectTo(request, response, "NotFound");
+		}
 	}
 	private void loginUsuario(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		Usuario usuarioLogeado = dao.getUsuario().validateUsuario(
